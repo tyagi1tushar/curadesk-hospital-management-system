@@ -1,43 +1,19 @@
-import {v2 as cloudinary} from 'cloudinary';
-import fs from 'fs';
+import { v2 as cloudinary } from "cloudinary";
 
-//configure cloudinary
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-//to upload files to cloudinary
-export async function uploadToloudinary(filePath, folder = "Doctor") {
-    try {
-        const result = await cloudinary.uploader.upload(filePath, {
-            folder,
-            resource_type: "image"
-        });
+// Upload Function
+export const uploadToCloudinary = async (filePath) => {
+    return await cloudinary.uploader.upload(filePath, {
+        folder: "hospital-management",
+    });
+};
 
-        //remove the local file after upload 
-        fs.unlinkSync(filePath);
-        return result;
-    } 
-    catch (err) {
-        console.error("Cloudinary upload error:", err);
-        throw err;
-        
-    }
-    
-}
-
-//to delete an image from the cloudinary if user  wants to delete from ui
-export async function deleteFromCloudinary(publicId) {
-    try {
-        if(!publicId) return;
-        await cloudinary.uploader.destroy(publicId);
-    } 
-    catch (err) {
-        console.error("Cloudinary delete error:", err);
-        throw err;
-    }
-}
-
-export default cloudinary;
+// Delete Function
+export const deleteFromCloudinary = async (publicId) => {
+    return await cloudinary.uploader.destroy(publicId);
+};
