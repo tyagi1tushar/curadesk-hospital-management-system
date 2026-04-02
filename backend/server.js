@@ -9,6 +9,9 @@ import serviceRouter from './routes/serviceRouter.js';
 import appointmentRouter from './routes/appointmentRouter.js';
 import serviceAppointmentRouter from './routes/serviceAppointmentRouter.js';
 
+console.log("MONGO_URI:", process.env.MONGO_URI);
+console.log("ALL ENV:", process.env);
+
 const app = express();
 const port = 4000;
 

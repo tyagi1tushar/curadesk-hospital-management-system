@@ -162,15 +162,14 @@ const Navbar = () => {
 
                                     <div ref={indicatorRef} className={ns.indicator}></div>
 
-                                    <CenterNavItem to="/h" icon={<Home size={16} />} label="Dashboard" />
-                                    <CenterNavItem to="/add" icon={<UserPlus size={16} />} label="Add Doctor" />
-                                    <CenterNavItem to="/list" icon={<Users size={16} />} label="List Doctors" />
-                                    <CenterNavItem to="/appointments" icon={<Calendar size={16} />} label="Appointments" />
-                                    <CenterNavItem to="/service-dashboard" icon={<Grid size={16} />} label="Service Dashboard" />
-                                    <CenterNavItem to="/add-service" icon={<PlusSquare size={16} />} label="Add Service" />
-                                    <CenterNavItem to="/list-service" icon={<List size={16} />} label="List Services" />
-                                    <CenterNavItem to="/service-appointments" icon={<Calendar size={16} />} label="Service Appointments" />
-
+                                    <CenterNavItem to="/h" icon={<Home size={18} />} label="Dashboard" />
+                                    <CenterNavItem to="/add" icon={<UserPlus size={18} />} label="Add Doctor" />
+                                    <CenterNavItem to="/list" icon={<Users size={18} />} label="List Doctors" />
+                                    <CenterNavItem to="/appointments" icon={<Calendar size={18} />} label="Appointments" />
+                                    <CenterNavItem to="/service-dashboard" icon={<Grid size={18} />} label="Service Dashboard" />
+                                    <CenterNavItem to="/add-service" icon={<PlusSquare size={18} />} label="Add Service" />
+                                    <CenterNavItem to="/list-service" icon={<List size={18} />} label="List Services" />
+                                    <CenterNavItem to="/service-appointments" icon={<Calendar size={18} />} label="Service Appointments" />
                                 </div>
 
                             </div>
@@ -212,7 +211,7 @@ const Navbar = () => {
                         </button>
 
 
-                    
+
 
                         <button
                             onClick={() => setOpen(v => !v)}
@@ -302,8 +301,10 @@ function CenterNavItem({ to, icon, label }) {
                 `nav-item ${isActive ? "active" : ""} ${ns.centerNavItemBase} ${isActive ? ns.centerNavItemActive : ns.centerNavItemInactive}`
             }
         >
-            <span>{icon}</span>
-            <span className="font-medium">{label}</span>
+            <span className="flex items-center gap-1">
+                {icon}
+                <span className="font-medium">{label}</span>
+            </span>
         </NavLink>
     );
 }

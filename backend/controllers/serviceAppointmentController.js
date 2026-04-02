@@ -324,34 +324,60 @@ export const confirmServicePayment = async (req, res) => {
 //to getserviceappointments
 
 export const getServiceAppointments = async (req, res) => {
-    try {
-        const { serviceId, mobile, status, page: pageRaw = 1, limit: limitRaw = 50, search = "" } = req.query;
-        const limit = Math.min(200, Math.max(1, parseInt(limitRaw, 10) || 50));
-        const page = Math.max(1, parseInt(pageRaw, 10) || 1);
-        const skip = (page - 1) * limit;
+  try {
+    const {
+      serviceId,
+      mobile,
+      status,
+      page: pageRaw = 1,
+      limit: limitRaw = 50,
+      search = "",
+    } = req.query;
 
-        const filter = {};
-        if (serviceId) filter.serviceId = serviceId;
-        if (mobile) filter.mobile = mobile;
-        if (status) filter.status = status;
-        if (search) {
-            const re = new RegExp(search, "i");
-            filter.$or = [{ patientName: re }, { mobile: re }, { notes: re }];
-        }
+    const limit = Math.min(200, Math.max(1, parseInt(limitRaw, 10) || 50));
+    const page = Math.max(1, parseInt(pageRaw, 10) || 1);
+    const skip = (page - 1) * limit;
 
-        const appointments = (await ServiceAppointment.find(filter).populate("serviceId", "name imageUrl imageSmall")).toSorted({ createdAt: -1 }).skip(skip).limit(limit).lean();
-        const total = awaitServiceAppointment.countDocuments(filter);
-        return res.json({
-            success: true,
-            appointments,
-            meta: { page, limit, total, count: appointments.length }
-        });
+    const filter = {};
 
+    if (serviceId) filter.serviceId = serviceId;
+    if (mobile) filter.mobile = mobile;
+    if (status) filter.status = status;
+
+    if (search) {
+      const re = new RegExp(search, "i");
+      filter.$or = [
+        { patientName: re },
+        { mobile: re },
+        { notes: re },
+      ];
     }
-    catch (err) {
-        console.error("getServiceAppointments error:", err);
-        return res.status(500).json({ success: false, message: "Server error" });
-    }
+
+    // ✅ FIXED QUERY
+    const appointments = await ServiceAppointment.find(filter)
+      .populate("serviceId", "name imageUrl imageSmall")
+      .sort({ createdAt: -1 }) // ✅ MongoDB sorting
+      .skip(skip)
+      .limit(limit)
+      .lean();
+
+    // ✅ FIXED TYPO
+    const total = await ServiceAppointment.countDocuments(filter);
+
+    return res.json({
+      success: true,
+      appointments,
+      meta: {
+        page,
+        limit,
+        total,
+        count: appointments.length,
+      },
+    });
+  } catch (err) {
+    console.error("getServiceAppointments error:", err);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
 };
 
 //to getServiceAppointmentById

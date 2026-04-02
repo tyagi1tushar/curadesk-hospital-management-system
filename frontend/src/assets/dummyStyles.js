@@ -2,7 +2,7 @@
 
 export const appointmentPageStyles = {
   // Main container styles
-  pageContainer: "min-h-screen font-serif bg-linear-to-br from-green-50 to-emerald-100 py-10 px-4",
+  pageContainer: "min-h-screen font-serif bg-gradient-to-br from-green-50 to-emerald-100 py-10 px-4",
   maxWidthContainer: "max-w-6xl mx-auto",
 
   // Title styles
@@ -22,8 +22,8 @@ export const appointmentPageStyles = {
 
 export const cardStyles = {
   // Doctor appointment card
-  doctorCard: "bg-white border border-emerald-200 rounded-2xl p-6 shadow-md hover:shadow-emerald-400 transform hover:-translate-y-2 transition-all duration-300 flex flex-col items-center",
-  serviceCard: "bg-white border border-blue-200 rounded-2xl p-6 shadow-md",
+  doctorCard: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white border border-emerald-200 gray-700 rounded-2xl p-6 shadow-md hover:shadow-emerald-400 transform hover:-translate-y-2 transition-all duration-300 flex flex-col items-center",
+  serviceCard: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white border border-blue-200 rounded-2xl p-6 shadow-md",
 
   // Image containers
   doctorImageContainer: "w-28 h-28 rounded-full border-4 border-emerald-300 shadow-md bg-emerald-50 flex items-center justify-center overflow-hidden",
@@ -39,9 +39,9 @@ export const cardStyles = {
   price: "text-center text-green-700 font-semibold text-lg mt-2",
 
   // Date and time containers
-  dateContainer: "mt-4 rounded-full border bg-emerald-50 border-emerald-200 py-1 px-3 w-full flex justify-center gap-2",
+  dateContainer: "mt-4 rounded-full border bg-emerald-50 border-emerald-200 gray-700 py-1 px-3 w-full flex justify-center gap-2",
   serviceDateContainer: "mt-4 rounded-full border bg-blue-50 border-blue-200 py-1 px-3 flex justify-center gap-2 text-sm",
-  timeContainer: "mt-2 rounded-full border bg-emerald-50 border-emerald-200 py-1 px-3 w-full flex justify-center gap-2",
+  timeContainer: "mt-2 rounded-full border bg-emerald-50 border-emerald-200 gray-700 py-1 px-3 w-full flex justify-center gap-2",
   serviceTimeContainer: "mt-2 rounded-full border bg-blue-50 border-blue-200 py-1 px-3 flex justify-center gap-2 text-sm",
 
   // Badges container
@@ -85,8 +85,8 @@ export const bannerStyles = {
 
   // Border outline styles
   borderOutline: "absolute inset-0 rounded-3xl p-[3px] pointer-events-none",
-  outerAnimatedBand: "absolute inset-0 rounded-3xl bg-linear-to-r from-green-400 via-emerald-500 to-green-400 animate-[spin_3s_linear_infinite] opacity-80",
-  innerWhiteBorder: "absolute inset-0.5 rounded-3xl bg-white",
+  outerAnimatedBand: "absolute inset-0 rounded-3xl bg-gradient-to-br from-green-400 via-emerald-500 to-green-400 animate-[spin_3s_linear_infinite] opacity-80",
+  innerWhiteBorder: "absolute inset-0.5 rounded-3xl bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white",
 
   // Content container
   contentContainer: "relative z-20 p-6 sm:p-8 md:p-10 lg:p-12",
@@ -99,13 +99,13 @@ export const bannerStyles = {
   // Header with badge
   headerBadgeContainer: "flex flex-col lg:flex-row items-center justify-center lg:justify-start mb-4 lg:mb-6 gap-4",
   stethoscopeContainer: "relative",
-  stethoscopeInner: "relative bg-linear-to-br from-green-300 to-emerald-600 p-3 rounded-full shadow-lg transform -rotate-6 hover:rotate-0 transition-transform duration-300",
+  stethoscopeInner: "relative bg-gradient-to-br from-green-300 to-emerald-600 p-3 rounded-full shadow-lg transform -rotate-6 hover:rotate-0 transition-transform duration-300",
   stethoscopeIcon: "w-7 h-7 text-white",
 
   // Title styles
   titleContainer: "font-[pacifico]",
   title: "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-1",
-  titleGradient: "text-transparent bg-linear-to-r from-green-600 to-emerald-600 bg-clip-text",
+  titleGradient: "text-transparent bg-gradient-to-br from-green-600 to-emerald-600 bg-clip-text",
 
   // Stars
   starsContainer: "flex items-center justify-center lg:justify-start mt-1",
@@ -113,14 +113,14 @@ export const bannerStyles = {
   starIcon: "w-4 h-4 fill-yellow-400 text-yellow-400",
 
   // Tagline
-  tagline: "text-lg sm:text-xl md:text-2xl lg:text-3xl font-light text-gray-700 mb-5 leading-tight",
+  tagline: "text-lg sm:text-xl md:text-2xl lg:text-3xl font-light  text-gray-700 gray-300 gray-300 mb-5 leading-tight",
   taglineHighlight: "text-green-600 font-semibold",
 
   // Features grid
   featuresGrid: "grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 text-sm sm:text-base",
-  featureItem: "flex items-center justify-center lg:justify-start bg-linear-to-br from-green-500 to-green-200 backdrop-blur-sm p-3 rounded-full shadow-sm border",
+  featureItem: "flex items-center justify-center lg:justify-start bg-gradient-to-br from-green-500 to-green-200 backdrop-blur-sm p-3 rounded-full shadow-sm border",
   featureIcon: "w-5 h-5 text-white mr-3",
-  featureText: "text-gray-700 font-medium",
+  featureText: " text-gray-700 gray-300 gray-300 font-medium",
 
   // Feature border colors
   featureBorderGreen: "border-green-100",
@@ -132,8 +132,8 @@ export const bannerStyles = {
   ctaButtonsContainer: "flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start",
 
   // Book appointment button
-  bookButton: "group relative lg:whitespace-nowrap bg-linear-to-r from-green-500 to-emerald-300 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transform transition-all duration-300 shadow-2xl hover:shadow-3xl overflow-hidden text-sm sm:text-base",
-  bookButtonOverlay: "absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000",
+  bookButton: "group relative lg:whitespace-nowrap bg-gradient-to-br from-green-500 to-emerald-300 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold transform transition-all duration-300 shadow-2xl hover:shadow-3xl overflow-hidden text-sm sm:text-base",
+  bookButtonOverlay: "absolute inset-0 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000",
   bookButtonContent: "relative flex items-center justify-center gap-2",
   bookButtonIcon: "w-4 h-4 sm:w-5 sm:h-5",
 
@@ -167,11 +167,11 @@ export const commonStyles = {
 
 export const certificationStyles = {
   // Container styles
-  container: "relative py-6 bg-linear-to-brfrom-emerald-50 via-green-50 to-teal-50 overflow-hidden",
+  container: "relative py-6 bg-gradient-to-brfrom-emerald-50 via-green-50 to-teal-50 overflow-hidden",
 
   // Background styles
   backgroundGrid: "absolute inset-0",
-  topLine: "absolute top-0 left-0 w-full h-1 bg-linear-to-br from-transparent via-green-400 to-transparent opacity-60",
+  topLine: "absolute top-0 left-0 w-full h-1 bg-gradient-to-br from-transparent via-green-400 to-transparent opacity-60",
   gridContainer: "absolute inset-0 opacity-[0.02]",
   grid: "grid grid-cols-12 gap-4 w-full h-full",
   gridCell: "border border-green-300 rounded",
@@ -182,10 +182,10 @@ export const certificationStyles = {
   // Heading styles
   headingContainer: "text-center mb-12",
   headingInner: "relative inline-block",
-  leftLine: "absolute -left-20 top-1/2 w-16 h-0.5 bg-linear-to-br from-transparent to-green-400",
-  rightLine: "absolute -right-20 top-1/2 w-16 h-0.5 bg-linear-to-br from-transparent to-teal-400",
-  title: "text-3xl lg:text-6xl font-serif text-gray-900 mb-4 tracking-tight",
-  titleText: "bg-linear-to-br from-green-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent",
+  leftLine: "absolute -left-20 top-1/2 w-16 h-0.5 bg-gradient-to-br from-transparent to-green-400",
+  rightLine: "absolute -right-20 top-1/2 w-16 h-0.5 bg-gradient-to-br from-transparent to-teal-400",
+  title: "text-3xl lg:text-6xl font-serif text-gray-900 white mb-4 tracking-tight",
+  titleText: "bg-gradient-to-br from-green-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent",
   subtitle: "text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed font-light tracking-wide",
   badgeContainer: "inline-flex items-center px-5 py-2.5 bg-green-500/10 border border-green-400/30 rounded-full mt-6 backdrop-blur-sm",
   badgeDot: "w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse mr-3",
@@ -198,7 +198,7 @@ export const certificationStyles = {
   logosMarquee: "flex animate-marquee-single whitespace-nowrap py-3",
   logoItem: "inline-flex flex-col items-center mx-10 transform transition-all duration-500 group",
   logoImage: "w-16 h-16 object-contain filter transition-all duration-500",
-  logoText: "mt-3 font-serif italic text-sm font-semibold text-gray-700 text-center max-w-[120px] leading-tight group-hover:text-green-700 transition-colors duration-300",
+  logoText: "mt-3 font-serif italic text-sm font-semibold  text-gray-700 gray-300 gray-300 text-center max-w-[120px] leading-tight group-hover:text-green-700 transition-colors duration-300",
 
   // Animation keyframes and class (to be added via style tag)
   animationStyles: `
@@ -220,7 +220,7 @@ export const certificationStyles = {
 
 export const contactPageStyles = {
   // Page container
-  pageContainer: "min-h-screen bg-linear-to-br from-emerald-100 via-white to-emerald-50 py-12 px-4 sm:px-6 md:px-8 lg:px-20 font-serif relative overflow-hidden",
+  pageContainer: "min-h-screen bg-gradient-to-br from-emerald-100 via-white to-emerald-50 py-12 px-4 sm:px-6 md:px-8 lg:px-20 font-serif relative overflow-hidden",
 
   // Background accents
   bgAccent1: "hidden md:block absolute top-20 left-10 w-72 h-72 bg-emerald-300 rounded-full blur-3xl opacity-18 animate-pulse",
@@ -230,7 +230,7 @@ export const contactPageStyles = {
   gridContainer: "max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start",
 
   // Form container
-  formContainer: "relative bg-white/60 backdrop-blur-sm shadow-2xl rounded-3xl border border-emerald-200 p-6 sm:p-8 md:p-10 transition-all",
+  formContainer: "relative bg-white white white white white bg-white white white white white bg-white/60 backdrop-blur-sm shadow-2xl rounded-3xl border border-emerald-200 gray-700 p-6 sm:p-8 md:p-10 transition-all",
 
   // Text styles
   formTitle: "text-3xl sm:text-4xl font-extrabold text-emerald-800 mb-2",
@@ -257,18 +257,18 @@ export const contactPageStyles = {
 
   // Info container
   infoContainer: "space-y-6",
-  infoCard: "bg-white/70 backdrop-blur-sm rounded-3xl p-4 sm:p-6 shadow-xl border border-emerald-100",
+  infoCard: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/70 backdrop-blur-sm rounded-3xl p-4 sm:p-6 shadow-xl border border-emerald-100",
   infoTitle: "text-xl sm:text-2xl font-bold mb-2",
   infoText: "text-sm sm:text-md",
   infoItem: "mt-3 flex items-center gap-2 text-sm sm:text-md",
 
   // Map
-  map: "w-full h-56 sm:h-64 md:h-72 lg:h-72 rounded-3xl shadow-2xl border-2 border-emerald-200 hover:shadow-emerald-400 transition-all duration-500",
+  map: "w-full h-56 sm:h-64 md:h-72 lg:h-72 rounded-3xl shadow-2xl border-2 border-emerald-200 gray-700 hover:shadow-emerald-400 transition-all duration-500",
 
   // Hours container
-  hoursContainer: "bg-linear-to-br from-emerald-200 to-emerald-100 rounded-2xl p-4 shadow-inner border border-emerald-300",
+  hoursContainer: "bg-gradient-to-br from-emerald-200 to-emerald-100 rounded-2xl p-4 shadow-inner border border-emerald-300",
   hoursTitle: "text-lg sm:text-xl font-semibold mb-1",
-  hoursText: "text-gray-700 text-sm sm:text-md",
+  hoursText: " text-gray-700 gray-300 gray-300 text-sm sm:text-md",
 
   // Animation keyframes
   animationKeyframes: `
@@ -287,7 +287,7 @@ export const contactPageStyles = {
 
 export const doctorsPageStyles = {
   // Main container
-  mainContainer: "min-h-screen bg-linear-to-br from-emerald-50 to-teal-100 py-8 sm:py-10 px-3 sm:px-6 relative overflow-hidden",
+  mainContainer: "min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 py-8 sm:py-10 px-3 sm:px-6 relative overflow-hidden",
 
   // Background shapes
   backgroundShape1: "absolute -top-40 -right-32 w-72 h-72 sm:w-96 sm:h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-2xl opacity-30 animate-pulse",
@@ -298,13 +298,13 @@ export const doctorsPageStyles = {
 
   // Header
   headerContainer: "text-center mb-8 sm:mb-10 animate-fade-in",
-  headerTitle: "text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold bg-linear-to-r from-emerald-700 to-teal-600 bg-clip-text text-transparent mb-3 tracking-tight",
+  headerTitle: "text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-br from-emerald-700 to-teal-600 bg-clip-text text-transparent mb-3 tracking-tight",
   headerSubtitle: "text-sm sm:text-base text-emerald-700 font-light",
 
   // Search bar
   searchContainer: "flex justify-center mb-8 sm:mb-12 animate-slide-up",
   searchWrapper: "relative w-full max-w-xl transition-all duration-500 px-2 sm:px-0",
-  searchInput: "w-full py-3 sm:py-4 pl-12 pr-10 text-sm sm:text-lg rounded-full border border-emerald-300 bg-white/90 text-emerald-800 placeholder-emerald-400 shadow-md sm:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-400/40 focus:shadow-xl transition-all duration-300 hover:shadow-2xl",
+  searchInput: "w-full py-3 sm:py-4 pl-12 pr-10 text-sm sm:text-lg rounded-full border border-emerald-300 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/90 text-emerald-800 placeholder-emerald-400 shadow-md sm:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-400/40 focus:shadow-xl transition-all duration-300 hover:shadow-2xl",
   searchIcon: "absolute left-4 top-3 sm:top-4 text-emerald-600 w-5 h-5 sm:w-6 sm:h-6",
   clearButton: "absolute right-3 top-3 sm:top-4 text-emerald-600 hover:text-emerald-800 transition",
 
@@ -315,7 +315,7 @@ export const doctorsPageStyles = {
 
   // Loading skeleton
   skeletonGrid: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8",
-  skeletonCard: "animate-pulse bg-white/80 backdrop-blur-md rounded-3xl p-4 sm:p-5 md:p-6 text-center transition-all duration-300",
+  skeletonCard: "animate-pulse bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/80 backdrop-blur-md rounded-3xl p-4 sm:p-5 md:p-6 text-center transition-all duration-300",
   skeletonImage: "relative mx-auto mb-4 w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-36 lg:h-36 bg-emerald-100 rounded-full",
   skeletonName: "h-5 bg-emerald-100 rounded w-3/4 mx-auto mb-2",
   skeletonSpecialization: "h-4 bg-emerald-100 rounded w-1/2 mx-auto mb-3",
@@ -325,13 +325,13 @@ export const doctorsPageStyles = {
   doctorsGrid: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 sm:gap-8 transition-all duration-300",
 
   // Doctor card
-  doctorCard: "bg-white/80 backdrop-blur-md rounded-3xl p-4 sm:p-5 md:p-6 text-center transition-all duration-300 hover:shadow-xl animate-fade-in-up",
+  doctorCard: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/80 backdrop-blur-md rounded-3xl p-4 sm:p-5 md:p-6 text-center transition-all duration-300 hover:shadow-xl animate-fade-in-up",
   doctorCardUnavailable: "opacity-80",
 
   // Doctor image container
   imageContainer: "relative mx-auto mb-4 w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-36 lg:h-36",
   imageContainerUnavailable: "opacity-70 cursor-not-allowed",
-  doctorImage: "w-full h-full rounded-full object-cover border-4 border-emerald-200 shadow-lg transform transition-transform duration-300 group-hover:scale-105",
+  doctorImage: "w-full h-full rounded-full object-cover border-4 border-emerald-200 gray-700 shadow-lg transform transition-transform duration-300 group-hover:scale-105",
   doctorImageUnavailable: "border-4 border-gray-300 shadow-md",
 
   // Doctor info
@@ -343,7 +343,7 @@ export const doctorsPageStyles = {
   experienceIcon: "w-4 h-4",
 
   // Book button (available)
-  bookButton: "w-full inline-flex items-center justify-center gap-2 py-2 rounded-full font-medium transition-all duration-300 text-sm bg-linear-to-r from-emerald-300 to-teal-500 text-white hover:shadow-lg",
+  bookButton: "w-full inline-flex items-center justify-center gap-2 py-2 rounded-full font-medium transition-all duration-300 text-sm bg-gradient-to-br from-emerald-300 to-teal-500 text-white hover:shadow-lg",
   bookButtonIcon: "w-5 h-5",
 
   // Not available button
@@ -355,7 +355,7 @@ export const doctorsPageStyles = {
 
   // Show more button
   showMoreContainer: "flex justify-center mt-8 sm:mt-10",
-  showMoreButton: "flex items-center cursor-pointer gap-2 px-5 py-2.5 bg-linear-to-r from-emerald-400 to-teal-500 text-white rounded-full text-md font-semibold shadow-md hover:shadow-lg transition-all duration-300",
+  showMoreButton: "flex items-center cursor-pointer gap-2 px-5 py-2.5 bg-gradient-to-br from-emerald-400 to-teal-500 text-white rounded-full text-md font-semibold shadow-md hover:shadow-lg transition-all duration-300",
   showMoreIcon: "w-5 h-5",
 
   // Link focus styles
@@ -372,7 +372,7 @@ export const doctorsPageStyles = {
 // Footer styles
 export const footerStyles = {
   // Main container
-  footerContainer: "relative font-serif bg-linear-to-br from-emerald-50 via-green-50 to-teal-50 border-t border-emerald-200 overflow-hidden",
+  footerContainer: "relative font-serif bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 border-t border-emerald-200 gray-700 overflow-hidden",
 
   // Floating icons
   floatingIcon1: "absolute top-5 right-5 animate-float hidden md:block",
@@ -390,7 +390,7 @@ export const footerStyles = {
   logoWrapper: "relative",
   logoImageContainer: "relative w-16 h-16 md:w-18 md:h-18 lg:w-20 lg:h-20 p-1 transform transition-transform duration-500",
   logoImage: "w-full h-full object-contain",
-  companyName: "text-2xl md:text-3xl lg:text-3xl font-bold bg-linear-to-r from-emerald-600 to-green-700 bg-clip-text text-transparent font-['Poppins'] tracking-tight",
+  companyName: "text-2xl md:text-3xl lg:text-3xl font-bold bg-gradient-to-br from-emerald-600 to-green-700 bg-clip-text text-transparent font-['Poppins'] tracking-tight",
   companyTagline: "text-emerald-600 font-serif text-xs md:text-sm font-semibold tracking-wide mt-1",
   companyDescription: "text-emerald-700 font-serif italic mb-5 leading-relaxed text-sm md:text-base font-light",
 
@@ -408,7 +408,7 @@ export const footerStyles = {
   linkItem: "w-full",
 
   // Quick Links
-  quickLink: "flex items-center justify-center md:justify-start text-emerald-700 hover:text-emerald-800 transition-all duration-300 group text-sm md:text-base font-medium py-2 px-3 rounded-lg hover:bg-emerald-50 border border-transparent hover:border-emerald-200",
+  quickLink: "flex items-center justify-center md:justify-start text-emerald-700 hover:text-emerald-800 transition-all duration-300 group text-sm md:text-base font-medium py-2 px-3 rounded-lg hover:bg-emerald-50 border border-transparent hover:border-emerald-200 gray-700",
   quickLinkIconWrapper: "w-7 h-7 bg-emerald-100 rounded-full flex items-center justify-center mr-3",
   quickLinkIcon: "w-3 h-3 text-emerald-600",
 
@@ -424,22 +424,22 @@ export const footerStyles = {
 
   // Mobile newsletter
   mobileNewsletterContainer: "flex flex-col gap-3 lg:hidden",
-  emailInput: "w-full px-4 py-3 text-base text-emerald-800 bg-white border-2 border-emerald-200 rounded-full focus:outline-none focus:ring-4 focus:ring-emerald-300 focus:border-emerald-400 transition-all duration-300 shadow-sm placeholder-emerald-400",
-  mobileSubscribeButton: "w-full inline-flex items-center justify-center gap-2 py-3 rounded-full bg-linear-to-r from-emerald-500 to-green-600 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300",
+  emailInput: "w-full px-4 py-3 text-base text-emerald-800 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white border-2 border-emerald-200 gray-700 rounded-full focus:outline-none focus:ring-4 focus:ring-emerald-300 focus:border-emerald-400 transition-all duration-300 shadow-sm placeholder-emerald-400",
+  mobileSubscribeButton: "w-full inline-flex items-center justify-center gap-2 py-3 rounded-full bg-gradient-to-br from-emerald-500 to-green-600 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300",
   mobileButtonIcon: "w-4 h-4",
 
   // Desktop newsletter
   desktopNewsletterContainer: "relative hidden lg:block",
-  desktopEmailInput: "w-full px-6 py-4 text-base text-emerald-800 bg-white border-2 border-emerald-200 rounded-full focus:outline-none focus:ring-4 focus:ring-emerald-300 focus:border-emerald-400 transition-all duration-300 transform shadow-lg placeholder-emerald-400",
-  desktopSubscribeButton: "absolute right-2 xl:px-2 top-2 bg-linear-to-r from-emerald-500 to-green-600 text-white px-4 py-2 rounded-full cursor-pointer transition-all duration-300 transform flex items-center shadow-lg hover:shadow-xl",
+  desktopEmailInput: "w-full px-6 py-4 text-base text-emerald-800 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white border-2 border-emerald-200 gray-700 rounded-full focus:outline-none focus:ring-4 focus:ring-emerald-300 focus:border-emerald-400 transition-all duration-300 transform shadow-lg placeholder-emerald-400",
+  desktopSubscribeButton: "absolute right-2 xl:px-2 top-2 bg-gradient-to-br from-emerald-500 to-green-600 text-white px-4 py-2 rounded-full cursor-pointer transition-all duration-300 transform flex items-center shadow-lg hover:shadow-xl",
   desktopButtonIcon: "w-4 h-4 mr-2",
   desktopButtonText: "font-semibold",
 
   // Social links
   socialContainer: "flex gap-3 justify-center lg:justify-start mt-6",
   socialLink: "relative group",
-  socialIconBackground: "absolute inset-0 bg-linear-to-r from-emerald-400 to-green-500 rounded-full transform scale-0 group-hover:scale-110 transition-transform duration-300 hidden lg:block",
-  socialIcon: "w-10 h-10 md:w-11 md:h-11 lg:w-12 lg:h-12 p-2 text-emerald-700 cursor-pointer transform hover:scale-110 hover:rotate-6 transition-all duration-300 relative z-10 bg-white rounded-2xl shadow-lg border-2 border-emerald-100",
+  socialIconBackground: "absolute inset-0 bg-gradient-to-br from-emerald-400 to-green-500 rounded-full transform scale-0 group-hover:scale-110 transition-transform duration-300 hidden lg:block",
+  socialIcon: "w-10 h-10 md:w-11 md:h-11 lg:w-12 lg:h-12 p-2 text-emerald-700 cursor-pointer transform hover:scale-110 hover:rotate-6 transition-all duration-300 relative z-10 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white rounded-2xl shadow-lg border-2 border-emerald-100",
 
   // Social icon colors
   facebookColor: "hover:text-blue-600",
@@ -475,12 +475,12 @@ export const footerStyles = {
 
 export const homeDoctorsStyles = {
   // Section container
-  section: "py-10 bg-linear-to-br from-green-50 to-blue-50",
+  section: "py-10 bg-gradient-to-br from-green-50 to-blue-50",
   container: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
 
   // Header
   header: "text-center mb-10",
-  title: "text-4xl md:text-5xl font-serif italic text-gray-900",
+  title: "text-4xl md:text-5xl font-serif italic text-gray-900 white",
   titleSpan: "text-emerald-600 font-semibold",
   subtitle: "mt-2 text-gray-600 max-w-2xl mx-auto",
 
@@ -491,7 +491,7 @@ export const homeDoctorsStyles = {
 
   // Loading skeleton
   skeletonGrid: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8",
-  skeletonCard: "animate-pulse bg-white rounded-3xl shadow-md p-4 h-72",
+  skeletonCard: "animate-pulse bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white rounded-3xl shadow-md p-4 h-72",
   skeletonImage: "bg-emerald-100 rounded-lg h-40 mb-4",
   skeletonText1: "h-5 bg-emerald-100 rounded w-3/4 mb-2",
   skeletonText2: "h-4 bg-emerald-100 rounded w-1/2 mb-3",
@@ -501,7 +501,7 @@ export const homeDoctorsStyles = {
   doctorsGrid: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8",
 
   // Doctor card
-  article: "group relative bg-white rounded-3xl shadow-md hover:shadow-2xl transition transform duration-300 overflow-hidden",
+  article: "group relative bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white rounded-3xl shadow-md hover:shadow-2xl transition transform duration-300 overflow-hidden",
 
   // Image containers
   imageContainerAvailable: "relative h-60 sm:h-44 md:h-48 lg:h-52 overflow-hidden rounded-t-3xl",
@@ -520,7 +520,7 @@ export const homeDoctorsStyles = {
 
   // Buttons
   buttonContainer: "mt-3",
-  buttonAvailable: "w-full inline-flex items-center justify-center gap-2 py-2.5 sm:py-3 rounded-full font-medium transition-all duration-300 text-sm bg-linear-to-br from-emerald-300 to-teal-500 text-white hover:shadow-lg",
+  buttonAvailable: "w-full inline-flex items-center justify-center gap-2 py-2.5 sm:py-3 rounded-full font-medium transition-all duration-300 text-sm bg-gradient-to-br from-emerald-300 to-teal-500 text-white hover:shadow-lg",
   buttonUnavailable: "w-full inline-flex items-center justify-center gap-2 py-2.5 sm:py-3 rounded-full font-medium bg-gray-300 text-gray-600 cursor-not-allowed text-sm",
 
   // Custom CSS
@@ -540,14 +540,14 @@ export const homeDoctorsStyles = {
 
 export const loginPageStyles = {
   // Main container
-  mainContainer: "min-h-screen flex items-center justify-center bg-linear-to-br from-green-50 via-emerald-100 to-green-200 relative font-serif overflow-hidden",
+  mainContainer: "min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-emerald-100 to-green-200 relative font-serif overflow-hidden",
 
   // Back button
   backButton: "absolute top-6 left-6 cursor-pointer flex items-center gap-2 text-green-800 font-semibold hover:text-green-600 transition-all duration-300",
   backButtonIcon: "w-5 h-5",
 
   // Login card
-  loginCard: "relative z-10 bg-white/60 backdrop-blur-xl shadow-2xl rounded-3xl p-8 w-[90%] max-w-md border border-green-200 transition-all duration-500 hover:shadow-green-300/50",
+  loginCard: "relative z-10 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/60 backdrop-blur-xl shadow-2xl rounded-3xl p-8 w-[90%] max-w-md border border-green-200 transition-all duration-500 hover:shadow-green-300/50",
 
   // Logo
   logoContainer: "flex justify-center mb-6",
@@ -561,10 +561,10 @@ export const loginPageStyles = {
   form: "space-y-5",
 
   // Input fields
-  input: "w-full px-5 py-3 rounded-full border border-green-300 bg-white/80",
+  input: "w-full px-5 py-3 rounded-full border border-green-300 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/80",
 
   // Submit button
-  submitButton: "w-full py-3 bg-linear-to-r from-emerald-400 to-green-600 text-white font-semibold rounded-full",
+  submitButton: "w-full py-3 bg-gradient-to-br from-emerald-400 to-green-600 text-white font-semibold rounded-full",
 
   // Toast styles (kept in component since they're inline)
   // These remain in the component as they're JS objects, not CSS classes
@@ -597,22 +597,24 @@ export const toastStyles = {
 
 // Navbar styles
 export const navbarStyles = {
-  mobileMenu: `
-  md:hidden
-  px-5
-  pb-6
+mobileMenu: `
+  lg:hidden
+  mt-2
+  p-4
   space-y-3
+  rounded-xl
+  bg-white 
+  border border-gray-200 gray-700
 `,
 
- mobileDoctorAdmin: `
-  block
-  w-full
-  border
-  border-emerald-400
-  py-3
-  rounded-full
-  text-center
-  font-medium
+mobileDoctorAdmin: `
+  block w-full
+  border-2 border-emerald-400
+  bg-white gray-800
+  text-emerald-700 white
+  py-3 rounded-full text-center font-semibold mt-2
+  hover:bg-emerald-50 dark:hover:bg-gray-700
+  transition
 `,
 
 
@@ -626,12 +628,20 @@ export const navbarStyles = {
   font-semibold
 `,
   // Main container
-  navbarContainer: "sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-emerald-100 transition-transform duration-500",
+navbarContainer: `
+  sticky top-0 z-50
+  bg-white 
+  border-b border-gray-200 gray-700
+  transition-all duration-300
+`,
   navbarHidden: "-translate-y-full",
   navbarVisible: "translate-y-0",
 
   // Border animation
-  navbarBorder: "navbar-border",
+  navbarBorder: `
+  w-full h-[2px]
+  bg-gray-200 gray-700
+`,
 
   // Content wrapper
   contentWrapper: "max-w-7xl font-[pacifico] md:px-2 mx-auto px-4 sm:px-6 lg:px-8",
@@ -643,15 +653,15 @@ export const navbarStyles = {
   logoImageWrapper: "flex items-center justify-center",
   logoImage: "w-16 h-16 object-contain",
   logoTextContainer: "block sm:block",
-  logoTitle: "text-2xl md:text-2xl lg:text-2xl xl:text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-emerald-600 to-green-600 tracking-tight",
+  logoTitle: "text-2xl md:text-2xl lg:text-2xl xl:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-emerald-600 to-green-600 tracking-tight",
   logoSubtitle: "text-xs lg:text-xs text-gray-500",
 
   // Desktop navigation
   desktopNav: "hidden lg:-mx-5 lg:flex items-center gap-2",
-  navItemsContainer: "flex gap-1 bg-white border border-emerald-200 p-1 rounded-full shadow-lg",
+  navItemsContainer: "flex gap-2 bg-white gray-800 border border-emerald-200 gray-700 p-1 rounded-full shadow-lg",
   navItem: "nav-item px-5 md:px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-300",
   navItemActive: "active",
-  navItemInactive: "text-gray-700 hover:text-emerald-600",
+  navItemInactive: " text-gray-700 gray-300 gray-300 hover:text-emerald-600",
 
   // Right side
   rightContainer: "flex items-center gap-3",
@@ -660,15 +670,23 @@ export const navbarStyles = {
   doctorAdminButton: "btn-add hidden lg:inline-flex items-center gap-2 px-3 py-2 rounded-full text-sm font-semibold transition-transform duration-200",
   doctorAdminIcon: "w-4 h-4",
   doctorAdminText: "hidden lg:text-xs lg:whitespace-nowrap sm:inline-block",
-  loginButton: "btn-login hidden lg:flex lg:text-sm items-center gap-2 bg-linear-to-r from-emerald-400 to-green-600 text-white px-6 py-2.5 rounded-full font-semibold hover:shadow-xl transition-all duration-300 cursor-default",
+  loginButton: "btn-login hidden lg:flex lg:text-sm items-center gap-2 bg-gradient-to-br from-emerald-400 to-green-600 text-white px-6 py-2.5 rounded-full font-semibold hover:shadow-xl transition-all duration-300 cursor-default",
   loginIcon: "w-4 h-4",
 
   // Mobile toggle
   mobileToggle: "lg:hidden p-2.5 rounded-lg hover:bg-emerald-50 transition-colors",
-  toggleIcon: "w-6 h-6 text-gray-900",
+  toggleIcon: "w-6 h-6 text-gray-900 white",
 
   // Mobile menu
-  mobileMenu: "mobile-menu lg:hidden pb-4 space-y-2 border-t border-emerald-100 pt-4",
+ mobileMenu: `
+  lg:hidden
+  mt-2
+  p-4
+  space-y-3
+  rounded-xl
+  bg-white 
+  border border-gray-200 gray-700
+`,
   mobileMenuItem: "block px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300",
   mobileMenuItemActive: `block
   bg-green-600
@@ -676,35 +694,24 @@ export const navbarStyles = {
   px-4
   py-2
   rounded-md`,
-  mobileMenuItemInactive: `
-  block
-  text-gray-700
-  px-4
-  py-2
+mobileMenuItemInactive: `
+  text-gray-700 gray-300
+  px-4 py-2
 `,
   // Mobile signed out buttons
-  mobileDoctorAdminButton:  `
-  block
-  w-full
-  border
-  border-green-600
-  text-gray-700
-  py-3
-  rounded-full
-  text-center
-  font-medium
-  mt-2
+ mobileDoctorAdminButton: `
+  block w-full
+  border border-emerald-400
+  bg-white gray-800
+  text-gray-800 white
+  py-3 rounded-full text-center font-medium mt-2
 `,
   mobileLoginContainer: "w-full mt-3",
-  mobileLoginButton:`
-  block
-  w-full
-  bg-green-600
+mobileLoginButton: `
+  block w-full
+  bg-green-600 green-500
   text-white
-  py-3
-  rounded-full
-  font-semibold
-  mt-3
+  py-3 rounded-full font-semibold mt-3
 `,
   // Animation styles (to be added via style tag)
   animationStyles: `
@@ -831,7 +838,7 @@ export const servicePageStyles = {
 
   // Loading skeleton
   skeletonGrid: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-8",
-  skeletonCard: "animate-pulse group rounded-2xl overflow-hidden bg-white shadow-xl p-4",
+  skeletonCard: "animate-pulse group rounded-2xl overflow-hidden bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white shadow-xl p-4",
   skeletonImage: "w-full h-48 bg-emerald-100 rounded mb-4",
   skeletonText1: "h-5 bg-emerald-100 rounded w-3/4 mb-2",
   skeletonText2: "h-4 bg-emerald-100 rounded w-1/2 mb-4",
@@ -846,7 +853,7 @@ export const servicePageStyles = {
 
 export const serviceCardStyles = {
   // Card container
-  card: "group rounded-2xl overflow-hidden bg-white shadow-xl hover:-translate-y-2 transition-transform duration-500 border border-emerald-100",
+  card: "group rounded-2xl overflow-hidden bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white shadow-xl hover:-translate-y-2 transition-transform duration-500 border border-emerald-100",
 
   // Image container
   imageContainer: "w-full overflow-hidden bg-emerald-50/30 flex items-center justify-center",
@@ -871,18 +878,18 @@ export const serviceCardStyles = {
 // Testimonial styles
 export const testimonialStyles = {
   // Main container
-  container: "min-h-[70vh] bg-linear-to-br from-slate-50 to-blue-50 py-10 px-4 relative overflow-hidden",
+  container: "min-h-[70vh] bg-gradient-to-br from-slate-50 to-blue-50 py-10 px-4 relative overflow-hidden",
 
   // Header
   headerContainer: "max-w-6xl font-serif mx-auto text-center mb-8 sm:mb-12",
-  title: "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-linear-to-br from-blue-600 to-green-600 mb-3",
+  title: "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-green-600 mb-3",
   subtitle: "text-sm sm:text-base text-gray-600 max-w-3xl mx-auto",
 
   // Testimonial grid
   grid: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto items-stretch",
 
   // Column container
-  columnContainer: "relative font-serif border-2 rounded-2xl overflow-hidden bg-white/60 backdrop-blur-sm",
+  columnContainer: "relative font-serif border-2 rounded-2xl overflow-hidden bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/60 backdrop-blur-sm",
   leftColumnBorder: "border-blue-200",
   rightColumnBorder: "border-green-200",
 
@@ -895,7 +902,7 @@ export const testimonialStyles = {
   scrollContainer: "h-56 sm:h-72 md:h-[360px] lg:h-[400px] overflow-y-hidden no-scrollbar p-3 sm:p-4",
 
   // Testimonial card
-  testimonialCard: "bg-white font-[pacifico] rounded-xl shadow-lg p-4 sm:p-5 mb-4 transition-transform duration-300 border-l-4 w-full max-w-xl mx-auto",
+  testimonialCard: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white font-[pacifico] rounded-xl shadow-lg p-4 sm:p-5 mb-4 transition-transform duration-300 border-l-4 w-full max-w-xl mx-auto",
   leftCardBorder: "border-blue-400 hover:shadow-blue-100",
   rightCardBorder: "border-green-400 hover:shadow-green-100",
 
@@ -908,7 +915,7 @@ export const testimonialStyles = {
   leftName: "text-blue-800",
   rightName: "text-green-800",
   role: "text-xs sm:text-sm text-gray-600",
-  quote: "text-gray-700 italic text-sm sm:text-base mt-2 leading-tight",
+  quote: " text-gray-700 gray-300 gray-300 italic text-sm sm:text-base mt-2 leading-tight",
 
   // Stars
   starsContainer: "hidden sm:flex items-center gap-1",
@@ -939,12 +946,12 @@ export const testimonialStyles = {
 
 export const serviceDetailStyles = {
   // Page container
-  pageContainer: "min-h-screen font-serif bg-linear-to-br from-emerald-50 via-white to-green-50 px-4 lg:px-12 pt-20 sm:pt-12 md:pt-8 lg:pt-0",
+  pageContainer: "min-h-screen font-serif bg-gradient-to-br from-emerald-50 via-white to-green-50 px-4 lg:px-12 pt-20 sm:pt-12 md:pt-8 lg:pt-0",
 
   // Navigation bar
   navBar: "backdrop-blur-lg top-0 z-20",
   navContainer: "max-w-6xl mx-auto h-16 flex items-center justify-between px-4",
-  backButton: "inline-flex items-center gap-2 px-4 py-2 bg-white text-emerald-600 border border-emerald-200 rounded-full hover:bg-emerald-50",
+  backButton: "inline-flex items-center gap-2 px-4 py-2 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white text-emerald-600 border border-emerald-200 gray-700 rounded-full hover:bg-emerald-50",
 
   // Main grid layout
   mainGrid: "max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 mt-6",
@@ -957,20 +964,20 @@ export const serviceDetailStyles = {
   image: "w-full h-full object-cover object-center transition-transform duration-500",
 
   // Details form
-  detailsContainer: "bg-white p-6 rounded-2xl shadow-xl border border-emerald-100",
+  detailsContainer: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white p-6 rounded-2xl shadow-xl border border-emerald-100",
   detailsTitle: "text-lg font-semibold text-emerald-700 flex items-center gap-2 mb-4",
   detailsGrid: "grid grid-cols-1 sm:grid-cols-2 gap-4",
 
   // Input fields
-  input: "px-4 py-3 rounded-full border border-emerald-200 focus:ring-2 focus:ring-emerald-300 w-full",
+  input: "px-4 py-3 rounded-full border border-emerald-200 gray-700 focus:ring-2 focus:ring-emerald-300 w-full",
   invalidInput: "px-4 py-3 rounded-full border border-rose-500 focus:ring-2 focus:ring-emerald-300 w-full",
-  emailInput: "px-4 py-3 rounded-full border border-emerald-200 focus:ring-2 focus:ring-emerald-300 w-full sm:col-span-2",
+  emailInput: "px-4 py-3 rounded-full border border-emerald-200 gray-700 focus:ring-2 focus:ring-emerald-300 w-full sm:col-span-2",
 
   // Payment method
   paymentLabel: "font-semibold text-emerald-800 block mb-2",
   paymentOptions: "inline-flex gap-2",
   paymentOption: (isSelected) =>
-    `px-3 py-1 rounded-full cursor-pointer border ${isSelected ? "bg-emerald-600 text-white border-emerald-600" : "bg-white text-emerald-700 border-emerald-100"}`,
+    `px-3 py-1 rounded-full cursor-pointer border ${isSelected ? "bg-emerald-600 text-white border-emerald-600" : "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white text-emerald-700 border-emerald-100"}`,
   paymentInput: "hidden",
 
   // Date selection
@@ -979,7 +986,7 @@ export const serviceDetailStyles = {
   dateScrollContainer: "overflow-x-auto -mx-2 px-2",
   dateButtonsContainer: "inline-flex gap-3 sm:flex sm:flex-wrap",
   dateButton: (isSelected) =>
-    `px-5 py-2 rounded-full cursor-pointer border transition whitespace-nowrap min-w-[140px] sm:min-w-0 ${isSelected ? "bg-emerald-600 border-emerald-600 text-white" : "bg-white border-emerald-300 text-emerald-700 hover:bg-emerald-100"}`,
+    `px-5 py-2 rounded-full cursor-pointer border transition whitespace-nowrap min-w-[140px] sm:min-w-0 ${isSelected ? "bg-emerald-600 border-emerald-600 text-white" : "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white border-emerald-300 text-emerald-700 hover:bg-emerald-100"}`,
 
   // Time selection
   timeSection: "mt-4",
@@ -987,18 +994,18 @@ export const serviceDetailStyles = {
   timeScrollContainer: "overflow-x-auto -mx-2 px-2",
   timeButtonsContainer: "inline-flex gap-3 sm:flex sm:flex-wrap",
   timeButton: (isSelected) =>
-    `px-5 py-2 rounded-full cursor-pointer border transition whitespace-nowrap min-w-[140px] sm:min-w-0 flex items-center gap-2 ${isSelected ? "bg-emerald-600 border-emerald-600 text-white" : "bg-white border-emerald-300 text-emerald-700 hover:bg-emerald-100"}`,
+    `px-5 py-2 rounded-full cursor-pointer border transition whitespace-nowrap min-w-[140px] sm:min-w-0 flex items-center gap-2 ${isSelected ? "bg-emerald-600 border-emerald-600 text-white" : "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white border-emerald-300 text-emerald-700 hover:bg-emerald-100"}`,
   noSlotsMessage: "text-emerald-600/80 p-2",
 
   // Submit button
   errorMessage: "text-rose-600 mb-2",
   successMessage: "text-emerald-700 mb-2",
   submitButton: (isValid, isSubmitting) =>
-    `w-full py-4 md:mb-8 rounded-full cursor-pointer text-lg font-semibold flex items-center justify-center gap-3 transition ${isValid && !isSubmitting ? "bg-linear-to-br from-emerald-500 to-green-500 text-white shadow-lg hover:opacity-90" : "bg-gray-300 text-gray-500 cursor-not-allowed"}`,
+    `w-full py-4 md:mb-8 rounded-full cursor-pointer text-lg font-semibold flex items-center justify-center gap-3 transition ${isValid && !isSubmitting ? "bg-gradient-to-br from-emerald-500 to-green-500 text-white shadow-lg hover:opacity-90" : "bg-gray-300 text-gray-500 cursor-not-allowed"}`,
 
   // Right column
-  rightColumn: "bg-white/80 rounded-3xl shadow-xl p-6 sm:p-8 border border-white/50 h-fit",
-  serviceName: "text-2xl lg:text-3xl xl:text-3xl md:text-2xl sm:text-4xl font-bold bg-linear-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent",
+  rightColumn: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/80 rounded-3xl shadow-xl p-6 sm:p-8 border border-white/50 h-fit",
+  serviceName: "text-2xl lg:text-3xl xl:text-3xl md:text-2xl sm:text-4xl font-bold bg-gradient-to-br from-emerald-600 to-green-600 bg-clip-text text-transparent",
 
   // About section
   aboutContainer: "mt-6 bg-emerald-50 p-5 rounded-xl border border-emerald-100",
@@ -1015,14 +1022,14 @@ export const serviceDetailStyles = {
   instructionsList: "list-disc pl-6 text-emerald-700 space-y-1",
 
   // Booking summary
-  summaryContainer: "mt-8 bg-linear-to-r from-emerald-50 to-green-50 rounded-2xl p-5 border border-emerald-100",
+  summaryContainer: "mt-8 bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-5 border border-emerald-100",
   summaryTitle: "text-lg font-semibold text-emerald-800 mb-4",
   summaryContent: "space-y-2 text-emerald-700 text-sm sm:text-base",
   summaryItem: "",
 
   // Loading and error states
   loadingContainer: "min-h-screen flex items-center justify-center p-8",
-  loadingCard: "bg-white p-8 rounded-xl shadow-lg text-center",
+  loadingCard: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white p-8 rounded-xl shadow-lg text-center",
   loadingTitle: "text-2xl font-semibold",
   loadingText: "mt-2 text-gray-600",
   backToServices: "inline-block mt-4 px-4 py-2 bg-emerald-600 text-white rounded-full",
@@ -1033,14 +1040,14 @@ export const serviceDetailStyles = {
 // DoctorDetail styles
 export const doctorDetailStyles = {
   // Main container
-  pageContainer: "min-h-screen font-serif bg-linear-to-br from-emerald-50 via-white to-green-50 relative overflow-hidden",
+  pageContainer: "min-h-screen font-serif bg-gradient-to-br from-emerald-50 via-white to-green-50 relative overflow-hidden",
 
   // Loading/Error states
   loadingContainer: "min-h-screen flex items-center justify-center",
   errorContainer: "min-h-screen flex items-center justify-center",
   errorContent: "text-center",
   errorText: "text-red-600 mb-2",
-  errorMessage: "text-gray-700",
+  errorMessage: " text-gray-700 gray-300 gray-300",
   backButton: "inline-flex items-center gap-2 mt-4 px-6 py-3 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition-all",
   backButtonIcon: "size={20}",
 
@@ -1048,17 +1055,17 @@ export const doctorDetailStyles = {
   notFoundContainer: "min-h-screen flex items-center justify-center",
   notFoundContent: "text-center",
   notFoundEmoji: "text-6xl mb-4",
-  notFoundTitle: "text-2xl font-bold text-gray-700",
+  notFoundTitle: "text-2xl font-bold  text-gray-700 gray-300 gray-300",
 
   // Header
-  headerContainer: "relative z-10 bg-white/80 backdrop-blur-lg border-b border-emerald-100 top-0",
+  headerContainer: "relative z-10 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/80 backdrop-blur-lg border-b border-emerald-100 top-0",
   headerContent: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
   headerFlex: "flex items-center justify-between h-16",
-  headerBackButton: "inline-flex items-center gap-2 px-2 xl:px-4 lg:px-4 py-2 bg-white text-emerald-600 border border-emerald-200 rounded-full hover:bg-emerald-50 hover:border-emerald-300 transition-all duration-300 shadow-sm hover:shadow-md",
+  headerBackButton: "inline-flex items-center gap-2 px-2 xl:px-4 lg:px-4 py-2 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white text-emerald-600 border border-emerald-200 gray-700 rounded-full hover:bg-emerald-50 hover:border-emerald-300 transition-all duration-300 shadow-sm hover:shadow-md",
   headerBackButtonIcon: "size={18}",
   headerBackButtonText: "font-medium",
-  headerTitle: "text-sm md:text-2xl lg:text-xl xl:text-2xl whitespace-nowrap font-bold bg-linear-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent",
-  headerRatingContainer: "flex items-center gap-2 px-2 py-2 bg-white rounded-full shadow-sm border border-amber-100",
+  headerTitle: "text-sm md:text-2xl lg:text-xl xl:text-2xl whitespace-nowrap font-bold bg-gradient-to-br from-emerald-600 to-green-600 bg-clip-text text-transparent",
+  headerRatingContainer: "flex items-center gap-2 px-2 py-2 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white rounded-full shadow-sm border border-amber-100",
   headerRatingIcon: "text-amber-400 fill-current",
   headerRatingText: "font-semibold text-amber-600",
 
@@ -1068,16 +1075,16 @@ export const doctorDetailStyles = {
   hiddenState: "opacity-0 translate-y-8",
 
   // Profile card
-  profileCard: "bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/50 overflow-hidden mb-8",
+  profileCard: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/50 overflow-hidden mb-8",
   profileGrid: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-6 sm:p-8",
 
   // Left column (avatar)
   leftColumn: "lg:col-span-1 flex flex-col items-center space-y-6",
   avatarContainer: "relative",
-  avatarGlow: "absolute -inset-2 sm:-inset-3 md:-inset-6 bg-linear-to-br from-emerald-400 to-green-400 rounded-full blur-lg opacity-50 animate-pulse",
+  avatarGlow: "absolute -inset-2 sm:-inset-3 md:-inset-6 bg-gradient-to-br from-emerald-400 to-green-400 rounded-full blur-lg opacity-50 animate-pulse",
   avatarImage: "relative w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover border-4 sm:border-6 md:border-8 border-white shadow-2xl z-10 transition-transform duration-300",
   statsGrid: "grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-2 gap-4 w-full max-w-lg px-2",
-  statBox: "text-center p-3 sm:p-4 bg-white rounded-2xl shadow-lg border border-emerald-50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1",
+  statBox: "text-center p-3 sm:p-4 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white rounded-2xl shadow-lg border border-emerald-50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1",
   statIcon: "w-5 h-5 mx-auto mb-2",
   heartIcon: "text-rose-500",
   awardIcon: "text-amber-500",
@@ -1087,31 +1094,31 @@ export const doctorDetailStyles = {
 
   // Right column (doctor info)
   rightColumn: "lg:col-span-2 space-y-6",
-  doctorName: "text-2xl md:text-2xl lg:text-3xl xl:text-3xl sm:text-4xl font-bold bg-linear-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent",
-  specializationBadge: "inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-emerald-400 to-green-500 text-white rounded-full text-sm font-semibold shadow-lg",
+  doctorName: "text-2xl md:text-2xl lg:text-3xl xl:text-3xl sm:text-4xl font-bold bg-gradient-to-br from-emerald-600 to-green-600 bg-clip-text text-transparent",
+  specializationBadge: "inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-emerald-400 to-green-500 text-white rounded-full text-sm font-semibold shadow-lg",
   badgeIcon: "w-4 h-4",
 
   // Info grid
   infoGrid: "grid grid-cols-1 lg:grid-cols-2 md:grid-cols-1 gap-4",
-  infoItem: "flex items-start gap-3 md:p-3 p-4 bg-white rounded-full shadow-sm border border-emerald-50",
+  infoItem: "flex items-start gap-3 md:p-3 p-4 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white rounded-full shadow-sm border border-emerald-50",
   infoIcon: "w-5 h-5 text-emerald-500 mt-1",
   infoLabel: "text-sm font-semibold text-emerald-600",
-  infoValue: "text-gray-700 font-medium",
+  infoValue: " text-gray-700 gray-300 gray-300 font-medium",
   feeValue: "text-lg font-bold text-rose-600",
 
   // About section
-  aboutContainer: "p-6 bg-white rounded-2xl shadow-sm border border-emerald-50",
+  aboutContainer: "p-6 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white rounded-2xl shadow-sm border border-emerald-50",
   aboutHeader: "flex items-center gap-2 mb-4",
   aboutIcon: "w-5 h-5 text-emerald-500",
   aboutTitle: "text-lg font-semibold text-emerald-700",
   aboutText: "text-gray-600 leading-relaxed",
 
   // Appointment section
-  appointmentContainer: "bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/50 overflow-hidden",
+  appointmentContainer: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/50 overflow-hidden",
   appointmentContent: "p-6 sm:p-8",
   appointmentHeader: "flex items-center gap-3 mb-6",
   appointmentIcon: "w-6 h-6 text-emerald-500",
-  appointmentTitle: "text-md md:text-2xl font-bold bg-linear-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent",
+  appointmentTitle: "text-md md:text-2xl font-bold bg-gradient-to-br from-emerald-600 to-green-600 bg-clip-text text-transparent",
 
   // Appointment grid
   appointmentGrid: "grid grid-cols-1 lg:grid-cols-2 gap-6",
@@ -1123,20 +1130,20 @@ export const doctorDetailStyles = {
   dateScrollContainer: "overflow-x-auto -mx-2 px-2",
   dateButtonsContainer: "inline-grid grid-flow-col auto-cols-max gap-3 sm:grid sm:grid-flow-row sm:auto-cols-auto sm:grid-cols-3 md:grid-cols-7 lg:grid-cols-5 xl:grid-cols-6",
   dateButton: "p-2 sm:p-3 rounded-full cursor-pointer border-2 transition-all whitespace-nowrap",
-  dateButtonSelected: "bg-linear-to-br from-emerald-500 to-green-500 text-white border-emerald-500 shadow-lg",
-  dateButtonUnselected: "bg-white text-gray-700 border-emerald-100",
+  dateButtonSelected: "bg-gradient-to-br from-emerald-500 to-green-500 text-white border-emerald-500 shadow-lg",
+  dateButtonUnselected: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white  text-gray-700 gray-300 gray-300 border-emerald-100",
   dateContent: "text-center",
   dateWeekday: "text-xs sm:text-sm opacity-80",
   dateDay: "text-xl sm:text-2xl font-bold",
   dateMonth: "text-xs opacity-80",
 
   // Patient form
-  patientForm: "bg-white rounded-2xl p-6 border border-emerald-100 shadow-sm",
+  patientForm: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white rounded-2xl p-6 border border-emerald-100 shadow-sm",
   patientFormTitle: "text-lg font-semibold text-emerald-700 mb-4",
   patientFormGrid: "grid grid-cols-1 md:grid-cols-2 gap-4",
-  formInput: "p-3 rounded-full border border-emerald-200 w-full",
-  emailInput: "p-3 rounded-full border border-emerald-200 w-full md:col-span-2",
-  formSelect: "p-3 rounded-full border border-emerald-200 w-full",
+  formInput: "p-3 rounded-full border border-emerald-200 gray-700 w-full",
+  emailInput: "p-3 rounded-full border border-emerald-200 gray-700 w-full md:col-span-2",
+  formSelect: "p-3 rounded-full border border-emerald-200 gray-700 w-full",
 
   // Time slots
   timeSlotsSection: "space-y-6",
@@ -1145,13 +1152,13 @@ export const doctorDetailStyles = {
   timeSlotsContainer: "flex gap-3 overflow-x-auto sm:grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-3",
   noSlotsMessage: "text-gray-500",
   timeSlotButton: "min-w-[140px] p-2 rounded-full border-2",
-  timeSlotButtonSelected: "bg-linear-to-br from-emerald-500 to-green-500 text-white border-emerald-500",
-  timeSlotButtonUnselected: "bg-white text-gray-700 border-emerald-100",
+  timeSlotButtonSelected: "bg-gradient-to-br from-emerald-500 to-green-500 text-white border-emerald-500",
+  timeSlotButtonUnselected: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white  text-gray-700 gray-300 gray-300 border-emerald-100",
   timeSlotContent: "flex items-center justify-center gap-2",
   timeSlotIcon: "w-4 h-4",
 
   // Summary section
-  summaryContainer: "bg-linear-to-r from-emerald-50 to-green-50 p-4 sm:p-6 rounded-2xl border border-emerald-100",
+  summaryContainer: "bg-gradient-to-br from-emerald-50 to-green-50 p-4 sm:p-6 rounded-2xl border border-emerald-100",
   summaryItem: "space-y-3 mb-4 sm:mb-6",
   summaryRow: "flex justify-between",
   summaryLabel: "text-md text-gray-600",
@@ -1164,12 +1171,12 @@ export const doctorDetailStyles = {
   paymentOptions: "inline-flex gap-2",
   paymentOption: "px-3 py-1 rounded-full cursor-pointer border",
   paymentOptionSelected: "bg-emerald-600 text-white border-emerald-600",
-  paymentOptionUnselected: "bg-white text-emerald-700 border-emerald-100",
+  paymentOptionUnselected: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white text-emerald-700 border-emerald-100",
   paymentRadio: "hidden",
 
   // Booking button
   bookingButton: "w-full py-3 sm:py-4 px-4 rounded-full font-semibold text-sm cursor-pointer transition-all",
-  bookingButtonEnabled: "bg-linear-to-r from-emerald-500 to-green-500 text-white",
+  bookingButtonEnabled: "bg-gradient-to-br from-emerald-500 to-green-500 text-white",
   bookingButtonDisabled: "bg-gray-300 text-gray-500",
   bookingButtonContent: "flex items-center justify-center gap-3",
   bookingIcon: "w-5 h-5",
@@ -1182,7 +1189,7 @@ export const doctorDetailStyles = {
 
 export const navbarStylesDr = {
   // Main navbar
-  navContainer: "fixed top-8 left-1/2 -translate-x-1/2 z-50 w-full md:max-w-2xl lg:max-w-4xl px-4 py-0 rounded-full bg-white/80 backdrop-blur-md border border-emerald-100 shadow-2xl flex items-center justify-between gap-3 font-serif transition-all duration-300 hover:shadow-emerald-200/80 hover:-translate-y-0.5",
+  navContainer: "fixed top-8 left-1/2 -translate-x-1/2 z-50 w-full md:max-w-2xl lg:max-w-4xl px-4 py-0 rounded-full bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/80 backdrop-blur-md border border-emerald-100 shadow-2xl flex items-center justify-between gap-3 font-serif transition-all duration-300 hover:shadow-emerald-200/80 hover:-translate-y-0.5",
 
   // Left brand section
   leftBrand: "flex items-center gap-3",
@@ -1210,7 +1217,7 @@ export const navbarStylesDr = {
   rightActions: "flex items-center gap-3",
 
   // Logout button (desktop)
-  logoutButtonDesktop: "hidden lg:flex items-center gap-2 px-4 py-2 rounded-full bg-white text-emerald-700 border border-emerald-200 shadow-sm text-sm font-semibold transition-all duration-200 transform hover:scale-105 hover:-translate-y-0.5",
+  logoutButtonDesktop: "hidden lg:flex items-center gap-2 px-4 py-2 rounded-full bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white text-emerald-700 border border-emerald-200 gray-700 shadow-sm text-sm font-semibold transition-all duration-200 transform hover:scale-105 hover:-translate-y-0.5",
 
   // Hamburger menu buttons
   hamburgerButtonMd: "md:hidden p-2 rounded-md hover:bg-emerald-50 transition-colors",
@@ -1218,7 +1225,7 @@ export const navbarStylesDr = {
 
   // Mobile/tablet menu
   mobileMenuContainer: (isOpen) =>
-    `lg:hidden fixed top-30 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-md bg-white/95 backdrop-blur-md border border-emerald-100 rounded-2xl shadow-lg transform origin-top transition-all duration-200 ${isOpen ? "scale-100 opacity-100 translate-y-0" : "scale-95 opacity-0 -translate-y-2 pointer-events-none"}`,
+    `lg:hidden fixed top-30 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-md bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/95 white white white white bg-white/95 backdrop-blur-md border border-emerald-100 rounded-2xl shadow-lg transform origin-top transition-all duration-200 ${isOpen ? "scale-100 opacity-100 translate-y-0" : "scale-95 opacity-0 -translate-y-2 pointer-events-none"}`,
 
   mobileMenuContent: "flex flex-col p-3 gap-2",
 
@@ -1245,7 +1252,9 @@ export const navbarStylesDr = {
 // ListPage styles
 export const listPageStyles = {
   // Main container
-  pageContainer: "min-h-screen pt-20 md:pt-25 lg:pt-25 font-serif p-4 sm:p-6 bg-linear-to-br from-emerald-50 to-white",
+ pageContainer:`bg-gradient-to-br 
+from-emerald-50 via-white to-green-50
+dark:from-gray-900 dark:via-gray-900 dark:to-gray-900`,
 
   // Content wrapper
   contentWrapper: "max-w-7xl mx-auto",
@@ -1260,10 +1269,10 @@ export const listPageStyles = {
   searchContainer: "relative w-full sm:w-auto",
   searchIconContainer: "absolute inset-y-0 left-3 flex items-center pointer-events-none text-emerald-400",
   searchIcon: "w-4 h-4",
-  searchInput: "pl-10 pr-10 w-full sm:w-64 md:w-80 lg:w-96 py-2 rounded-full border border-emerald-200 bg-white text-emerald-800 focus:ring-2 focus:ring-emerald-200 outline-none",
+  searchInput: "pl-10 pr-10 w-full sm:w-64 md:w-80 lg:w-96 py-2 rounded-full border border-emerald-200 gray-700 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white text-emerald-800 focus:ring-2 focus:ring-emerald-200 outline-none",
   clearSearchButton: "absolute right-2 top-1/2 -translate-y-1/2 text-emerald-600 hover:text-emerald-900 p-1 rounded-full",
   clearSearchIcon: "w-4 h-4",
-  statusFilter: "text-sm px-3 py-2 rounded-full border border-emerald-200 bg-white w-full sm:w-auto",
+  statusFilter: "text-sm px-3 py-2 rounded-full border border-emerald-200 gray-700 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white w-full sm:w-auto",
 
   // Loading and error states
   loadingContainer: "text-center py-8 text-emerald-600",
@@ -1273,7 +1282,7 @@ export const listPageStyles = {
   appointmentsGrid: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start",
 
   // Appointment card
-  appointmentCard: "rounded-2xl p-4 bg-white shadow-sm border border-emerald-100 hover:shadow-md transition flex flex-col justify-between self-start",
+  appointmentCard: "rounded-2xl p-4 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white shadow-sm border border-emerald-100 hover:shadow-md transition flex flex-col justify-between self-start",
 
   // Card header
   cardHeader: "flex flex-col sm:flex-row items-start sm:items-center gap-3",
@@ -1303,7 +1312,7 @@ export const listPageStyles = {
 
   // Status badge
   statusBadgeBase: "px-3 py-1 rounded-full text-xs font-semibold",
-  statusBadgeComplete: "bg-emerald-100 text-emerald-800 border border-emerald-200",
+  statusBadgeComplete: "bg-emerald-100 text-emerald-800 border border-emerald-200 gray-700",
   statusBadgeCancelled: "bg-rose-100 text-rose-800 border border-rose-200",
   statusBadgeConfirmed: "bg-emerald-200 text-emerald-900 border border-emerald-300",
   statusBadgeRescheduled: "bg-indigo-100 text-indigo-900 border border-indigo-200",
@@ -1311,29 +1320,29 @@ export const listPageStyles = {
 
   // Status select
   statusSelect: "text-sm px-3 py-1 rounded-full border focus:outline-none transition",
-  statusSelectEnabled: "bg-white text-emerald-800 border-emerald-200 hover:shadow-sm",
+  statusSelectEnabled: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white text-emerald-800 border-emerald-200 gray-700 hover:shadow-sm",
   statusSelectDisabled: "bg-gray-50 text-gray-400 cursor-not-allowed border-gray-200",
 
   // Reschedule button container
   rescheduleContainer: "mt-4",
   rescheduleButton: "text-sm px-3 py-1 rounded-full border transition",
-  rescheduleButtonEnabled: "bg-white text-emerald-800 border-emerald-200 hover:shadow-sm",
+  rescheduleButtonEnabled: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white text-emerald-800 border-emerald-200 gray-700 hover:shadow-sm",
   rescheduleButtonDisabled: "bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed",
 
   // Reschedule form
   rescheduleForm: "flex flex-col md:flex-col items-end gap-2 w-full",
-  dateInput: "text-sm px-3 py-2 rounded-full border border-emerald-200 bg-white w-full md:w-40",
-  timeInput: "text-sm px-3 py-2 rounded-full border border-emerald-200 bg-white w-full md:w-36",
+  dateInput: "text-sm px-3 py-2 rounded-full border border-emerald-200 gray-700 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white w-full md:w-40",
+  timeInput: "text-sm px-3 py-2 rounded-full border border-emerald-200 gray-700 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white w-full md:w-36",
   rescheduleButtons: "flex gap-2",
   saveButton: "text-sm px-3 py-2 rounded-full bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition",
-  cancelButton: "text-sm px-3 py-2 rounded-full border border-emerald-200 bg-white text-emerald-800 hover:shadow-sm transition"
+  cancelButton: "text-sm px-3 py-2 rounded-full border border-emerald-200 gray-700 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white text-emerald-800 hover:shadow-sm transition"
 };
 
 // Add to existing dummyStyles.js
 
 export const editProfilePageStyles = {
   // Page container
-  pageContainer: "min-h-screen font-serif bg-linear-to-br from-emerald-50 via-white to-emerald-50/30 p-4 sm:p-5 md:p-6",
+  pageContainer: "min-h-screen font-serif bg-gradient-to-br from-emerald-50 via-white to-emerald-50/30 p-4 sm:p-5 md:p-6",
   maxWidthContainer: "max-w-6xl pt-8 md:pt-10 mx-auto relative",
 
   // Loading states
@@ -1345,23 +1354,23 @@ export const editProfilePageStyles = {
   // Toast notifications
   toastContainer: "fixed top-3 right-2 sm:right-4 z-50 space-y-3 max-w-xs sm:max-w-sm",
   toastBase: "transform transition-all duration-300 ease-out rounded-r-lg shadow-lg p-3 sm:p-4 flex items-start gap-3 animate-slideIn",
-  toastSuccess: "bg-linear-to-r from-emerald-50 to-emerald-100 border-l-4 border-emerald-500",
-  toastError: "bg-linear-to-r from-rose-50 to-rose-100 border-l-4 border-rose-500",
-  toastInfo: "bg-linear-to-r from-blue-50 to-blue-100 border-l-4 border-blue-500",
+  toastSuccess: "bg-gradient-to-br from-emerald-50 to-emerald-100 border-l-4 border-emerald-500",
+  toastError: "bg-gradient-to-br from-rose-50 to-rose-100 border-l-4 border-rose-500",
+  toastInfo: "bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-500",
   toastIcon: "w-5 h-5 mt-0.5",
   toastSuccessIcon: "text-emerald-600",
   toastErrorIcon: "text-rose-600",
   toastText: "text-sm font-medium text-gray-800",
 
   // Main card
-  mainCard: "bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden border border-emerald-100/50",
-  headerBackground: "relative h-24 sm:h-28 md:h-32 bg-linear-to-r from-emerald-400 to-emerald-600",
+  mainCard: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden border border-emerald-100/50",
+  headerBackground: "relative h-24 sm:h-28 md:h-32 bg-gradient-to-br from-emerald-400 to-emerald-600",
 
   // Profile image
   imageContainer: "absolute -bottom-16 left-1/2 transform -translate-x-1/2 md:left-8 md:transform-none",
   imageWrapper: "relative group",
   profileImage: "relative w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 md:ml-23 rounded-full object-cover border-4 border-white shadow-2xl",
-  imageEditButton: (editing) => `absolute bottom-2 right-2 bg-white rounded-full p-2 shadow-lg cursor-pointer transition-transform ${!editing && "cursor-not-allowed"}`,
+  imageEditButton: (editing) => `absolute bottom-2 right-2 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white rounded-full p-2 shadow-lg cursor-pointer transition-transform ${!editing && "cursor-not-allowed"}`,
   imageEditIcon: (editing) => `w-5 h-5 ${editing ? "text-emerald-600" : "text-gray-400"}`,
   imageInput: "hidden",
 
@@ -1369,15 +1378,15 @@ export const editProfilePageStyles = {
   profileContent: "pt-20 pb-8 px-4 sm:px-6 md:px-8",
   profileHeader: "flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8",
   profileInfo: "flex-1 min-w-0",
-  profileName: "text-2xl sm:text-3xl md:text-4xl font-bold bg-linear-to-r from-emerald-700 to-emerald-900 bg-clip-text text-transparent truncate",
+  profileName: "text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-br from-emerald-700 to-emerald-900 bg-clip-text text-transparent truncate",
   profileSubtitle: "text-sm sm:text-lg text-emerald-700 mt-2 flex items-center gap-2",
   subtitleIcon: "w-4 h-4",
 
   // Stats container
   statsContainer: "mt-4 flex flex-wrap items-center gap-3",
-  statItem: "flex items-center gap-3 bg-white px-3 py-2 rounded-full border border-emerald-100 shadow-sm text-sm sm:text-base",
-  ratingStatItem: "flex items-center gap-3 bg-linear-to-r from-amber-50 to-amber-100 px-3 py-2 rounded-full border border-amber-200 text-sm sm:text-base",
-  feeStatItem: "flex items-center gap-1 bg-linear-to-r from-amber-50 to-amber-100 px-3 py-2 rounded-full border border-amber-200",
+  statItem: "flex items-center gap-3 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white px-3 py-2 rounded-full border border-emerald-100 shadow-sm text-sm sm:text-base",
+  ratingStatItem: "flex items-center gap-3 bg-gradient-to-br from-amber-50 to-amber-100 px-3 py-2 rounded-full border border-amber-200 text-sm sm:text-base",
+  feeStatItem: "flex items-center gap-1 bg-gradient-to-br from-amber-50 to-amber-100 px-3 py-2 rounded-full border border-amber-200",
   statIcon: "w-4 h-4",
   statEmeraldIcon: "text-emerald-600",
   statAmberIcon: (field) => {
@@ -1393,12 +1402,12 @@ export const editProfilePageStyles = {
 
   // Action buttons
   actionButtons: "flex flex-col sm:flex-row items-center gap-3",
-  availabilityToggle: (isAvailable) => `flex items-center gap-3 px-4 sm:px-5 py-2 rounded-full cursor-pointer border-2 shadow-sm transition-all duration-300 ${isAvailable ? "bg-linear-to-r from-emerald-50 to-emerald-100 border-emerald-300 hover:shadow-emerald-200" : "bg-linear-to-r from-gray-50 to-gray-100 border-gray-300 hover:shadow-gray-200"} hover:shadow-lg w-full sm:w-auto`,
+  availabilityToggle: (isAvailable) => `flex items-center gap-3 px-4 sm:px-5 py-2 rounded-full cursor-pointer border-2 shadow-sm transition-all duration-300 ${isAvailable ? "bg-gradient-to-br from-emerald-50 to-emerald-100 border-emerald-300 hover:shadow-emerald-200" : "bg-gradient-to-br from-gray-50 to-gray-100 border-gray-300 hover:shadow-gray-200"} hover:shadow-lg w-full sm:w-auto`,
   toggleTrack: (isAvailable) => `relative w-10 h-5 rounded-full transition-colors ${isAvailable ? "bg-emerald-500" : "bg-gray-400"}`,
-  toggleThumb: (isAvailable) => `absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${isAvailable ? "left-6" : "left-0.5"}`,
+  toggleThumb: (isAvailable) => `absolute top-0.5 w-4 h-4 rounded-full bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white transition-transform ${isAvailable ? "left-6" : "left-0.5"}`,
   toggleText: (isAvailable) => `font-medium ${isAvailable ? "text-emerald-700" : "text-gray-600"}`,
 
-  editButton: "group relative overflow-hidden bg-linear-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-5 py-2 rounded-full cursor-pointer shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02] w-full sm:w-auto",
+  editButton: "group relative overflow-hidden bg-gradient-to-br from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-5 py-2 rounded-full cursor-pointer shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02] w-full sm:w-auto",
   editButtonContent: "relative flex items-center gap-2",
 
   // Form sections
@@ -1416,15 +1425,15 @@ export const editProfilePageStyles = {
   fieldLabel: "text-sm font-semibold text-emerald-800",
 
   // Input fields
-  inputBase: (editing) => `w-full rounded-full border-2 px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base transition-all duration-200 ${editing ? "border-emerald-200 bg-emerald-50/50 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 focus:bg-white" : "border-gray-200 bg-gray-50/50 text-gray-600 cursor-not-allowed"}`,
+  inputBase: (editing) => `w-full rounded-full border-2 px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base transition-all duration-200 ${editing ? "border-emerald-200 gray-700 bg-emerald-50/50 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 focus:bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white" : "border-gray-200 bg-gray-50/50 text-gray-600 cursor-not-allowed"}`,
 
   // About textarea
-  aboutTextarea: (editing) => `w-full rounded-xl border-2 px-4 py-3 text-sm sm:text-base transition-all duration-200 ${editing ? "border-emerald-200 bg-emerald-50/50 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 focus:bg-white" : "border-gray-200 bg-gray-50/50 text-gray-600 cursor-not-allowed"}`,
+  aboutTextarea: (editing) => `w-full rounded-xl border-2 px-4 py-3 text-sm sm:text-base transition-all duration-200 ${editing ? "border-emerald-200 gray-700 bg-emerald-50/50 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 focus:bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white" : "border-gray-200 bg-gray-50/50 text-gray-600 cursor-not-allowed"}`,
   aboutCharCount: "absolute bottom-3 right-3 text-xs text-gray-400",
 
   // Schedule section
   scheduleHeader: "flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6",
-  emptySchedule: "text-center py-10 rounded-2xl border-2 border-dashed border-emerald-200 bg-emerald-50/50",
+  emptySchedule: "text-center py-10 rounded-2xl border-2 border-dashed border-emerald-200 gray-700 bg-emerald-50/50",
   emptyScheduleIcon: "w-12 h-12 text-emerald-400 mx-auto mb-3",
   emptyScheduleText: "text-emerald-700 font-medium",
   emptyScheduleSubtext: "text-sm text-emerald-600 mt-1",
@@ -1433,7 +1442,7 @@ export const editProfilePageStyles = {
   scheduleGrid: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5",
 
   // Date card
-  dateCard: "group relative bg-linear-to-br from-white to-emerald-50 p-4 sm:p-5 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1",
+  dateCard: "group relative bg-gradient-to-br from-white to-emerald-50 p-4 sm:p-5 rounded-2xl border border-emerald-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1",
   dateHeader: "flex items-center justify-between mb-3 pb-3 border-b border-emerald-100",
   dateIconContainer: "p-2 rounded-full bg-emerald-100",
   dateIcon: "w-5 h-5 text-emerald-600",
@@ -1445,7 +1454,7 @@ export const editProfilePageStyles = {
 
   // Time slots
   timeSlotContainer: "space-y-3",
-  timeSlotItem: "flex items-center justify-between bg-white px-3 py-2 rounded-full border border-emerald-100 hover:border-emerald-200 transition-colors",
+  timeSlotItem: "flex items-center justify-between bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white px-3 py-2 rounded-full border border-emerald-100 hover:border-emerald-200 gray-700 transition-colors",
   timeSlotIcon: "w-4 h-4 text-emerald-600",
   timeSlotText: "font-medium text-emerald-900 text-sm sm:text-base",
   timeSlotDeleteButton: (editing) => `p-1.5 rounded-full cursor-pointer transition-colors ${editing ? "hover:bg-rose-50 text-rose-500 hover:text-rose-600" : "text-gray-400 cursor-not-allowed"}`,
@@ -1453,26 +1462,26 @@ export const editProfilePageStyles = {
 
   // Add time slot
   addSlotContainer: "pt-3 border-t border-emerald-100",
-  addSlotInput: "flex-1 rounded-full px-3 py-2 text-sm border border-emerald-200 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-200",
+  addSlotInput: "flex-1 rounded-full px-3 py-2 text-sm border border-emerald-200 gray-700 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white focus:outline-none focus:ring-2 focus:ring-emerald-200",
   addSlotButton: "p-2 rounded-full cursor-pointer bg-emerald-100 text-emerald-700 hover:bg-emerald-200 transition-colors",
   addSlotIcon: "w-4 h-4",
 
   // Save message
-  saveMessage: (type) => `px-4 py-2 rounded-lg ${type === "saving" ? "bg-blue-50 text-blue-700 border border-blue-200" : "bg-emerald-50 text-emerald-700 border border-emerald-200"}`,
+  saveMessage: (type) => `px-4 py-2 rounded-lg ${type === "saving" ? "bg-blue-50 text-blue-700 border border-blue-200" : "bg-emerald-50 text-emerald-700 border border-emerald-200 gray-700"}`,
 
   // Actions section
   actionsSection: "flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-emerald-100",
   actionsText: "text-sm text-gray-500",
   actionsButtons: "flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto",
-  resetButton: "px-6 py-3 rounded-full cursor-pointer border-2 border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-300 transition-all duration-200 font-medium w-full sm:w-auto text-center",
-  saveButton: "group relative overflow-hidden bg-linear-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-6 py-3 rounded-full cursor-pointer shadow-lg transition-all duration-300 hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed w-full sm:w-auto text-center",
+  resetButton: "px-6 py-3 rounded-full cursor-pointer border-2 border-emerald-200 gray-700 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-300 transition-all duration-200 font-medium w-full sm:w-auto text-center",
+  saveButton: "group relative overflow-hidden bg-gradient-to-br from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-6 py-3 rounded-full cursor-pointer shadow-lg transition-all duration-300 hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed w-full sm:w-auto text-center",
   saveButtonContent: "relative flex items-center gap-2 justify-center",
   saveSpinner: "w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin",
 
   // AddDate component styles
   addDateContainer: "flex items-center gap-2",
-  addDateInput: "rounded-xl px-3 py-2 border-2 border-emerald-200 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-200 focus:border-emerald-400 text-sm sm:text-base",
-  addDateButton: "flex items-center gap-2 bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-4 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 text-sm sm:text-base",
+  addDateInput: "rounded-xl px-3 py-2 border-2 border-emerald-200 gray-700 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white focus:outline-none focus:ring-2 focus:ring-emerald-200 focus:border-emerald-400 text-sm sm:text-base",
+  addDateButton: "flex items-center gap-2 bg-gradient-to-br from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-4 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 text-sm sm:text-base",
   addDateIcon: "w-4 h-4",
 
   // Custom animations
@@ -1486,7 +1495,7 @@ export const editProfilePageStyles = {
 // DashboardPage styles
 export const dashboardStyles = {
   // Main container
-  pageContainer: "min-h-screen font-serif pt-16 lg:pt-20 md:pt-15 p-4 sm:p-6 bg-linear-to-br from-emerald-50 to-white",
+  pageContainer: "min-h-screen font-serif pt-16 lg:pt-20 md:pt-15 p-4 sm:p-6 bg-gradient-to-br from-emerald-50 to-white",
 
   // Content wrapper
   contentWrapper: "max-w-7xl mx-auto",
@@ -1496,18 +1505,18 @@ export const dashboardStyles = {
   headerTitle: "text-2xl pt-10 xl:pt-0 uppercase lg:pt-0 sm:text-3xl font-extrabold tracking-tight text-emerald-900",
   headerSubtitle: "text-sm sm:text-base text-emerald-700/70",
   headerInfo: "text-sm text-slate-600",
-  refreshButton: "text-sm px-3 py-1 rounded-full bg-white text-emerald-600 border border-emerald-200 hover:shadow-sm",
+  refreshButton: "text-sm px-3 py-1 rounded-full bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white text-emerald-600 border border-emerald-200 gray-700 hover:shadow-sm",
 
   // Stats grid
   statsGrid: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8",
 
   // Stat card
-  statCard: "rounded-full p-4 bg-white/60 backdrop-blur-sm border border-emerald-300 shadow-sm hover:shadow-md transition-all",
+  statCard: "rounded-full p-4 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white gray-800/60 backdrop-blur-sm border border-emerald-300 shadow-sm hover:shadow-md transition-all",
   statContent: "flex items-center justify-between gap-4",
   statTextContainer: "flex-1",
   statTitle: "text-sm font-medium text-emerald-800/80",
   statValue: "mt-2 text-xl sm:text-2xl font-extrabold text-emerald-900 tracking-tight",
-  statIconContainer: "p-3 rounded-full bg-linear-to-br border shadow-md",
+  statIconContainer: "p-3 rounded-full bg-gradient-to-br border shadow-md",
   statIcon: "w-6 h-6 text-emerald-900",
 
   // Stat card accent colors
@@ -1515,12 +1524,12 @@ export const dashboardStyles = {
   accentTopAmber: "from-amber-100 to-amber-200",
   accentTopEmeraldLight: "from-emerald-100 to-emerald-200",
   accentTopRose: "from-rose-100 to-rose-200",
-  accentBottomEmerald: "border-emerald-200",
+  accentBottomEmerald: "border-emerald-200 gray-700",
   accentBottomAmber: "border-amber-200",
   accentBottomRose: "border-rose-200",
 
   // Appointments container
-  appointmentsContainer: "bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-emerald-100 shadow-sm",
+  appointmentsContainer: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-emerald-100 shadow-sm",
   appointmentsHeader: "flex items-center justify-between mb-4",
   appointmentsTitle: "text-lg sm:text-xl font-semibold text-emerald-900",
   appointmentsTotal: "text-sm sm:text-base text-emerald-700 flex items-center gap-2",
@@ -1530,7 +1539,7 @@ export const dashboardStyles = {
   cardsGrid: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-start",
 
   // Appointment card
-  appointmentCard: "rounded-xl p-4 bg-white shadow-sm border border-emerald-100 flex flex-col justify-between gap-4 hover:shadow-md transition self-start",
+  appointmentCard: "rounded-xl p-4 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white shadow-sm border border-emerald-100 flex flex-col justify-between gap-4 hover:shadow-md transition self-start",
   cardHeader: "flex items-start gap-3",
   cardAvatar: "w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden bg-emerald-50 border border-emerald-100 flex items-center justify-center",
   cardAvatarImage: "w-full h-full object-cover",
@@ -1560,7 +1569,7 @@ export const dashboardStyles = {
 
   // Status badge (reusing listPageStyles but adding here for completeness)
   statusBadgeBase: "px-3 py-1 rounded-full text-xs font-semibold",
-  statusBadgeComplete: "bg-emerald-100 text-emerald-800 border border-emerald-200",
+  statusBadgeComplete: "bg-emerald-100 text-emerald-800 border border-emerald-200 gray-700",
   statusBadgeCancelled: "bg-rose-100 text-rose-800 border border-rose-200",
   statusBadgeConfirmed: "bg-emerald-200 text-emerald-900 border border-emerald-300",
   statusBadgeRescheduled: "bg-indigo-100 text-indigo-900 border border-indigo-200",
@@ -1568,19 +1577,19 @@ export const dashboardStyles = {
 
   // Status select
   statusSelect: "text-xs sm:text-sm px-3 py-1 rounded-full border focus:outline-none transition",
-  statusSelectEnabled: "bg-white text-emerald-800 border-emerald-200 hover:shadow-sm",
+  statusSelectEnabled: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white text-emerald-800 border-emerald-200 gray-700 hover:shadow-sm",
   statusSelectDisabled: "bg-gray-50 text-gray-400 cursor-not-allowed border-gray-200",
 
   // Reschedule button
   rescheduleButton: "text-xs px-3 py-1 rounded-full border transition",
-  rescheduleButtonEnabled: "bg-white text-emerald-800 border-emerald-200 hover:shadow-sm",
+  rescheduleButtonEnabled: "bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white text-emerald-800 border-emerald-200 gray-700 hover:shadow-sm",
   rescheduleButtonDisabled: "bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed",
 
   // Reschedule form
   rescheduleForm: "flex flex-col items-end gap-2 w-full",
-  rescheduleDateInput: "text-xs px-3 py-2 rounded-full border border-emerald-200 bg-white w-full md:w-48 lg:w-56",
-  rescheduleTimeInput: "text-xs px-3 py-2 rounded-full border border-emerald-200 bg-white w-full md:w-48 lg:w-56",
+  rescheduleDateInput: "text-xs px-3 py-2 rounded-full border border-emerald-200 gray-700 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white w-full md:w-48 lg:w-56",
+  rescheduleTimeInput: "text-xs px-3 py-2 rounded-full border border-emerald-200 gray-700 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white w-full md:w-48 lg:w-56",
   rescheduleButtons: "flex gap-2",
   saveButton: "text-xs px-3 py-2 rounded-full bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition",
-  cancelButton: "text-xs px-3 py-2 rounded-full border border-emerald-200 bg-white text-emerald-800 hover:shadow-sm transition"
+  cancelButton: "text-xs px-3 py-2 rounded-full border border-emerald-200 gray-700 bg-white white white white white bg-white white white white white bg-white white white white white bg-white white white white white bg-white text-emerald-800 hover:shadow-sm transition"
 };

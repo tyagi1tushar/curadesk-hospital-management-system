@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from './Navbar';
 import { heroStyles } from '../assets/dummyStyles';
 import logoImg from '../assets/logo.png';
 

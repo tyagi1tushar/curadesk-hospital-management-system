@@ -5,9 +5,14 @@ import { SignedIn, SignedOut, useClerk, UserButton } from "@clerk/clerk-react";
 import { User, Key, Menu, X } from 'lucide-react';
 import logo from '../assets/logo.png';
 
+
+
 const STORAGE_KEY = "doctorToken_v1";
 
 const Navbar = () => {
+
+  
+
     const [isOpen, setIsOpen] = useState(false);
     const [showNavbar, setShowNavbar] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
@@ -72,14 +77,20 @@ const Navbar = () => {
 
     return (
         <>
-            <div className={navbarStyles.navbarBorder}></div>
+            {/*<div className={navbarStyles.navbarBorder}></div>*/}
 
-            <nav ref={navRef}
-                className={`${navbarStyles.navbarContainer} ${showNavbar ? navbarStyles.navbarVisible : navbarStyles.navbarHidden
-                    }`}
+            <nav
+                ref={navRef}
+                className={`
+    sticky top-0 z-50
+    bg-white
+    border-b border-gray-200 gray-700
+    ${showNavbar ? "translate-y-0" : "-translate-y-full"}
+    transition-all duration-300
+  `}
             >
-                <div className={navbarStyles.contentWrapper}>
-                    <div className={navbarStyles.flexContainer}>
+                <div className="max-w-7xl mx-auto px-4">
+                    <div className="flex items-center justify-between h-20">
 
                         {/* Logo */}
                         <Link to="/" className={navbarStyles.logoContainer}>
@@ -120,7 +131,7 @@ const Navbar = () => {
                             </div>
                         </div>
                         {/*right side*/}
-                        <div className={navbarStyles.rightContainer}>
+                        <div className="flex items-center gap-3">
                             <SignedOut>
                                 <Link to='/doctor-admin/login' className={navbarStyles.doctorAdminButton}>
                                     <User className={navbarStyles.doctorAdminIcon} />
@@ -137,6 +148,9 @@ const Navbar = () => {
                             <SignedIn>
                                 <UserButton afterSignOutUrl="/" />
                             </SignedIn>
+
+                            
+
                             {/* to toggle */}
                             <button onClick={() => setIsOpen(!isOpen)} className={navbarStyles.mobileToggle}>
                                 {isOpen ? (
@@ -150,7 +164,13 @@ const Navbar = () => {
                     </div>
                     {/* mobile navigations */}
                     {isOpen && (
-                        <div className={navbarStyles.mobileMenu}>
+                        <div className="
+  lg:hidden
+  mt-2 p-4 space-y-3
+  bg-white
+  border border-gray-200 gray-700
+  rounded-xl
+">
 
                             {/* Nav Links */}
                             {navItems.map((item, idx) => {

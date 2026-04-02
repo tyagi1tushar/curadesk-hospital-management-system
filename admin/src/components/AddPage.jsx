@@ -3,6 +3,7 @@ import { doctorDetailStyles } from "../assets/dummyStyles";
 import { User, XCircle, Plus, Trash2 } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Eye, EyeOff } from "lucide-react";
 
 const s = doctorDetailStyles;
 
@@ -26,6 +27,8 @@ const AddPage = () => {
         email: "",
         password: "",
     });
+
+    const [showPassword, setShowPassword] = useState(false);
 
 
     const [slotDate, setSlotDate] = useState(null);
@@ -51,24 +54,47 @@ const AddPage = () => {
 
     // ================= SCHEDULE =================
     function addSlot() {
-        if (!slotDate || !slotTime) return;
+        if (!slotDate || !slotTime) {
+            alert("Select both date and time");
+            return;
+        }
 
-        const date = slotDate.toISOString().split("T")[0];
+        // SAFE COPY (IMPORTANT)
+        const selectedDate = new Date(slotDate);
+        const selectedTime = new Date(slotTime);
 
-        const time = slotTime.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-        });
+        // FORMAT DATE
+        const date = selectedDate.toISOString().split("T")[0];
 
+        // FORMAT TIME
+        const hours = selectedTime.getHours();
+        const minutes = selectedTime.getMinutes();
+
+        const ampm = hours >= 12 ? "PM" : "AM";
+        const formattedHours = hours % 12 || 12;
+
+        const time = `${formattedHours}:${minutes
+            .toString()
+            .padStart(2, "0")} ${ampm}`;
+
+        // UPDATE STATE
         setForm((prev) => {
             const newSchedule = { ...prev.schedule };
-            if (!newSchedule[date]) newSchedule[date] = [];
 
-            newSchedule[date].push(time);
+            if (!newSchedule[date]) {
+                newSchedule[date] = [];
+            }
+
+            // PREVENT DUPLICATE
+            if (!newSchedule[date].includes(time)) {
+                newSchedule[date].push(time);
+            }
 
             return { ...prev, schedule: newSchedule };
         });
 
+        // RESET
+        setSlotDate(null);
         setSlotTime(null);
     }
 
@@ -181,10 +207,10 @@ const AddPage = () => {
     }
 
     return (
-        <div className="min-h-screen bg-slate-100 flex justify-center py-10 px-4">
-            <div className="w-full max-w-5xl bg-white p-8 rounded-2xl shadow-lg">
+        <div className={s.pageContainer + " flex justify-center"}>
+            <div className="w-full max-w-5xl bg-white dark:bg-[#0f172a] p-8 rounded-2xl shadow-lg">
 
-                <h1 className="text-3xl font-semibold text-teal-600 text-center mb-8">
+                <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 !text-emerald-600 dark:!text-white">
                     Add New Doctor
                 </h1>
 
@@ -192,7 +218,14 @@ const AddPage = () => {
 
                     {/* IMAGE */}
                     <div className="col-span-1 md:col-span-2 flex justify-center">
-                        <div className="relative w-32 h-32 border-2 border-dashed rounded-full flex items-center justify-center overflow-hidden">
+                        <div className="
+relative w-32 h-32 
+border-2 border-dashed 
+border-emerald-200 dark:border-gray-600 
+rounded-full flex items-center justify-center 
+overflow-hidden 
+bg-white dark:bg-[#1f2937]
+">
 
                             {form.imagePreview ? (
                                 <>
@@ -209,7 +242,7 @@ const AddPage = () => {
                                     </button>
                                 </>
                             ) : (
-                                <p className="text-gray-400 text-center text-sm">
+                                <p className="text-gray-400 dark:text-gray-400">
                                     Upload Image
                                 </p>
                             )}
@@ -234,18 +267,63 @@ const AddPage = () => {
                         ["rating", "Rating (1-5)"],
                         ["email", "Email"],
                         ["password", "Password"],
-                    ].map(([key, placeholder]) => (
-                        <input
-                            key={key}
-                            type={key === "password" ? "password" : "text"}
-                            placeholder={placeholder}
-                            value={form[key]}
-                            onChange={(e) =>
-                                setForm({ ...form, [key]: e.target.value })
-                            }
-                            className="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-400"
-                        />
-                    ))}
+                    ].map(([key, placeholder]) => {
+
+                        const isPassword = key === "password";
+
+                        return (
+                            <div key={key} className="relative">
+
+                                <input
+                                    type={
+                                        isPassword
+                                            ? showPassword
+                                                ? "text"
+                                                : "password"
+                                            : key === "rating"
+                                                ? "number"
+                                                : "text"
+                                    }
+                                    placeholder={placeholder}
+                                    value={form[key]}
+                                    min={key === "rating" ? 1 : undefined}
+                                    max={key === "rating" ? 5 : undefined}
+                                    step={key === "rating" ? 1 : undefined}
+                                    onChange={(e) => {
+                                        let value = e.target.value;
+
+                                        // rating validation
+                                        if (key === "rating") {
+                                            if (value === "") {
+                                                setForm({ ...form, rating: "" });
+                                                return;
+                                            }
+
+                                            const num = Number(value);
+                                            if (num < 1 || num > 5) return;
+
+                                            value = num;
+                                        }
+
+                                        setForm({ ...form, [key]: value });
+                                    }}
+                                    className={s.inputBase + (isPassword ? " pr-12" : "")}
+                                />
+
+
+                                {isPassword && (
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword((prev) => !prev)}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-300"
+                                    >
+                                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                    </button>
+                                )}
+                            </div>
+                        );
+                    })}
+
 
                     {/* AVAILABILITY */}
                     <div className="flex gap-4">
@@ -255,8 +333,8 @@ const AddPage = () => {
                                 setForm({ ...form, availability: "Available" })
                             }
                             className={`px-4 py-2 rounded-lg border ${form.availability === "Available"
-                                    ? "bg-green-500 text-white"
-                                    : ""
+                                ? "bg-green-500 text-white dark:bg-emerald-500"
+                                : "bg-gray-100 text-gray-700 border-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600"
                                 }`}
                         >
                             Available
@@ -268,8 +346,8 @@ const AddPage = () => {
                                 setForm({ ...form, availability: "Unavailable" })
                             }
                             className={`px-4 py-2 rounded-lg border ${form.availability === "Unavailable"
-                                    ? "bg-red-500 text-white"
-                                    : ""
+                                ? "bg-red-500 text-white"
+                                : "bg-gray-100 text-gray-700 border-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600"
                                 }`}
                         >
                             Unavailable
@@ -283,16 +361,56 @@ const AddPage = () => {
                         onChange={(e) =>
                             setForm({ ...form, about: e.target.value })
                         }
-                        className="col-span-1 md:col-span-2 p-3 border rounded-xl h-28"
+                        className={`col-span-1 md:col-span-2 ${s.textareaBase} h-28`}
                     />
 
                     {/* SCHEDULE */}
+
+                    {/* SHOW ADDED SLOTS */}
+                    <div className="col-span-1 md:col-span-2 mt-4 space-y-2">
+                        {Object.keys(form.schedule).length === 0 && (
+                            <p className="text-sm text-gray-400 dark:text-gray-400">No slots added</p>
+                        )}
+
+                        {Object.entries(form.schedule).map(([date, times]) => (
+                            <div key={date} className="space-y-1">
+                                <p className="text-sm font-semibold text-emerald-600 dark:text-gray-300">
+                                    {date}
+                                </p>
+
+                                <div className="flex flex-wrap gap-2">
+                                    {times.map((time, i) => (
+                                        <span
+                                            key={i}
+                                            className="
+px-3 py-1 rounded-full 
+bg-emerald-100 dark:bg-gray-700 
+text-emerald-700 dark:text-white 
+text-xs flex items-center gap-2
+"
+                                        >
+                                            {time}
+                                            <button
+                                                type="button"
+                                                onClick={() => removeSlot(date, time)}
+                                                className="text-red-500"
+                                            >
+                                                ✕
+                                            </button>
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+
                     <div className="col-span-1 md:col-span-2 flex gap-4 flex-wrap">
                         <DatePicker
                             selected={slotDate}
                             onChange={(d) => setSlotDate(d)}
                             placeholderText="Select Date"
-                            className="p-3 border rounded-xl"
+                            className={s.inputBase}
                         />
 
                         <DatePicker
@@ -302,7 +420,7 @@ const AddPage = () => {
                             showTimeSelectOnly
                             dateFormat="hh:mm aa"
                             placeholderText="Select Time"
-                            className="p-3 border rounded-xl"
+                            className={s.inputBase}
                         />
 
                         <button
@@ -318,7 +436,7 @@ const AddPage = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="col-span-1 md:col-span-2 bg-teal-600 text-white py-3 rounded-xl"
+                        className={`col-span-1 md:col-span-2 ${s.submitButton} ${s.submitButtonEnabled}`}
                     >
                         {loading ? "Adding..." : "Add Doctor"}
                     </button>

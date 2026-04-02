@@ -2,10 +2,16 @@ import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 
-import Hero from "./pages/Hero";
+import Hero from "./components/Hero.jsx";
 import Home from "./pages/Home";
 import Add from "./pages/Add";
 import List from "./pages/List";
+import Appointments from "./pages/Appointments";
+import SerDashboard from "./pages/SerDashboard";
+import AddSer from "./pages/AddSer.jsx";
+import ListService from "./pages/ListService.jsx";
+import ServiceAppointments from "./pages/ServiceAppointments.jsx";
+
 
 
 
@@ -66,6 +72,47 @@ const App = () => {
         />
         <Route path="/add" element={<RequireAuth><Add /></RequireAuth>} />
         <Route path="/list" element={<RequireAuth><List /></RequireAuth>} />
+        <Route
+          path="/appointments"
+          element={
+            <RequireAuth>
+              <Appointments />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/service-dashboard"
+          element={
+            <RequireAuth>
+              <SerDashboard />
+            </RequireAuth>
+          }
+        
+        />
+         <Route
+        path="/add-service"
+        element={
+          <RequireAuth>
+            <AddSer />
+          </RequireAuth>
+        }
+      />
+        <Route
+        path="/list-service"
+        element={
+          <RequireAuth>
+            <ListService />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/service-appointments"
+        element={
+          <RequireAuth>
+            <ServiceAppointments />
+          </RequireAuth>
+        }
+      />
 
       </Routes>
     </div>

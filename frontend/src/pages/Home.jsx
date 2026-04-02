@@ -3,10 +3,10 @@ import Navbar from "../components/Navbar";
 
 const Home = () => {
     return (
-    <div>
-        <Navbar/>
-    </div>
-    )
-}
+       <div className="min-h-screen bg-white bg-white transition-colors duration-300">
+            <Navbar />
+        </div>
+    );
+};
 
 export default Home;
