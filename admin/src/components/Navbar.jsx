@@ -213,13 +213,7 @@ const Navbar = () => {
 
 
 
-                        <button
-                            onClick={() => setOpen(v => !v)}
-                            className={ns.mobileMenuButton}
-                        >
-                            {open ? <X size={18} /> : <Menu size={18} />}
-                        </button>
-
+                      
                     </div>
 
                 </div>
@@ -238,9 +232,7 @@ const Navbar = () => {
 
                         <div className={ns.mobileMenuInner}>
 
-                            <div className="flex justify-end mb-4">
-                                <ThemeToggle />
-                            </div>
+                           
 
                             <MobileItem to="/h" icon={<Home size={16} />} label="Dashboard" onClick={() => setOpen(false)} />
                             <MobileItem to="/add" icon={<UserPlus size={16} />} label="Add Doctor" onClick={() => setOpen(false)} />

@@ -212,20 +212,20 @@ dark:text-gray-400
 `,
   headerControlsSection: "w-full sm:w-auto",
 
- searchContainer: `
-flex items-center 
+searchContainer: `
+relative flex items-center 
 bg-white dark:bg-gray-800 
 rounded-full px-3 py-2 shadow-sm 
 border border-emerald-100 dark:border-gray-700
 w-full sm:w-72
 `,
-  searchIcon: "text-emerald-400",
+searchIcon: "absolute left-3 text-emerald-400",
 searchInput: `
-w-full pl-10 pr-4 py-2 rounded-lg border 
-bg-white dark:bg-gray-800
+w-full pl-10 pr-4 py-2 rounded-full border-none
+bg-transparent
 text-gray-800 dark:text-white
-border-gray-300 dark:border-gray-600
 placeholder-gray-400 dark:placeholder-gray-500
+focus:outline-none
 `,
 
   filterContainer: "flex items-center flex-col md:flex-row lg:flex-row gap-2 w-full sm:w-auto",
@@ -326,7 +326,8 @@ export const keyframesStyles = `
 // Add to the existing dummyStyles.js file
 export const dashboardStyles = {
   // Layout styles
-  pageContainer: "min-h-screen font-serif bg-gradient-to-br from-emerald-50 via-white to-green-50 gradient-to-br dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 p-4 sm:p-6",
+ pageContainer:
+  "h-screen overflow-y-auto bg-white dark:bg-[#0f172a] transition-colors duration-300",
   maxWidthContainer: "max-w-7xl mx-auto",
 
   // Header styles
@@ -483,7 +484,7 @@ transition-colors
 uploadImage: `
 flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full 
 bg-emerald-600 dark:bg-emerald-500 
-text-white 
+text-white
 border border-emerald-600 dark:border-emerald-400 
 hover:bg-emerald-700 dark:hover:bg-emerald-600 
 shadow-sm hover:shadow-md transition-all duration-200
@@ -812,7 +813,7 @@ export const navbarStyles = {
   flexContainer: "flex items-center justify-between",
   
   // Logo section styles
-logoContainer: "flex items-center gap-2 relative z-10 mr-6",
+logoContainer: "flex items-center gap-2 relative z-10 mr-16",
 logoImage: "w-12 h-12 rounded-full",
   logoLink: "text-xl sm:text-2xl md:text-2xl font-bold text-green-700 dark:text-white",
   logoSubtext: "text-xs xl:block text-gray-500 dark:text-gray-400",
@@ -833,7 +834,7 @@ lg:px-2 px-4 py-2
 flex items-center gap-2 
 shadow-lg 
 border border-gray-100 dark:border-gray-700 
-overflow-x-auto
+overflow-x-auto scrollbar-hide
 `,
   
   // Center nav items
@@ -943,42 +944,43 @@ export const heroStyles = {
 // Add to the existing dummyStyles.js file
 export const serviceListStyles = {
   // Layout styles
-  pageContainer: "min-h-screen font-serif bg-gradient-to-br from-emerald-50 via-white to-green-50 gradient-to-br dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 p-4 sm:p-6",
+ pageContainer: "min-h-screen font-serif bg-gradient-to-br from-emerald-50 via-white to-green-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 p-4 sm:p-6",
 
   // Header styles
   headerContainer: "flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4",
-  headerTitle: "text-2xl md:text-3xl font-bold text-gray-800 white",
-  headerSubtitle: "text-sm text-slate-600 gray-300 mt-1",
+ headerTitle: "text-2xl md:text-3xl font-bold text-gray-800 dark:text-white",
+headerSubtitle: "text-sm text-slate-600 dark:text-gray-300 mt-1",
 
   // Filter and search styles
   filterContainer: "flex flex-col md:flex-col items-stretch md:items-center gap-3 w-full md:w-auto",
-  filterButtonsContainer: "inline-flex flex-wrap items-center gap-2 rounded-full border border-emerald-100 gray-700 bg-white gray-800 p-1",
+ filterButtonsContainer: "inline-flex flex-wrap items-center gap-2 rounded-full border border-emerald-100 dark:border-gray-700 bg-white dark:bg-gray-800 p-1",
   filterButton: "px-3 py-1 cursor-pointer rounded-full text-sm transition",
   filterButtonActive: "bg-emerald-600 text-white",
   filterButtonInactive: "text-emerald-700 bg-transparent",
   searchContainer: "relative w-full md:w-auto",
   searchIcon: "absolute inset-y-0 left-3 flex items-center pointer-events-none",
   searchIconSvg: "w-5 h-5 text-emerald-300",
-  searchInput: "pl-12 pr-4 py-2 rounded-full border border-emerald-100 gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-200 transition w-full md:w-72 bg-white gray-800",
+  searchInput: "pl-12 pr-4 py-2 rounded-full border border-emerald-100 dark:border-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-200 transition w-full md:w-72 bg-white dark:bg-gray-800 text-gray-800 dark:text-white",
 
   // Grid styles
   servicesGrid: "grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-6",
 
   // Service card styles
-  serviceCard: "bg-white gray-800 rounded-2xl overflow-hidden transform transition hover:-translate-y-1 hover:shadow-2xl border border-emerald-50",
+  serviceCard: "bg-white dark:bg-gray-800 rounded-2xl overflow-hidden transform transition hover:-translate-y-1 hover:shadow-2xl border border-emerald-50 dark:border-gray-700",
   serviceCardContent: "flex flex-col sm:flex-row sm:items-start gap-4 p-4 cursor-pointer",
-  serviceImageContainer: "w-full sm:w-20 h-40 sm:h-20 rounded-lg overflow-hidden bg-emerald-50 ring-1 ring-emerald-50 flex-shrink-0",
+ serviceImageContainer: "w-full sm:w-20 h-40 sm:h-20 rounded-lg overflow-hidden bg-emerald-50 dark:bg-gray-700 ring-1 ring-emerald-50 dark:ring-gray-600 flex-shrink-0",
   serviceImage: "w-full h-full object-cover",
   serviceImagePlaceholder: "w-full h-full flex items-center justify-center text-emerald-300",
   serviceInfoContainer: "flex-1 min-w-0",
   serviceHeader: "flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2",
-  serviceName: "text-lg font-semibold text-emerald-700 truncate",
-  serviceDescription: "text-sm text-emerald-500 mt-1 line-clamp-2",
+  serviceName: "text-lg font-semibold text-emerald-700 dark:text-emerald-400 truncate",
+serviceDescription: "text-sm text-emerald-500 dark:text-gray-300 mt-1 line-clamp-2",
+servicePrice: "text-md font-semibold text-emerald-700 dark:text-emerald-400",
   servicePriceContainer: "text-left sm:text-right mt-2 sm:mt-0",
-  servicePrice: "text-md font-semibold text-emerald-700",
+  
   availabilityBadge: "text-xs mt-1 inline-flex items-center gap-1 px-2 py-1 rounded-full",
-  availabilityAvailable: "bg-emerald-50 text-emerald-700",
-  availabilityUnavailable: "bg-rose-50 text-rose-700",
+ availabilityAvailable: "bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
+availabilityUnavailable: "bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400",
   slotsInfo: "mt-2 flex items-center gap-2 font-bold text-sm text-emerald-600",
   chevronContainer: "pl-3 self-start sm:self-center",
   chevronIcon: "w-6 h-6 transition-transform",
@@ -993,7 +995,7 @@ export const serviceListStyles = {
   editImageContainer: "flex flex-col sm:flex-row gap-4",
   editImagePreview: "w-full sm:w-36 h-36 rounded-lg overflow-hidden bg-emerald-50 ring-1 ring-emerald-50 flex-shrink-0",
   editFormFields: "flex-1 space-y-2",
-  inputBase: "w-full border rounded-lg px-3 py-2 outline-none transition focus:ring-2 focus:ring-green-200 focus:border-green-300 border-green-100 bg-white gray-800",
+  inputBase: "w-full border rounded-lg px-3 py-2 outline-none transition focus:ring-2 focus:ring-green-200 focus:border-green-300 border-green-100 bg-white dark:bg-gray-800 text-gray-800 dark:text-white",
   availabilitySelectContainer: "mt-1 flex items-center gap-2",
   availabilityLabel: "text-sm text-emerald-600",
   availabilitySelect: "border rounded-full cursor-pointer px-3 py-1 outline-none focus:ring-2 focus:ring-emerald-200 border-emerald-300",
@@ -1032,8 +1034,8 @@ export const serviceListStyles = {
 
   // Action buttons (view mode)
   viewActions: "flex items-center gap-2 justify-end",
-  editButton: "inline-flex bg-emerald-200 cursor-pointer items-center gap-2 px-3 py-2 rounded-full border border-emerald-300",
-  removeButton: "inline-flex items-center bg-red-200 cursor-pointer gap-2 px-3 py-2 rounded-full border text-rose-600",
+  editButton: "inline-flex bg-emerald-200 dark:bg-emerald-900/40 cursor-pointer items-center gap-2 px-3 py-2 rounded-full border border-emerald-300 dark:border-emerald-700 text-emerald-800 dark:text-emerald-300",
+removeButton: "inline-flex items-center bg-red-200 dark:bg-red-900/40 cursor-pointer gap-2 px-3 py-2 rounded-full border border-red-300 dark:border-red-700 text-rose-600 dark:text-rose-400",
 
   // Empty state
   emptyState: "text-center text-emerald-300 mt-8",
@@ -1077,37 +1079,84 @@ export const serviceListStyles = {
 
 export const serviceAppointmentsStyles = {
   container: "p-4 sm:p-6 md:p-6 font-serif",
+  filterPillsContainer: `
+  flex flex-wrap gap-2 mt-2 sm:mt-0
+`,
+filterPill: `
+  px-3 py-1.5
+  rounded-full
+  text-sm
+  border
+
+  bg-white dark:bg-[#1f2937]
+  text-gray-700 dark:text-gray-300
+
+  border-green-300 dark:border-green-500
+
+  hover:bg-green-50 dark:hover:bg-green-900/20
+  transition
+`,
+filterPillActive: `
+  px-3 py-1.5
+  rounded-full
+  text-sm
+  border
+
+  bg-green-500
+  text-white
+
+  border-green-500
+
+  shadow-sm
+`,
 
   headerContainer: "flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6",
   headerTitleContainer: "min-w-0",
-  headerTitle: "text-2xl md:text-3xl font-bold text-gray-800 white",
-  headerSubtitle: "text-sm text-slate-600 gray-300 mt-1",
+  headerTitle: "text-2xl md:text-3xl font-bold text-gray-800 dark:text-white",
+headerSubtitle: "text-sm text-slate-600 dark:text-gray-300 mt-1",
 
   searchContainer: "w-full md:w-96 flex flex-col gap-2",
   searchInputWrapper: "flex items-center gap-3",
   searchLabel: "relative block w-full",
   searchIconContainer: "absolute left-3 pointer-events-none",
   searchIcon: "w-4 h-4 text-emerald-400",
-  searchInput: "pl-10 pr-10 w-full rounded-full border border-emerald-200 bg-white gray-800/90 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-200 transition-all",
+searchInput: "pl-10 pr-10 w-full rounded-full border border-emerald-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-2 text-sm text-gray-800 dark:text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-200 transition-all",
   clearSearchButton: "absolute right-3 rounded-full p-1 hover:bg-gray-100",
-  clearSearchIcon: "w-4 h-4 text-gray-500 gray-400",
+  clearSearchIcon: "w-4 h-4 text-gray-500 dark:text-gray-400",
 
-  statusFilterSelect: "text-sm px-3 py-2 cursor-pointer rounded-full border border-emerald-400",
-  searchInfo: "mt-2 text-xs text-gray-500 gray-400 flex items-center justify-between",
+statusFilterSelect: `
+  relative z-10
+  w-full sm:w-auto
+  max-w-[140px] sm:max-w-none
+  px-3 py-2
+  rounded-full
+  border
+  bg-white dark:bg-[#1f2937]
+  text-gray-800 dark:text-white
+  border-green-300 dark:border-green-500
+  text-sm
+  truncate
+  focus:outline-none
+  focus:ring-2
+  focus:ring-green-400
+  appearance-none
+  overflow-hidden
+`,
+searchInfo: "mt-2 text-xs text-gray-500 dark:text-gray-400 flex items-center justify-between",
   refreshButton: "text-xs text-emerald-600 hover:underline",
 
-  loadingContainer: "col-span-full rounded-2xl p-8 bg-white gray-800/90 border border-emerald-50 shadow-sm flex items-center justify-center gap-3",
+loadingContainer: "col-span-full rounded-2xl p-8 bg-white dark:bg-gray-800 border border-emerald-50 dark:border-gray-700 shadow-sm flex items-center justify-center gap-3",
   errorContainer: "col-span-full rounded-2xl p-4 bg-rose-50 border border-rose-100 text-rose-700",
 
-  noResultsContainer: "col-span-full rounded-2xl p-8 bg-white gray-800/90 border border-emerald-50 shadow-sm flex items-center justify-center flex-col gap-3",
+ noResultsContainer: "col-span-full rounded-2xl p-8 bg-white dark:bg-gray-800 border border-emerald-50 dark:border-gray-700 shadow-sm flex items-center justify-center flex-col gap-3",
   noResultsIcon: "text-3xl text-emerald-300",
-  noResultsText: "text-sm text-gray-600",
-  noResultsSubtext: "text-xs text-gray-400",
+ noResultsText: "text-sm text-gray-600 dark:text-gray-300",
+noResultsSubtext: "text-xs text-gray-400 dark:text-gray-500",
 
   gridContainer: "grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch",
 
   article: "group relative rounded-3xl p-1 animated-border h-full transform transition-all duration-300 hover:-translate-y-2",
-  cardInner: "card-inner rounded-2xl overflow-hidden border-2 border-emerald-300/60 p-5 bg-white gray-800/90 shadow-lg h-full flex flex-col justify-between",
+cardInner: "card-inner rounded-2xl overflow-hidden border-2 border-emerald-300/60 dark:border-gray-700 p-5 bg-white dark:bg-gray-800 shadow-lg h-full flex flex-col justify-between",
 
   cardHeader: "flex flex-col sm:flex-row sm:items-start justify-between gap-4",
   patientInfoContainer: "flex items-start gap-4 min-w-0",
@@ -1115,16 +1164,17 @@ export const serviceAppointmentsStyles = {
   patientAvatarIcon: "h-6 w-6 text-emerald-700",
   patientInfo: "min-w-0",
   patientName: "text-lg md:text-sm lg:text-xs xl:text-md whitespace-nowrap font-bold leading-tight text-emerald-900 w-full line-clamp-2",
-  patientDetails: "text-sm text-gray-500 gray-400 mt-1",
+ patientDetails: "text-sm text-gray-500 dark:text-gray-400 mt-1",
 
   statusContainer: "flex flex-col items-start sm:items-end gap-2 mt-2 sm:mt-0",
 
-  detailsContainer: "mt-4 flex flex-col gap-3 text-gray-700",
+ detailsContainer: "mt-4 flex flex-col gap-3 text-gray-700 dark:text-gray-300",
+serviceText: "mt-2 text-base text-gray-600 dark:text-gray-300",
   detailItem: "flex items-center gap-3 text-base",
   detailIcon: "w-4 h-4 text-emerald-500",
   detailText: "font-medium truncate",
   feesText: "font-semibold",
-  serviceText: "mt-2 text-base text-gray-600",
+ 
   serviceName: "font-semibold text-emerald-800",
 
   actionsContainer: "mt-4 flex items-center justify-between",
@@ -1132,10 +1182,10 @@ export const serviceAppointmentsStyles = {
   cancelButton: (isLocked) =>
     `px-3 py-1 rounded-full text-sm border ${isLocked
       ? "bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed"
-      : "bg-white gray-800 text-rose-600 border-rose-200 hover:shadow-sm"
+      : "bg-white dark:bg-gray-800 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-700 hover:shadow-sm"
     }`,
 
-  legendContainer: "mt-6 p-4 rounded-lg bg-white gray-800/80 shadow-inner border border-emerald-100 gray-700 text-sm flex flex-col sm:flex-row flex-wrap items-center gap-4",
+ legendContainer: "mt-6 p-4 rounded-lg bg-white dark:bg-gray-800 shadow-inner border border-emerald-100 dark:border-gray-700 text-sm flex flex-col sm:flex-row flex-wrap items-center gap-4",
   legendItem: "flex items-center gap-2",
   legendDot: "w-3 h-3 rounded-full",
 
@@ -1156,7 +1206,7 @@ export const serviceAppointmentsStyles = {
   statusSelect: (terminal) =>
     `text-sm cursor-pointer px-3 py-1 rounded-full border focus:outline-none transition ${terminal
       ? "bg-gray-50 text-gray-400 cursor-not-allowed border-gray-200"
-      : "bg-white gray-800 text-emerald-800 border-emerald-400"
+      : "bg-white dark:bg-gray-800 text-emerald-800 dark:text-emerald-400 border-emerald-400"
     }`,
 
   // RescheduleButton component styles
@@ -1174,7 +1224,7 @@ export const serviceAppointmentsStyles = {
 
   // Toast component styles
   toastContainer: "fixed top-4 right-3 sm:right-4 z-50 flex flex-col gap-3",
-  toast: "max-w-xs w-full rounded-lg shadow-lg px-4 py-3 border-l-4 border-emerald-400 bg-white gray-800/95 backdrop-blur-sm",
+ toast: "max-w-xs w-full rounded-lg shadow-lg px-4 py-3 border-l-4 border-emerald-400 bg-white dark:bg-gray-800 backdrop-blur-sm",
   toastContent: "flex items-start gap-3",
   toastSpinner: "h-5 w-5 animate-spin text-emerald-600",
   toastText: "flex-1",
