@@ -1,10 +1,6 @@
 import React from "react";
 import {
-  Facebook,
-  Twitter,
-  Instagram,
   Linkedin,
-  Youtube,
   Mail,
   Phone,
   MapPin,
@@ -37,79 +33,50 @@ const Footer = () => {
 
   const socialLinks = [
     {
-      Icon: Facebook,
-      color: footerStyles.facebookColor,
-      name: "Facebook",
-      href: "https://www.facebook.com/people/Hexagon-Digital-Services/61567156598660/",
-    },
-    {
-      Icon: Twitter,
-      color: footerStyles.twitterColor,
-      name: "Twitter",
-      href: "https://www.linkedin.com/company/hexagondigtial-services/",
-    },
-    {
-      Icon: Instagram,
-      color: footerStyles.instagramColor,
-      name: "Instagram",
-      href: "http://instagram.com/hexagondigitalservices?igsh=MWp2NG1oNTlibWVnZA%3D%3D",
-    },
-    {
       Icon: Linkedin,
       color: footerStyles.linkedinColor,
       name: "LinkedIn",
-      href: "https://www.linkedin.com/company/hexagondigtial-services/",
-    },
-    {
-      Icon: Youtube,
-      color: footerStyles.youtubeColor,
-      name: "YouTube",
-      href: "https://youtube.com/@hexagondigitalservices?si=lxEFYNCP42t6AoDJ",
+      href: "https://www.linkedin.com/in/tushartyagi28/", 
     },
   ];
 
   return (
-    <footer className={footerStyles.footerContainer}>
-      {/* Floating Medical Icons */}
+    <footer className={`${footerStyles.footerContainer} backdrop-blur-2xl bg-white/10 border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.25)] relative overflow-hidden`}>
+
+      {/* Glass Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/5 pointer-events-none"></div>
+
+      {/* Floating Icons */}
       <div className={footerStyles.floatingIcon1}>
         <Stethoscope className={footerStyles.stethoscopeIcon} />
       </div>
 
-      <div
-        className={footerStyles.floatingIcon2}
-        style={{ animationDelay: "3s" }}
-      >
+      <div className={footerStyles.floatingIcon2} style={{ animationDelay: "3s" }}>
         <Activity className={footerStyles.activityIcon} />
       </div>
 
-      {/* Main Footer Content */}
-      <div className={footerStyles.mainContent}>
+      {/* Main */}
+      <div className={`${footerStyles.mainContent} bg-white/5 backdrop-blur-xl rounded-2xl`}>
         <div className={footerStyles.gridContainer}>
-          {/* Company Info & Logo */}
-          <div className={footerStyles.companySection}>
+
+          {/* Company */}
+          <div className="bg-white/10 backdrop-blur-xl border border-white/30 shadow-lg hover:shadow-2xl hover:bg-white/20 transition-all duration-300 rounded-xl p-4">
             <div className={footerStyles.logoContainer}>
               <div className={footerStyles.logoWrapper}>
                 <div className={footerStyles.logoImageContainer}>
-                  <img
-                    src={logo}
-                    alt="MedBook Logo"
-                    className={footerStyles.logoImage}
-                  />
+                  <img src={logo} alt="Logo" className={footerStyles.logoImage} />
                 </div>
               </div>
 
               <div>
                 <h2 className={footerStyles.companyName}>CuraDesk</h2>
-                <p className={footerStyles.companyTagline}>
-                  Healthcare
-                </p>
+                <p className={footerStyles.companyTagline}>Healthcare</p>
               </div>
             </div>
 
             <p className={footerStyles.companyDescription}>
-              Your trusted partner in healthcare innovation. We're committed to
-              providing exceptional medical care with cutting-edge technology
-              and compassionate service.
+              Your trusted partner in healthcare innovation. We’re committed to
+              providing exceptional medical care with cutting-edge technology.
             </p>
 
             <div className={footerStyles.contactContainer}>
@@ -119,14 +86,16 @@ const Footer = () => {
                 </div>
                 <span className={footerStyles.contactText}>7289086655</span>
               </div>
+
               <div className={footerStyles.contactItem}>
                 <div className={footerStyles.contactIconWrapper}>
                   <Mail className={footerStyles.contactIcon} />
                 </div>
                 <span className={footerStyles.contactText}>
-                 anjutushartyagi2810@gmail.com
+                  anjutushartyagi2810@gmail.com
                 </span>
               </div>
+
               <div className={footerStyles.contactItem}>
                 <div className={footerStyles.contactIconWrapper}>
                   <MapPin className={footerStyles.contactIcon} />
@@ -137,17 +106,12 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className={footerStyles.linksSection}>
+          <div className="bg-white/10 backdrop-blur-xl border border-white/30 shadow-lg hover:shadow-2xl hover:bg-white/20 transition-all duration-300 rounded-xl p-4">
             <h3 className={footerStyles.sectionTitle}>Quick Links</h3>
             <ul className={footerStyles.linksList}>
-              {quickLinks.map((link, index) => (
-                <li key={link.name} className={footerStyles.linkItem}>
-                  <a
-                    href={link.href}
-                    className={footerStyles.quickLink}
-                    aria-label={link.name}
-                    style={{ animationDelay: `${index * 60}ms` }}
-                  >
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <a href={link.href} className={footerStyles.quickLink}>
                     <div className={footerStyles.quickLinkIconWrapper}>
                       <ArrowRight className={footerStyles.quickLinkIcon} />
                     </div>
@@ -159,10 +123,10 @@ const Footer = () => {
           </div>
 
           {/* Services */}
-          <div className={footerStyles.linksSection}>
+          <div className="bg-white/10 backdrop-blur-xl border border-white/30 shadow-lg hover:shadow-2xl hover:bg-white/20 transition-all duration-300 rounded-xl p-4">
             <h3 className={footerStyles.sectionTitle}>Our Services</h3>
             <ul className={footerStyles.linksList}>
-              {services.map((service, index) => (
+              {services.map((service) => (
                 <li key={service.name}>
                   <a href={service.href} className={footerStyles.serviceLink}>
                     <div className={footerStyles.serviceIcon} />
@@ -173,65 +137,51 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Newsletter & Social */}
-          <div className={footerStyles.newsletterSection}>
+          {/* Newsletter */}
+          <div className="bg-white/10 backdrop-blur-xl border border-white/30 shadow-lg hover:shadow-2xl hover:bg-white/20 transition-all duration-300 rounded-xl p-4">
             <h3 className={footerStyles.newsletterTitle}>Stay Connected</h3>
+
             <p className={footerStyles.newsletterDescription}>
-              Subscribe for health tips, medical updates, and wellness insights
-              delivered to your inbox.
+              Subscribe for health tips, medical updates, and wellness insights.
             </p>
 
-            {/* Newsletter form */}
-            <div className={footerStyles.newsletterForm}>
-              {/* Mobile newsletter */}
-              <div className={footerStyles.mobileNewsletterContainer}>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className={footerStyles.emailInput}
-                  aria-label="Email"
-                />
-                <button className={footerStyles.mobileSubscribeButton}>
-                  <Send className={footerStyles.mobileButtonIcon} />
-                  Subscribe
-                </button>
-              </div>
+            {/* ✅ FINAL FIXED INPUT */}
+            <div className="mt-4 flex flex-col sm:flex-row gap-3 w-full">
 
-              {/* Desktop newsletter */}
-              <div className={footerStyles.desktopNewsletterContainer}>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className={footerStyles.desktopEmailInput}
-                  aria-label="Email"
-                />
-                <button className={footerStyles.desktopSubscribeButton}>
-                  <Send className={footerStyles.desktopButtonIcon} />
-                  <span className={footerStyles.desktopButtonText}>
-                    Subscribe
-                  </span>
-                </button>
-              </div>
+              <input
+                type="email"
+                placeholder="Email"
+                className="flex-1 w-full min-w-0 px-5 py-3 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+                style={{ width: "100%" }}
+              />
 
-              {/* Social icons */}
-              <div className={footerStyles.socialContainer}>
-                {socialLinks.map(({ Icon, color, name, href }, index) => (
-                  <a
-                    key={name}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={footerStyles.socialLink}
-                    aria-label={name}
-                    style={{ animationDelay: `${index * 120}ms` }}
-                  >
-                    <div className={footerStyles.socialIconBackground} />
-                    <Icon className={`${footerStyles.socialIcon} ${color}`} />
-                  </a>
-                ))}
-              </div>
+              <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full flex items-center justify-center gap-2 transition w-full sm:w-auto whitespace-nowrap shadow-md hover:shadow-lg">
+                <Send className="w-4 h-4" />
+                Subscribe
+              </button>
+
+            </div>
+
+            {/* LinkedIn */}
+            <div className={`${footerStyles.socialContainer} mt-4`}>
+              {socialLinks.map(({ Icon, color, name, href }) => (
+                <a
+                  key={name}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${footerStyles.socialLink} group`}
+                >
+                  <div className="absolute inset-0 bg-white/20 backdrop-blur-md rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+
+                  <Icon
+                    className={`${footerStyles.socialIcon} ${color} transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(59,130,246,1)]`}
+                  />
+                </a>
+              ))}
             </div>
           </div>
+
         </div>
 
         {/* Bottom */}
@@ -239,11 +189,9 @@ const Footer = () => {
           <div className={footerStyles.copyright}>
             <span>© {currentYear} CuraDesk Healthcare</span>
           </div>
-
         </div>
       </div>
 
-      {/* Animation Styles */}
       <style>{footerStyles.animationStyles}</style>
     </footer>
   );

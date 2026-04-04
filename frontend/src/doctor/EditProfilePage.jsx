@@ -224,7 +224,7 @@ export default function EditProfilePage({ apiBase }) {
         "about",
         "fee",
         "availability",
-        "success",
+       
         "patients",
         "rating",
         "email",
@@ -315,13 +315,7 @@ export default function EditProfilePage({ apiBase }) {
             setDoc((d) => ({ ...d, patients: v === "" ? "" : Number(v) || 0 })),
         },
         // NEW: Success (percent or count depending on your model)
-        {
-          icon: CheckCircle,
-          label: "Success",
-          value: doc.success ?? "",
-          onChange: (v) =>
-            setDoc((d) => ({ ...d, success: v === "" ? "" : Number(v) || 0 })),
-        },
+       
         // NEW: Rating (0.0 - 5.0)
         {
           icon: Star,
@@ -462,35 +456,7 @@ export default function EditProfilePage({ apiBase }) {
                     </div>
                   </div>
 
-                  {/* Success */}
-                  <div className={styles.statItem}>
-                    <CheckCircle
-                      className={`${styles.statIcon} ${styles.statEmeraldIcon}`}
-                    />
-                    <div className="flex flex-col">
-                      <div className={styles.statLabel}>Success</div>
-                      {!editing ? (
-                        <div className={styles.statValue}>{doc.success}</div>
-                      ) : (
-                        <input
-                          type="number"
-                          min={0}
-                          step={1}
-                          value={doc.success ?? ""}
-                          onChange={(e) =>
-                            setDoc((d) => ({
-                              ...d,
-                              success:
-                                e.target.value === ""
-                                  ? ""
-                                  : Number(e.target.value),
-                            }))
-                          }
-                          className={styles.statPatientsInput}
-                        />
-                      )}
-                    </div>
-                  </div>
+                  
 
                   {/* Rating */}
                   <div className={styles.ratingStatItem}>

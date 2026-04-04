@@ -193,36 +193,75 @@ export async function getDoctorById(req, res) {
 export async function updateDoctor(req, res) {
   try {
     const { id } = req.params;
-    const body = req.body || {};
+
+    console.log("BODY RECEIVED:", req.body); // 🔥 DEBUG
 
     const doc = await Doctor.findById(id);
     if (!doc) {
-      return res.status(404).json({ success: false, message: "Doctor not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Doctor not found"
+      });
     }
 
+    const body = req.body || {};
+
+    // ✅ FIX: parse schedule if coming from FormData
+    let parsedSchedule = {};
+    if (body.schedule) {
+      try {
+        parsedSchedule =
+          typeof body.schedule === "string"
+            ? JSON.parse(body.schedule)
+            : body.schedule;
+      } catch {
+        parsedSchedule = {};
+      }
+    }
+
+    // ✅ SAFE FIELD UPDATES
+    if (body.name !== undefined) doc.name = body.name;
+    if (body.specialization !== undefined) doc.specialization = body.specialization;
+    if (body.experience !== undefined) doc.experience = body.experience;
+    if (body.qualifications !== undefined) doc.qualifications = body.qualifications;
+    if (body.location !== undefined) doc.location = body.location;
+    if (body.about !== undefined) doc.about = body.about;
+
+    if (body.fee !== undefined) doc.fee = Number(body.fee);
+    if (body.patients !== undefined) doc.patients = Number(body.patients);
+    if (body.rating !== undefined) doc.rating = Number(body.rating);
+
+    if (body.availability !== undefined) doc.availability = body.availability;
+
+    if (body.schedule !== undefined) {
+      doc.schedule = parsedSchedule;
+    }
+
+    // ✅ HANDLE IMAGE (no break)
     if (req.file?.path) {
       const uploaded = await uploadToCloudinary(req.file.path, "doctors");
       doc.imageUrl = uploaded?.secure_url || doc.imageUrl;
       doc.imagePublicId = uploaded?.public_id || doc.imagePublicId;
     }
 
-    Object.keys(body).forEach(key => {
-      if (key !== "password") doc[key] = body[key];
-    });
-
     await doc.save();
 
     const out = normalizeDocForClient(doc.toObject());
     delete out.password;
 
-    return res.json({ success: true, data: out });
+    return res.json({
+      success: true,
+      data: out
+    });
 
   } catch (err) {
     console.error("updateDoctor error:", err);
-    return res.status(500).json({ success: false, message: "Server Error" });
+    return res.status(500).json({
+      success: false,
+      message: err.message
+    });
   }
 }
-
 /* =========================
    DELETE DOCTOR
 ========================= */
