@@ -1252,9 +1252,8 @@ export const navbarStylesDr = {
 // ListPage styles
 export const listPageStyles = {
   // Main container
- pageContainer:`bg-gradient-to-br 
-from-emerald-50 via-white to-green-50
-dark:from-gray-900 dark:via-gray-900 dark:to-gray-900`,
+ pageContainer: `min-h-screen pt-20 
+bg-gradient-to-br from-emerald-50 via-white to-green-50`,
 
   // Content wrapper
   contentWrapper: "max-w-7xl mx-auto",

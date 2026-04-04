@@ -43,8 +43,8 @@ const Banner = () => {
                 <div className={bannerStyles.titleContainer}>
                   {/* Responsive heading sizes: smaller on phones, same on desktop */}
                   <h1 className={bannerStyles.title}>
-                    Medi
-                    <span className={bannerStyles.titleGradient}>Care+</span>
+                    CuraDesk 
+                    <span className={bannerStyles.titleGradient}>Health</span>
                   </h1>
 
                   {/* Stars */}
