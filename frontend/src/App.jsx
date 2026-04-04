@@ -17,6 +17,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { CircleChevronUp } from "lucide-react";
+import VerifyServicePayPageStripe from "../VerifyServicePayPageStripe";
+import VerifyPayPageStripe from "./pages/VerifyPayPageStripe";
+
+
 
 /* ---------------- Scroll To Top ---------------- */
 const ScrollToTop = () => {
@@ -104,6 +108,19 @@ const App = () => {
 
           {/* User */}
           <Route path="/appointments" element={<Appointments />} />
+
+           {/* Payment */}
+             <Route path="/appointment/success" element={<VerifyPayPageStripe />} />
+            <Route path="/appointment/cancel" element={<VerifyPayPageStripe />} />
+             <Route
+            path="/service-appointment/success"
+            element={<VerifyServicePayPageStripe />}
+          />
+          <Route
+            path="/service-appointment/cancel"
+            element={<VerifyServicePayPageStripe />}
+          />
+
         </Routes>
       </div>
 
