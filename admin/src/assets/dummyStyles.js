@@ -6,30 +6,26 @@ const base = {
     dark:from-gray-900 dark:via-gray-900 dark:to-gray-900
   `,
 
-  card: `
-    bg-white gray-800
-    border border-gray-200 gray-700
-    rounded-2xl shadow-sm
-  `,
+ card: `
+  bg-white dark:bg-[#1e293b]
+  border border-gray-200 dark:border-gray-700
+  rounded-2xl shadow-sm
+`,
 
   input: `
-    w-full p-3 rounded-xl
-    border border-gray-300 gray-600
-    bg-white gray-800
-    text-gray-800 white
-    placeholder-gray-400 dark:placeholder-gray-500
-    focus:ring-2 focus:ring-emerald-500 outline-none
-  `,
+  bg-white dark:bg-[#1e293b]
+  text-gray-800 dark:text-white
+`,
 
   buttonPrimary: `
     bg-emerald-600 text-white 
     hover:bg-emerald-700 transition
   `,
 
-  buttonSecondary: `
-    bg-gray-200 gray-700 
-    text-gray-800 white
-  `,
+buttonSecondary: `
+  bg-gray-200 dark:bg-gray-700 
+  text-gray-800 dark:text-white
+`,
 
   heading: `
     text-gray-900 white font-semibold
@@ -113,7 +109,7 @@ fileInput: `
 w-40 md:w-[180px] 
 border-2 border-emerald-100 dark:border-gray-700 
 rounded-full p-2 text-sm 
-bg-white dark:bg-gray-800 
+bg-white dark:bg-[#1e293b] 
 focus:border-emerald-400 transition
 `,
   imagePreview: "h-12 w-12 md:h-16 md:w-16 rounded-full shadow-md border-2 border-emerald-200 object-cover",
@@ -171,7 +167,7 @@ text-emerald-800 dark:text-gray-200
   // Doctor list styles
   doctorListContainer: "max-w-4xl mx-auto mt-8",
   doctorListGrid: "grid grid-cols-1 md:grid-cols-2 gap-4",
- doctorCard: "p-4 rounded-xl border bg-white dark:bg-gray-800/80 shadow",
+ doctorCard: "p-4 rounded-xl border bg-white dark:bg-[#1e293b]/80 shadow",
 doctorSpecialization: "text-sm text-gray-500 dark:text-gray-400",
   doctorCardContent: "flex items-center gap-3",
   doctorImage: "h-12 w-12 rounded-full object-cover",
@@ -179,7 +175,7 @@ doctorSpecialization: "text-sm text-gray-500 dark:text-gray-400",
  
 
   // Labels and text
-label: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
+label: "block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2",
 emptyState: "text-center text-gray-500 dark:text-gray-400",
 
   // Cursor utilities
@@ -214,7 +210,7 @@ dark:text-gray-400
 
 searchContainer: `
 relative flex items-center 
-bg-white dark:bg-gray-800 
+bg-white dark:bg-[#1e293b] 
 rounded-full px-3 py-2 shadow-sm 
 border border-emerald-100 dark:border-gray-700
 w-full sm:w-72
@@ -230,7 +226,7 @@ focus:outline-none
 
   filterContainer: "flex items-center flex-col md:flex-row lg:flex-row gap-2 w-full sm:w-auto",
 dateFilter: `
-bg-white dark:bg-gray-800 
+bg-white dark:bg-[#1e293b] 
 rounded-full px-3 py-2 shadow-sm 
 flex items-center gap-2 
 border border-emerald-100 dark:border-gray-700
@@ -241,20 +237,20 @@ w-full sm:w-auto
 
   selectFilter: `
 text-sm px-3 py-2 cursor-pointer rounded-full 
-bg-emerald-100 dark:bg-gray-800
+bg-emerald-100 dark:bg-[#1e293b]
 text-emerald-800 dark:text-white
 border border-emerald-200 dark:border-gray-700
 w-full sm:w-auto
 `,
   clearButton: "ml-0 sm:ml-2 px-3 cursor-pointer py-2 rounded-full bg-emerald-600 text-white text-sm shadow-sm hover:opacity-95 transition w-full sm:w-auto",
 
-  loadingErrorContainer: "col-span-full text-center text-emerald-600 py-12 rounded-lg bg-white gray-800/60 border border-emerald-100 gray-700",
-  errorContainer: "col-span-full text-center text-rose-600 py-6 rounded-lg bg-white gray-800/60 border border-rose-100",
+  loadingErrorContainer: "col-span-full text-center text-emerald-600 py-12 rounded-lg bg-white dark:bg-[#1e293b]/60 border border-emerald-100 gray-700",
+  errorContainer: "col-span-full text-center text-rose-600 py-6 rounded-lg bg-white dark:bg-[#1e293b]/60 border border-rose-100",
  noResultsContainer: `
 col-span-full text-center py-12 rounded-lg 
-bg-white dark:bg-gray-800/60 
+bg-white dark:bg-[#1e293b]/60 
 border border-emerald-100 dark:border-gray-700
-text-emerald-600 dark:text-gray-300
+text-emerald-600 dark:text-gray-200
 `,
 
   gridContainer: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4",
@@ -276,7 +272,7 @@ truncate
   patientInfo: "text-xs sm:text-sm text-emerald-500 flex items-center gap-2",
   doctorInfo: `
 mt-1 text-xs sm:text-sm 
-text-emerald-600 dark:text-gray-300 
+text-emerald-600 dark:text-gray-200 
 truncate
 `,
   doctorSpeciality: "font-medium text-emerald-700",
@@ -327,7 +323,7 @@ export const keyframesStyles = `
 export const dashboardStyles = {
   // Layout styles
  pageContainer:
-  "h-screen overflow-y-auto bg-white dark:bg-[#0f172a] transition-colors duration-300",
+"min-h-screen bg-white dark:bg-[#0f172a] transition-colors duration-300",
   maxWidthContainer: "max-w-7xl mx-auto",
 
   // Header styles
@@ -349,13 +345,13 @@ statLabel: "text-sm text-slate-600 dark:text-gray-400",
 statValue: "text-xl font-semibold text-slate-800 dark:text-white",
 
   // Search section styles
-searchLabel: "block text-lg text-slate-600 dark:text-gray-300 mb-2",
+searchLabel: "block text-lg text-slate-600 dark:text-gray-200 mb-2",
   searchContainer: "flex items-center gap-3 max-w-md",
   searchInputContainer: "relative flex-1",
 searchInput: `
 pl-10 pr-4 py-2 rounded-full shadow-sm border 
 border-green-200 dark:border-gray-700 
-bg-white dark:bg-gray-800 
+bg-white dark:bg-[#1e293b] 
 text-slate-800 dark:text-white 
 placeholder:text-slate-400 dark:placeholder-gray-500
 focus:outline-none focus:ring-2 focus:ring-green-200 
@@ -367,7 +363,7 @@ w-full
   // Doctors table styles
 tableContainer: `
 bg-white 
-dark:bg-gray-800 
+dark:bg-[#1e293b] 
 rounded-xl 
 shadow-md 
 border border-gray-200 
@@ -384,10 +380,10 @@ flex items-center justify-between
   tableWrapper: "hidden md:block overflow-x-auto",
   table: "min-w-full divide-y divide-green-50",
   tableHead: "bg-gray-100 dark:bg-gray-700",
-tableHeaderCell: "px-6 py-3 text-left text-xs font-medium text-slate-600 dark:text-gray-300 uppercase tracking-wider",
-  tableBody: "bg-white dark:bg-gray-800 divide-y divide-green-50 dark:divide-gray-700",
+tableHeaderCell: "px-6 py-3 text-left text-xs font-medium text-slate-600 dark:text-gray-200 uppercase tracking-wider",
+  tableBody: "bg-white dark:bg-[#1e293b] divide-y divide-green-50 dark:divide-gray-700",
   tableRow: "group transform transition-all duration-200 hover:shadow-lg hover:-translate-y-1",
-tableRowEven: "bg-white dark:bg-gray-800",
+tableRowEven: "bg-white dark:bg-[#1e293b]",
 tableRowOdd: "bg-gray-50 dark:bg-gray-900",
 tableCell: "px-4 py-3 text-gray-700 gray-300",
   tableCellFlex: "flex items-center gap-4",
@@ -395,7 +391,7 @@ tableCell: "px-4 py-3 text-gray-700 gray-300",
   doctorImage: "w-12 h-12 rounded-full object-cover border-2 border-green-100",
 doctorName: "text-sm font-medium text-slate-800 dark:text-white",
 doctorId: "text-xs text-slate-500 dark:text-gray-400",
-doctorSpecialization: "text-sm text-slate-600 dark:text-gray-300",
+doctorSpecialization: "text-sm text-slate-600 dark:text-gray-200",
 feeText: "text-sm text-right text-slate-700 dark:text-gray-200",
 appointmentsText: "text-sm text-center text-slate-700 dark:text-gray-200",
   completedText: "text-sm text-center text-emerald-600",
@@ -405,7 +401,7 @@ appointmentsText: "text-sm text-center text-slate-700 dark:text-gray-200",
   // Mobile view styles
   mobileDoctorContainer: "md:hidden px-4 py-4",
   mobileDoctorGrid: "space-y-3",
-mobileDoctorCard: "bg-white dark:bg-gray-800 rounded-xl shadow p-3 border border-green-50 dark:border-gray-700",
+mobileDoctorCard: "bg-white dark:bg-[#1e293b] rounded-xl shadow p-3 border border-green-50 dark:border-gray-700",
 mobileDoctorName: "text-sm font-medium text-slate-800 dark:text-white",
 mobileDoctorSpecialization: "text-xs text-slate-500 dark:text-gray-400",
   mobileDoctorHeader: "flex items-center justify-between",
@@ -420,7 +416,7 @@ mobileDoctorSpecialization: "text-xs text-slate-500 dark:text-gray-400",
 
   // Show more button styles
   showMoreContainer: "px-6 py-4 border-t border-green-50 flex justify-center",
-  showMoreButton: "px-4 py-2 rounded-full bg-white dark:bg-gray-800 border border-green-200 dark:border-gray-700 shadow-sm hover:bg-green-50 dark:hover:bg-gray-700 transition",
+  showMoreButton: "px-4 py-2 rounded-full bg-white dark:bg-[#1e293b] border border-green-200 dark:border-gray-700 shadow-sm hover:bg-green-50 dark:hover:bg-gray-700 transition",
 
   // Cursor utilities
   cursorPointer: "cursor-pointer",
@@ -460,7 +456,7 @@ box-border
   buttons: {
    reset: `
 w-full sm:w-auto px-4 py-2 cursor-pointer rounded-full 
-bg-white dark:bg-gray-800 
+bg-white dark:bg-[#1e293b] 
 text-gray-700 dark:text-white 
 border border-emerald-100 dark:border-gray-700 
 hover:shadow transition-shadow duration-200
@@ -491,7 +487,7 @@ shadow-sm hover:shadow-md transition-all duration-200
 `,
    removeImage: `
 px-3 py-2 rounded-full 
-bg-white dark:bg-gray-800 
+bg-white dark:bg-[#1e293b] 
 border border-red-100 dark:border-red-800 
 hover:shadow transition-shadow
 `,
@@ -518,7 +514,7 @@ transition-all duration-200
   shadow-inner hover:shadow-lg transition-all duration-200`,
     preview:  `
 w-full h-40 sm:h-48 rounded-xl object-cover 
-bg-gray-100 dark:bg-gray-800
+bg-gray-100 dark:bg-[#1e293b]
 `,
     placeholder: "flex flex-col items-center justify-center text-center text-gray-500 dark:text-gray-400",
     placeholderText: "text-sm text-emerald-600 dark:text-emerald-300",
@@ -529,7 +525,7 @@ bg-gray-100 dark:bg-gray-800
   formFields: {
   input: (hasError) =>
   `mt-2 w-full px-4 py-3 rounded-full 
-  bg-white dark:bg-gray-800 
+  bg-white dark:bg-[#1e293b] 
   text-gray-800 dark:text-white 
   placeholder-gray-400 dark:placeholder-gray-500
   focus:outline-none focus:ring-2 shadow-md transition-all ${
@@ -539,7 +535,7 @@ bg-gray-100 dark:bg-gray-800
   }`,
     textarea: (hasError) =>
   `mt-2 w-full px-4 py-3 rounded-2xl 
-  bg-white dark:bg-gray-800 
+  bg-white dark:bg-[#1e293b] 
   text-gray-800 dark:text-white 
   placeholder-gray-400 dark:placeholder-gray-500
   focus:outline-none focus:ring-2 shadow-md resize-none transition-all ${
@@ -547,7 +543,7 @@ bg-gray-100 dark:bg-gray-800
       ? "border-2 border-red-200"
       : "border border-emerald-100 dark:border-gray-700 focus:ring-emerald-200"
   }`,
-  select: "mt-2 w-full px-4 py-3 rounded-full border border-emerald-100 dark:border-gray-700 text-gray-700 dark:text-white bg-white dark:bg-gray-800 appearance-none focus:ring-2 focus:ring-emerald-200 focus:outline-none",
+  select: "mt-2 w-full px-4 py-3 rounded-full border border-emerald-100 dark:border-gray-700 text-gray-700 dark:text-white bg-white dark:bg-[#1e293b] appearance-none focus:ring-2 focus:ring-emerald-200 focus:outline-none",
     smallSelect: "mt-1 w-full px-3 py-2 rounded-full border border-emerald-100 gray-700 text-gray-700 bg-white gray-800 appearance-none focus:ring-2 focus:ring-emerald-200 focus:outline-none",
     timeSelect: "mt-1 w-full px-2 py-2 rounded-full border border-emerald-100 gray-700 text-gray-700 bg-white gray-800 appearance-none focus:ring-2 focus:ring-emerald-200 focus:outline-none",
     ampmSelect: "mt-1 w-full px-1 py-2 rounded-full border border-emerald-100 gray-700 text-gray-700 bg-white gray-800 appearance-none focus:ring-2 focus:ring-emerald-200 focus:outline-none"
@@ -562,12 +558,12 @@ bg-gray-100 dark:bg-gray-800
       } max-h-44 overflow-auto pr-2`,
    item: `
 flex items-start gap-3 my-2 
-bg-white dark:bg-gray-800 
+bg-white dark:bg-[#1e293b] 
 rounded-full p-3 
 border border-emerald-50 dark:border-gray-700 
 shadow-sm hover:shadow transition-shadow min-w-0
 `,
-  input: "flex-1 min-w-0 px-3 py-2 rounded-full border border-emerald-100 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-200",
+  input: "flex-1 min-w-0 px-3 py-2 rounded-full border border-emerald-100 dark:border-gray-700 bg-white dark:bg-[#1e293b] text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-200",
     removeButton: "p-2 rounded-full hover:bg-red-50 transition-colors"
   },
 
@@ -581,7 +577,7 @@ shadow-sm hover:shadow transition-shadow min-w-0
   } shadow-sm`,
    slotItem: `
 flex items-center gap-2 
-bg-emerald-50 dark:bg-gray-800 
+bg-emerald-50 dark:bg-[#1e293b] 
 border border-emerald-100 dark:border-gray-700 
 px-2 py-2 my-1 rounded-full 
 shadow hover:shadow-md transition-shadow min-w-0
@@ -609,7 +605,7 @@ transform transition-all duration-300
       return `flex items-center justify-center w-10 h-10 rounded-full ${styles[type] || styles.success}`;
     },
     title: "font-semibold text-sm text-gray-800 dark:text-white",
-    message: "text-xs text-gray-600 dark:text-gray-300 mt-1 truncate"
+    message: "text-xs text-gray-600 dark:text-gray-200 mt-1 truncate"
   },
 
   // Label styles
@@ -677,13 +673,13 @@ export const doctorListStyles = {
 container: `
 min-h-screen font-serif 
 bg-emerald-50 bg-white 
-dark:bg-[#020617] 
+dark:bg-gradient-to-br dark:from-[#020617] dark:via-[#0b1220] dark:to-[#020617]
 p-4 sm:p-6 md:p-8
 `,
   headerContainer: "max-w-6xl mx-auto mb-6",
   headerTopSection: "flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4",
   headerIconContainer: "flex items-center gap-3 w-full sm:w-auto",
-headerIcon: "p-2 rounded-full bg-white dark:bg-gray-800 shadow-sm transform transition",
+headerIcon: "p-2 rounded-full bg-white dark:bg-[#1e293b] shadow-sm transform transition",
   headerIconSvg: "text-emerald-600",
 headerTitle: `
 text-base sm:text-lg font-semibold 
@@ -714,11 +710,11 @@ searchInput: "ml-3 w-full outline-none text-emerald-700 dark:text-white placehol
     if (color === 'emerald') {
     return isActive
   ? `${base} bg-emerald-600 text-white border-emerald-600`
-  : `${base} bg-white dark:bg-gray-800 text-emerald-700 dark:text-gray-300 border-emerald-200 dark:border-gray-600`;
+  : `${base} bg-white dark:bg-[#1e293b] text-emerald-700 dark:text-gray-200 border-emerald-200 dark:border-gray-600`;
     } else if (color === 'red') {
    return isActive
   ? `${base} bg-red-600 text-white border-red-600`
-  : `${base} bg-white dark:bg-gray-800 text-red-600 dark:text-red-400 border-red-100 dark:border-gray-600`;
+  : `${base} bg-white dark:bg-[#1e293b] text-red-600 dark:text-red-400 border-red-100 dark:border-gray-600`;
     }
     return base;
   },
@@ -751,13 +747,13 @@ availabilityBadge: (isAvailable) =>
   availabilityDot: (isAvailable) =>
     `w-2 h-2 rounded-full ${isAvailable ? "bg-emerald-600" : "bg-red-600"}`,
 
-  doctorDetails: "text-sm text-emerald-600 dark:text-gray-300",
+  doctorDetails: "text-sm text-emerald-600 dark:text-gray-200",
 
   ratingContainer: "flex items-center gap-3 mt-3 sm:mt-0 sm:ml-4",
   rating: "text-sm text-emerald-700 flex items-center gap-1",
  toggleButton: (isOpen) =>
   `p-2 rounded-full cursor-pointer 
-   bg-white dark:bg-gray-800 
+   bg-white dark:bg-[#1e293b] 
    border border-gray-200 dark:border-gray-600
    shadow-sm transform transition 
    ${isOpen ? "rotate-180" : "rotate-0"}`,
@@ -775,8 +771,8 @@ feesValue: "text-sm text-emerald-800 dark:text-white",
 
   aboutSection: "col-span-2",
   aboutHeading: "text-md font-bold text-emerald-700 mb-1",
-  aboutText: "text-sm text-emerald-600 dark:text-gray-300",
-qualificationsText: "text-sm text-emerald-600 dark:text-gray-300",
+  aboutText: "text-sm text-emerald-600 dark:text-gray-200",
+qualificationsText: "text-sm text-emerald-600 dark:text-gray-200",
 
   qualificationsHeading: "text-md text-emerald-700 font-bold",
  
@@ -786,7 +782,7 @@ qualificationsText: "text-sm text-emerald-600 dark:text-gray-300",
  scheduleSlot: `
 text-xs px-3 py-1 rounded-full 
 border border-emerald-100 dark:border-gray-600 
-bg-white dark:bg-gray-800 
+bg-white dark:bg-[#1e293b] 
 text-emerald-700 dark:text-gray-200 
 shadow-sm
 `,
@@ -798,7 +794,7 @@ shadow-sm
 
 showMoreButton: `
 px-5 py-2 cursor-pointer rounded-full 
-bg-white dark:bg-gray-800 
+bg-white dark:bg-[#1e293b] 
 border border-emerald-300 dark:border-gray-600 
 shadow-sm hover:shadow-md transition
 `,
@@ -841,7 +837,7 @@ overflow-x-auto scrollbar-hide
   centerNavItemBase: "relative flex flex-col lg:text-xs lg:-mx-2 xl:text-md items-center gap-1 px-3 py-2 rounded-lg transition-all text-sm",
  centerNavItemActive: "text-emerald-500 dark:text-emerald-400 font-semibold",
 centerNavItemInactive: `
-text-gray-700 dark:text-gray-300 
+text-gray-700 dark:text-gray-200 
 opacity-80 hover:opacity-100 
 hover:text-emerald-600 dark:hover:text-emerald-400
 `,
@@ -849,17 +845,17 @@ hover:text-emerald-600 dark:hover:text-emerald-400
   // Right section styles
   rightContainer: "flex items-center gap-3",
   signOutButton: "hidden lg:mx-1 lg:text-xs whitespace-nowrap xl:mx-1 lg:-mr-6 xl:mr-5 lg:flex px-4 py-2 cursor-pointer rounded-full bg-amber-500 text-white text-sm items-center gap-2 shadow-sm",
-  loginButton: "px-3 py-2 cursor-pointer rounded-full border bg-white dark:bg-gray-800 text-emerald-600 text-sm shadow-sm",
+  loginButton: "px-3 py-2 cursor-pointer rounded-full border bg-white dark:bg-[#1e293b] text-emerald-600 text-sm shadow-sm",
   
   // Mobile menu button
-  mobileMenuButton: "lg:hidden p-2 rounded-full bg-white dark:bg-gray-800 shadow",
+  mobileMenuButton: "lg:hidden p-2 rounded-full bg-white dark:bg-[#1e293b] shadow",
   
   // Mobile menu overlay
   mobileOverlay: "fixed inset-0 z-10 lg:hidden",
   
   // Mobile menu container
   mobileMenuContainer: "mt-3 lg:hidden z-20 relative",
-mobileMenuInner: "rounded-xl bg-white dark:bg-gray-800 shadow-md p-3 space-y-2 border border-gray-200 dark:border-gray-700",
+mobileMenuInner: "rounded-xl bg-white dark:bg-[#1e293b] shadow-md p-3 space-y-2 border border-gray-200 dark:border-gray-700",
   
   // Mobile menu items
   mobileItemBase: "flex items-center gap-3 px-2 py-2 rounded-md",
@@ -869,7 +865,7 @@ mobileMenuInner: "rounded-xl bg-white dark:bg-gray-800 shadow-md p-3 space-y-2 b
   // Mobile auth section
   mobileAuthContainer: "pt-2 border-t mt-2",
   mobileSignOutButton: "w-full py-2 rounded-full border bg-amber-500 text-white font-medium",
-  mobileLoginButton: "w-full cursor-pointer py-2 rounded-full border bg-white dark:bg-gray-800 text-emerald-600 font-medium",
+  mobileLoginButton: "w-full cursor-pointer py-2 rounded-full border bg-white dark:bg-[#1e293b] text-emerald-600 font-medium",
   
   // Indicator (for active navigation)
  indicator: "absolute bottom-0 left-0 h-0.5 bg-emerald-500 dark:bg-emerald-400 transition-all duration-300 ease-out rounded-full",
@@ -886,7 +882,7 @@ mobileMenuInner: "rounded-xl bg-white dark:bg-gray-800 shadow-md p-3 space-y-2 b
   textWhite: "text-white",
   
   // Background colors
-  bgWhite: "bg-white dark:bg-gray-800",
+  bgWhite: "bg-white dark:bg-[#1e293b]",
   bgAmber500: "bg-amber-500",
   bgEmerald50: "bg-emerald-50",
   bgEmerald100: "bg-emerald-100",
@@ -949,24 +945,24 @@ export const serviceListStyles = {
   // Header styles
   headerContainer: "flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4",
  headerTitle: "text-2xl md:text-3xl font-bold text-gray-800 dark:text-white",
-headerSubtitle: "text-sm text-slate-600 dark:text-gray-300 mt-1",
+headerSubtitle: "text-sm text-slate-600 dark:text-gray-200 mt-1",
 
   // Filter and search styles
   filterContainer: "flex flex-col md:flex-col items-stretch md:items-center gap-3 w-full md:w-auto",
- filterButtonsContainer: "inline-flex flex-wrap items-center gap-2 rounded-full border border-emerald-100 dark:border-gray-700 bg-white dark:bg-gray-800 p-1",
+ filterButtonsContainer: "inline-flex flex-wrap items-center gap-2 rounded-full border border-emerald-100 dark:border-gray-700 bg-white dark:bg-[#1e293b] p-1",
   filterButton: "px-3 py-1 cursor-pointer rounded-full text-sm transition",
   filterButtonActive: "bg-emerald-600 text-white",
   filterButtonInactive: "text-emerald-700 bg-transparent",
   searchContainer: "relative w-full md:w-auto",
   searchIcon: "absolute inset-y-0 left-3 flex items-center pointer-events-none",
   searchIconSvg: "w-5 h-5 text-emerald-300",
-  searchInput: "pl-12 pr-4 py-2 rounded-full border border-emerald-100 dark:border-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-200 transition w-full md:w-72 bg-white dark:bg-gray-800 text-gray-800 dark:text-white",
+  searchInput: "pl-12 pr-4 py-2 rounded-full border border-emerald-100 dark:border-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-200 transition w-full md:w-72 bg-white dark:bg-[#1e293b] text-gray-800 dark:text-white",
 
   // Grid styles
   servicesGrid: "grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-6",
 
   // Service card styles
-  serviceCard: "bg-white dark:bg-gray-800 rounded-2xl overflow-hidden transform transition hover:-translate-y-1 hover:shadow-2xl border border-emerald-50 dark:border-gray-700",
+  serviceCard: "bg-white dark:bg-[#1e293b] rounded-2xl overflow-hidden transform transition hover:-translate-y-1 hover:shadow-2xl border border-emerald-50 dark:border-gray-700",
   serviceCardContent: "flex flex-col sm:flex-row sm:items-start gap-4 p-4 cursor-pointer",
  serviceImageContainer: "w-full sm:w-20 h-40 sm:h-20 rounded-lg overflow-hidden bg-emerald-50 dark:bg-gray-700 ring-1 ring-emerald-50 dark:ring-gray-600 flex-shrink-0",
   serviceImage: "w-full h-full object-cover",
@@ -974,7 +970,7 @@ headerSubtitle: "text-sm text-slate-600 dark:text-gray-300 mt-1",
   serviceInfoContainer: "flex-1 min-w-0",
   serviceHeader: "flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2",
   serviceName: "text-lg font-semibold text-emerald-700 dark:text-emerald-400 truncate",
-serviceDescription: "text-sm text-emerald-500 dark:text-gray-300 mt-1 line-clamp-2",
+serviceDescription: "text-sm text-emerald-500 dark:text-gray-200 mt-1 line-clamp-2",
 servicePrice: "text-md font-semibold text-emerald-700 dark:text-emerald-400",
   servicePriceContainer: "text-left sm:text-right mt-2 sm:mt-0",
   
@@ -995,7 +991,7 @@ availabilityUnavailable: "bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text
   editImageContainer: "flex flex-col sm:flex-row gap-4",
   editImagePreview: "w-full sm:w-36 h-36 rounded-lg overflow-hidden bg-emerald-50 ring-1 ring-emerald-50 flex-shrink-0",
   editFormFields: "flex-1 space-y-2",
-  inputBase: "w-full border rounded-lg px-3 py-2 outline-none transition focus:ring-2 focus:ring-green-200 focus:border-green-300 border-green-100 bg-white dark:bg-gray-800 text-gray-800 dark:text-white",
+  inputBase: "w-full border rounded-lg px-3 py-2 outline-none transition focus:ring-2 focus:ring-green-200 focus:border-green-300 border-green-100 bg-white dark:bg-[#1e293b] text-gray-800 dark:text-white",
   availabilitySelectContainer: "mt-1 flex items-center gap-2",
   availabilityLabel: "text-sm text-emerald-600",
   availabilitySelect: "border rounded-full cursor-pointer px-3 py-1 outline-none focus:ring-2 focus:ring-emerald-200 border-emerald-300",
@@ -1089,7 +1085,7 @@ filterPill: `
   border
 
   bg-white dark:bg-[#1f2937]
-  text-gray-700 dark:text-gray-300
+  text-gray-700 dark:text-gray-200
 
   border-green-300 dark:border-green-500
 
@@ -1113,14 +1109,14 @@ filterPillActive: `
   headerContainer: "flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6",
   headerTitleContainer: "min-w-0",
   headerTitle: "text-2xl md:text-3xl font-bold text-gray-800 dark:text-white",
-headerSubtitle: "text-sm text-slate-600 dark:text-gray-300 mt-1",
+headerSubtitle: "text-sm text-slate-600 dark:text-gray-200 mt-1",
 
   searchContainer: "w-full md:w-96 flex flex-col gap-2",
   searchInputWrapper: "flex items-center gap-3",
   searchLabel: "relative block w-full",
   searchIconContainer: "absolute left-3 pointer-events-none",
   searchIcon: "w-4 h-4 text-emerald-400",
-searchInput: "pl-10 pr-10 w-full rounded-full border border-emerald-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-2 text-sm text-gray-800 dark:text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-200 transition-all",
+searchInput: "pl-10 pr-10 w-full rounded-full border border-emerald-200 dark:border-gray-700 bg-white dark:bg-[#1e293b] py-2 text-sm text-gray-800 dark:text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-200 transition-all",
   clearSearchButton: "absolute right-3 rounded-full p-1 hover:bg-gray-100",
   clearSearchIcon: "w-4 h-4 text-gray-500 dark:text-gray-400",
 
@@ -1145,18 +1141,18 @@ statusFilterSelect: `
 searchInfo: "mt-2 text-xs text-gray-500 dark:text-gray-400 flex items-center justify-between",
   refreshButton: "text-xs text-emerald-600 hover:underline",
 
-loadingContainer: "col-span-full rounded-2xl p-8 bg-white dark:bg-gray-800 border border-emerald-50 dark:border-gray-700 shadow-sm flex items-center justify-center gap-3",
+loadingContainer: "col-span-full rounded-2xl p-8 bg-white dark:bg-[#1e293b] border border-emerald-50 dark:border-gray-700 shadow-sm flex items-center justify-center gap-3",
   errorContainer: "col-span-full rounded-2xl p-4 bg-rose-50 border border-rose-100 text-rose-700",
 
- noResultsContainer: "col-span-full rounded-2xl p-8 bg-white dark:bg-gray-800 border border-emerald-50 dark:border-gray-700 shadow-sm flex items-center justify-center flex-col gap-3",
+ noResultsContainer: "col-span-full rounded-2xl p-8 bg-white dark:bg-[#1e293b] border border-emerald-50 dark:border-gray-700 shadow-sm flex items-center justify-center flex-col gap-3",
   noResultsIcon: "text-3xl text-emerald-300",
- noResultsText: "text-sm text-gray-600 dark:text-gray-300",
+ noResultsText: "text-sm text-gray-600 dark:text-gray-200",
 noResultsSubtext: "text-xs text-gray-400 dark:text-gray-500",
 
   gridContainer: "grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch",
 
   article: "group relative rounded-3xl p-1 animated-border h-full transform transition-all duration-300 hover:-translate-y-2",
-cardInner: "card-inner rounded-2xl overflow-hidden border-2 border-emerald-300/60 dark:border-gray-700 p-5 bg-white dark:bg-gray-800 shadow-lg h-full flex flex-col justify-between",
+cardInner: "card-inner rounded-2xl overflow-hidden border-2 border-emerald-300/60 dark:border-gray-700 p-5 bg-white dark:bg-[#1e293b] shadow-lg h-full flex flex-col justify-between",
 
   cardHeader: "flex flex-col sm:flex-row sm:items-start justify-between gap-4",
   patientInfoContainer: "flex items-start gap-4 min-w-0",
@@ -1168,8 +1164,8 @@ cardInner: "card-inner rounded-2xl overflow-hidden border-2 border-emerald-300/6
 
   statusContainer: "flex flex-col items-start sm:items-end gap-2 mt-2 sm:mt-0",
 
- detailsContainer: "mt-4 flex flex-col gap-3 text-gray-700 dark:text-gray-300",
-serviceText: "mt-2 text-base text-gray-600 dark:text-gray-300",
+ detailsContainer: "mt-4 flex flex-col gap-3 text-gray-700 dark:text-gray-200",
+serviceText: "mt-2 text-base text-gray-600 dark:text-gray-200",
   detailItem: "flex items-center gap-3 text-base",
   detailIcon: "w-4 h-4 text-emerald-500",
   detailText: "font-medium truncate",
@@ -1182,10 +1178,10 @@ serviceText: "mt-2 text-base text-gray-600 dark:text-gray-300",
   cancelButton: (isLocked) =>
     `px-3 py-1 rounded-full text-sm border ${isLocked
       ? "bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed"
-      : "bg-white dark:bg-gray-800 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-700 hover:shadow-sm"
+      : "bg-white dark:bg-[#1e293b] text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-700 hover:shadow-sm"
     }`,
 
- legendContainer: "mt-6 p-4 rounded-lg bg-white dark:bg-gray-800 shadow-inner border border-emerald-100 dark:border-gray-700 text-sm flex flex-col sm:flex-row flex-wrap items-center gap-4",
+ legendContainer: "mt-6 p-4 rounded-lg bg-white dark:bg-[#1e293b] shadow-inner border border-emerald-100 dark:border-gray-700 text-sm flex flex-col sm:flex-row flex-wrap items-center gap-4",
   legendItem: "flex items-center gap-2",
   legendDot: "w-3 h-3 rounded-full",
 
@@ -1206,16 +1202,16 @@ serviceText: "mt-2 text-base text-gray-600 dark:text-gray-300",
   statusSelect: (terminal) =>
     `text-sm cursor-pointer px-3 py-1 rounded-full border focus:outline-none transition ${terminal
       ? "bg-gray-50 text-gray-400 cursor-not-allowed border-gray-200"
-      : "bg-white dark:bg-gray-800 text-emerald-800 dark:text-emerald-400 border-emerald-400"
+      : "bg-white dark:bg-[#1e293b] text-emerald-800 dark:text-emerald-400 border-emerald-400"
     }`,
 
   // RescheduleButton component styles
   rescheduleButton: (terminal) =>
     `text-sm px-3 py-1 rounded-full cursor-pointer border transition ${terminal
       ? "bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed"
-      : "bg-white gray-800 text-emerald-800 border-emerald-400 hover:shadow-sm"
+      : "bg-white dark:bg-[#1e293b] text-emerald-800 dark:text-emerald-400 border-emerald-400 hover:shadow-sm"
     }`,
-  rescheduleEditContainer: "flex flex-col sm:flex-row xl:flex-col md:flex-col md:items-end gap-2 bg-gray-50 p-2 rounded-md shadow-sm",
+  rescheduleEditContainer: "flex flex-col sm:flex-row xl:flex-col md:flex-col md:items-end gap-2 bg-gray-50 dark:bg-gray-900 p-2 rounded-md shadow-sm",
   rescheduleDateInput: "text-sm px-3 py-1 w-full sm:w-auto text-green-800 border border-emerald-500 rounded-full",
   rescheduleTimeInput: "text-sm px-3 py-1 w-full sm:w-auto text-green-800 border border-emerald-500 rounded-full",
   rescheduleActions: "flex gap-2 w-full sm:w-auto",
@@ -1224,7 +1220,7 @@ serviceText: "mt-2 text-base text-gray-600 dark:text-gray-300",
 
   // Toast component styles
   toastContainer: "fixed top-4 right-3 sm:right-4 z-50 flex flex-col gap-3",
- toast: "max-w-xs w-full rounded-lg shadow-lg px-4 py-3 border-l-4 border-emerald-400 bg-white dark:bg-gray-800 backdrop-blur-sm",
+ toast: "max-w-xs w-full rounded-lg shadow-lg px-4 py-3 border-l-4 border-emerald-400 bg-white dark:bg-[#1e293b] backdrop-blur-sm",
   toastContent: "flex items-start gap-3",
   toastSpinner: "h-5 w-5 animate-spin text-emerald-600",
   toastText: "flex-1",
@@ -1286,7 +1282,7 @@ dark:text-emerald-300
     button: (hasServicesProp) =>
       `px-3 py-1 rounded-full text-sm ${hasServicesProp
         ? "bg-gray-200 text-gray-500 gray-400 cursor-not-allowed"
-        : "bg-white dark:bg-gray-800 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-gray-700 hover:shadow-sm"
+        : "bg-white dark:bg-[#1e293b] text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-gray-700 hover:shadow-sm"
       }`
   },
 
@@ -1298,7 +1294,7 @@ dark:text-emerald-300
     container: "mb-6 flex justify-start",
     inputContainer: `
 flex items-center gap-2 
-bg-white dark:bg-gray-800 
+bg-white dark:bg-[#1e293b] 
 px-4 py-2 rounded-full shadow-sm 
 border border-emerald-200 dark:border-gray-700 
 w-full sm:w-64
@@ -1313,9 +1309,9 @@ bg-white dark:bg-[#0f172a]
 rounded-2xl shadow-sm overflow-hidden 
 border border-emerald-100 dark:border-gray-700
 `,
-   headerMd: "hidden md:grid lg:hidden grid-cols-5 items-center gap-6 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 bg-emerald-50 dark:bg-gray-800",
+   headerMd: "hidden md:grid lg:hidden grid-cols-5 items-center gap-6 px-4 py-3 text-sm text-gray-600 dark:text-gray-200 bg-emerald-50 dark:bg-[#1e293b]",
 
-headerLg: "hidden lg:grid md:text-xs lg:text-xs xl:text-md grid-cols-12 items-center gap-4 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 bg-emerald-50 dark:bg-gray-800",
+headerLg: "hidden lg:grid md:text-xs lg:text-xs xl:text-md grid-cols-12 items-center gap-4 px-4 py-3 text-sm text-gray-600 dark:text-gray-200 bg-emerald-50 dark:bg-[#1e293b]",
     headerText: "text-center text-xs font-medium",
     headerTextLg: (span) => `col-span-${span} text-center text-xs font-medium`,
     body: "divide-y divide-transparent min-w-full",
@@ -1361,7 +1357,7 @@ empty: "px-4 py-6 text-center text-gray-500 dark:text-gray-400",
   // Show more button
   showMore: {
     container: "px-6 py-4 border-t border-green-50 flex justify-center",
-    button: "px-4 py-2 rounded-full cursor-pointer bg-white dark:bg-gray-800 border border-green-200 dark:border-gray-700 shadow-sm hover:bg-green-50 dark:hover:bg-gray-700 transition"
+    button: "px-4 py-2 rounded-full cursor-pointer bg-white dark:bg-[#1e293b] border border-green-200 dark:border-gray-700 shadow-sm hover:bg-green-50 dark:hover:bg-gray-700 transition"
   },
 
   // StatCard component styles

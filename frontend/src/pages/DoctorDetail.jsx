@@ -373,9 +373,12 @@ export default function DoctorDetail() {
       </div>
     );
 
+  const rating = doctor?.rating || 4; // fallback
+  const successRate = Math.round((rating / 5) * 100);
+
   return (
     <div className={doctorDetailStyles.pageContainer}>
-      
+
       {/* Header */}
       <div className={doctorDetailStyles.headerContainer}>
         <div className={doctorDetailStyles.headerContent}>
@@ -401,11 +404,10 @@ export default function DoctorDetail() {
         </div>
       </div>
       <div
-        className={`${doctorDetailStyles.mainContent} ${
-          isVisible
+        className={`${doctorDetailStyles.mainContent} ${isVisible
             ? doctorDetailStyles.visibleState
             : doctorDetailStyles.hiddenState
-        }`}
+          }`}
       >
         {/* profile card */}
         <div className={doctorDetailStyles.profileCard}>
@@ -430,7 +432,7 @@ export default function DoctorDetail() {
                     className={`${doctorDetailStyles.statIcon} ${doctorDetailStyles.heartIcon}`}
                   />
                   <div className={doctorDetailStyles.statValue}>
-                    {doctor.success}%
+                   {successRate}%
                   </div>
                   <div className={doctorDetailStyles.statLabel}>Success</div>
                 </div>
@@ -557,11 +559,10 @@ export default function DoctorDetail() {
                         <button
                           key={date.toISOString()}
                           onClick={() => setSelectedDate(date)}
-                          className={`${doctorDetailStyles.dateButton} ${
-                            isSelected
+                          className={`${doctorDetailStyles.dateButton} ${isSelected
                               ? doctorDetailStyles.dateButtonSelected
                               : doctorDetailStyles.dateButtonUnselected
-                          }`}
+                            }`}
                         >
                           <div className={doctorDetailStyles.dateContent}>
                             <div className={doctorDetailStyles.dateWeekday}>
@@ -667,11 +668,10 @@ export default function DoctorDetail() {
                     <button
                       key={slot}
                       onClick={() => setSelectedSlot(slot)}
-                      className={`${doctorDetailStyles.timeSlotButton} ${
-                        selectedSlot === slot
+                      className={`${doctorDetailStyles.timeSlotButton} ${selectedSlot === slot
                           ? doctorDetailStyles.timeSlotButtonSelected
                           : doctorDetailStyles.timeSlotButtonUnselected
-                      }`}
+                        }`}
                     >
                       <div className={doctorDetailStyles.timeSlotContent}>
                         <Clock className={doctorDetailStyles.timeSlotIcon} />
@@ -709,11 +709,11 @@ export default function DoctorDetail() {
                       <span className={doctorDetailStyles.summaryValue}>
                         {selectedDate
                           ? selectedDate.toLocaleDateString("en-US", {
-                              weekday: "long",
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            })
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })
                           : "Not selected"}
                       </span>
                     </div>
@@ -744,11 +744,10 @@ export default function DoctorDetail() {
                     </label>
                     <div className={doctorDetailStyles.paymentOptions}>
                       <label
-                        className={`${doctorDetailStyles.paymentOption} ${
-                          paymentMethod === "Cash"
+                        className={`${doctorDetailStyles.paymentOption} ${paymentMethod === "Cash"
                             ? doctorDetailStyles.paymentOptionSelected
                             : doctorDetailStyles.paymentOptionUnselected
-                        }`}
+                          }`}
                       >
                         <input
                           type="radio"
@@ -761,11 +760,10 @@ export default function DoctorDetail() {
                         Cash
                       </label>
                       <label
-                        className={`${doctorDetailStyles.paymentOption} ${
-                          paymentMethod === "Online"
+                        className={`${doctorDetailStyles.paymentOption} ${paymentMethod === "Online"
                             ? doctorDetailStyles.paymentOptionSelected
                             : doctorDetailStyles.paymentOptionUnselected
-                        }`}
+                          }`}
                       >
                         <input
                           type="radio"
@@ -783,11 +781,10 @@ export default function DoctorDetail() {
                   <button
                     onClick={handleBooking}
                     disabled={!selectedDate || !selectedSlot || isSubmitting}
-                    className={`${doctorDetailStyles.bookingButton} ${
-                      !selectedDate || !selectedSlot || isSubmitting
+                    className={`${doctorDetailStyles.bookingButton} ${!selectedDate || !selectedSlot || isSubmitting
                         ? doctorDetailStyles.bookingButtonDisabled
                         : doctorDetailStyles.bookingButtonEnabled
-                    }`}
+                      }`}
                   >
                     <div className={doctorDetailStyles.bookingButtonContent}>
                       <Phone className={doctorDetailStyles.bookingIcon} />
