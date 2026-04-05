@@ -29,7 +29,7 @@ const ChatWindow = ({ onClose }) => {
     setLoading(true);
 
     try {
-      const res = await axios.post("/api/chatbot", {
+      const res = await axios.post("http://localhost:4000/api/chatbot", {
         message: text,
       });
 

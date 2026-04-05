@@ -13,6 +13,7 @@ import DHome from "./pages/DHome";
 import List from "./pages/List";
 import EditProfile from "./pages/EditProfile";
 import Appointments from "./pages/Appointments";
+import Chatbot from "./components/chatbot/Chatbot";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,6 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { CircleChevronUp } from "lucide-react";
 import VerifyServicePayPageStripe from "./pages/VerifyServicePayPageStripe";
 import VerifyPayPageStripe from "./pages/VerifyPayPageStripe";
+
 
 /* ---------------- Scroll To Top ---------------- */
 const ScrollToTop = () => {
@@ -101,6 +103,7 @@ const App = () => {
 
           {/* User */}
           <Route path="/appointments" element={<Appointments />} />
+          
 
           {/* Public Pages */}
           <Route path="/" element={<Home />} />
@@ -116,10 +119,12 @@ const App = () => {
           <Route path="/doctor-admin/:id/appointments" element={<List />} />
           <Route path="/doctor-admin/:id/profile/edit" element={<EditProfile />} />
 
+
           {/* ✅ FALLBACK */}
           <Route path="*" element={<div className="p-10 text-center">Page Not Found</div>} />
         </Routes>
       </div>
+      <Chatbot />
 
       <ScrollButton />
     </>

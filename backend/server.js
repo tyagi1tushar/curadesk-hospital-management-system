@@ -11,6 +11,7 @@ import serviceAppointmentRouter from './routes/serviceAppointmentRouter.js';
 import newsletterRoutes from "./routes/newsletterRoutes.js";
 import chatbotRouter from "./routes/chatbotRouter.js";
 
+
 console.log("MONGO_URI:", process.env.MONGO_URI);
 console.log("ALL ENV:", process.env);
 
@@ -62,6 +63,8 @@ app.use("/api/appointments", appointmentRouter);
 app.use("/api/service-appointments", serviceAppointmentRouter);
 app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/chatbot", chatbotRouter);
+
+
 app.get('/', (req, res) => {
     res.send("API WORKING");
 });
