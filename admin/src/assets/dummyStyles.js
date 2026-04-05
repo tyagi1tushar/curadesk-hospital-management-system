@@ -295,7 +295,13 @@ flex items-center justify-end gap-1
       : "bg-rose-50 text-rose-700 hover:scale-105"
     }`,
 
-  showMoreButton: "px-4 py-2 cursor-pointer rounded-full bg-white gray-800 border border-emerald-200 shadow-sm hover:shadow-md transition",
+  showMoreButton: `
+px-4 py-2 cursor-pointer rounded-full 
+bg-white dark:bg-[#1e293b] 
+text-gray-800 dark:text-white
+border border-emerald-200 dark:border-gray-700 
+shadow-sm hover:shadow-md transition
+`,
 };
 
 export const statusClasses = (status) => {
@@ -385,7 +391,7 @@ tableHeaderCell: "px-6 py-3 text-left text-xs font-medium text-slate-600 dark:te
   tableRow: "group transform transition-all duration-200 hover:shadow-lg hover:-translate-y-1",
 tableRowEven: "bg-white dark:bg-[#1e293b]",
 tableRowOdd: "bg-gray-50 dark:bg-gray-900",
-tableCell: "px-4 py-3 text-gray-700 gray-300",
+tableCell: "px-4 py-3 text-gray-700 dark:text-gray-300",
   tableCellFlex: "flex items-center gap-4",
   verticalLine: "w-1 h-12 rounded-md mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-bfrom-emerald-400 to-green-200",
   doctorImage: "w-12 h-12 rounded-full object-cover border-2 border-green-100",
@@ -918,7 +924,7 @@ export const heroStyles = {
   },
 
   // Content container
-  contentBox: "bg-white gray-800/90 backdrop-blur-sm border border-emerald-100 gray-700 rounded-3xl shadow-xl p-8 md:p-12 text-center",
+  contentBox: "bg-white dark:bg-[#1e293b]/90 border border-emerald-100 dark:border-gray-700",
 
   // Logo/Image styles
   logoContainer: "flex items-center gap-2 relative z-10",

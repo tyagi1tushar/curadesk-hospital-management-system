@@ -11,6 +11,9 @@ import {
 import { contactPageStyles } from "../assets/dummyStyles";
 
 export default function ContactPage() {
+
+     const PHONE_NUMBER = "917289086654"; 
+     
     const initial = {
         name: "",
         email: "",
@@ -118,7 +121,9 @@ export default function ContactPage() {
             }\nPhone: ${form.phone}\nDepartment: ${form.department || "N/A"
             }\nService: ${form.service || "N/A"}\nMessage: ${form.message}`;
 
-        const url = `https://wa.me/8299431275?text=${encodeURIComponent(text)}`;
+       
+
+        const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(text)}`;
         window.open(url, "_blank");
 
         setForm(initial);
@@ -322,7 +327,7 @@ export default function ContactPage() {
                         loading="lazy"
                         allowFullScreen
                     ></iframe>
-                   
+
                     <div className={contactPageStyles.hoursContainer}>
                         <h4 className={contactPageStyles.hoursTitle}>
                             Clinic Hours

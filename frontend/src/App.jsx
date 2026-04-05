@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { useAuth } from "@clerk/clerk-react"; // ✅ ADDED
 
 import Home from "./pages/Home";
 import Doctors from "./pages/Doctors";
@@ -17,10 +18,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { CircleChevronUp } from "lucide-react";
-import VerifyServicePayPageStripe from "../VerifyServicePayPageStripe";
+import VerifyServicePayPageStripe from "./pages/VerifyServicePayPageStripe";
 import VerifyPayPageStripe from "./pages/VerifyPayPageStripe";
-
-
 
 /* ---------------- Scroll To Top ---------------- */
 const ScrollToTop = () => {
@@ -65,6 +64,8 @@ const ScrollButton = () => {
 
 /* ---------------- App ---------------- */
 const App = () => {
+  const { isLoaded } = useAuth(); // ✅ ADDED
+
   useEffect(() => {
     document.body.style.overflowX = "hidden";
     document.documentElement.style.overflowX = "hidden";
@@ -73,6 +74,11 @@ const App = () => {
       document.documentElement.style.overflowX = "auto";
     };
   }, []);
+
+  // ✅ IMPORTANT FIX (DO NOT REMOVE)
+  if (!isLoaded) {
+    return <div className="text-center mt-20">Loading...</div>;
+  }
 
   return (
     <>
@@ -87,6 +93,16 @@ const App = () => {
         />
 
         <Routes>
+          {/* ✅ PAYMENT ROUTES FIRST */}
+          <Route path="/appointment/success" element={<VerifyPayPageStripe />} />
+          <Route path="/appointment/cancel" element={<VerifyPayPageStripe />} />
+          <Route path="/service-appointment/success" element={<VerifyServicePayPageStripe />} />
+          <Route path="/service-appointment/cancel" element={<VerifyServicePayPageStripe />} />
+
+          {/* User */}
+          <Route path="/appointments" element={<Appointments />} />
+
+          {/* Public Pages */}
           <Route path="/" element={<Home />} />
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/doctors/:id" element={<DoctorDetail />} />
@@ -97,30 +113,11 @@ const App = () => {
           {/* Doctor Admin */}
           <Route path="/doctor-admin/login" element={<Login />} />
           <Route path="/doctor-admin/:id" element={<DHome />} />
-          <Route
-            path="/doctor-admin/:id/appointments"
-            element={<List />}
-          />
-          <Route
-            path="/doctor-admin/:id/profile/edit"
-            element={<EditProfile />}
-          />
+          <Route path="/doctor-admin/:id/appointments" element={<List />} />
+          <Route path="/doctor-admin/:id/profile/edit" element={<EditProfile />} />
 
-          {/* User */}
-          <Route path="/appointments" element={<Appointments />} />
-
-           {/* Payment */}
-             <Route path="/appointment/success" element={<VerifyPayPageStripe />} />
-            <Route path="/appointment/cancel" element={<VerifyPayPageStripe />} />
-             <Route
-            path="/service-appointment/success"
-            element={<VerifyServicePayPageStripe />}
-          />
-          <Route
-            path="/service-appointment/cancel"
-            element={<VerifyServicePayPageStripe />}
-          />
-
+          {/* ✅ FALLBACK */}
+          <Route path="*" element={<div className="p-10 text-center">Page Not Found</div>} />
         </Routes>
       </div>
 

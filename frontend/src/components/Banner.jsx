@@ -9,7 +9,7 @@ import {
   Ribbon,
   ShieldCheck,
 } from "lucide-react";
-import banner from "../assets/BannerImg.png";
+import banner from "../assets/New_Banner.jpeg";
 import { useNavigate } from "react-router-dom";
 import { bannerStyles } from "../assets/dummyStyles";
 

@@ -9,6 +9,8 @@ const VerifyServicePayPageStripe = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    console.log("VERIFY PAGE HIT");
     let cancelled = false;
 
     const verifyServicePayment = async () => {

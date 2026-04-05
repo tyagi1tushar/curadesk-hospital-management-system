@@ -17,6 +17,7 @@ import {
   badgeStyles,
   iconSize,
 } from "../assets/dummyStyles";
+import { useLocation } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4000";
 const API = axios.create({ baseURL: API_BASE });
@@ -65,39 +66,16 @@ function parseDateTime(dateStr, timeStr) {
 }
 
 function computeStatus(item) {
-  const now = new Date();
   if (!item) return "Pending";
 
   if (item.status === "Canceled") return "Canceled";
-  if (item.status === "Rescheduled") {
-    if (
-      item.rescheduledTo &&
-      item.rescheduledTo.date &&
-      item.rescheduledTo.time
-    ) {
-      const dt = parseDateTime(
-        item.rescheduledTo.date,
-        item.rescheduledTo.time,
-      );
-      if (now >= dt) return "Completed";
-    }
-    return "Rescheduled";
-  }
+  if (item.status === "Rescheduled") return "Rescheduled";
   if (item.status === "Completed") return "Completed";
-  if (item.status === "Confirmed") {
-    const dtConfirmed = parseDateTime(item.date, item.time);
-    if (now >= dtConfirmed) return "Completed";
-    return "Confirmed";
-  }
-  if (item.status === "Pending") {
-    const dtPending = parseDateTime(item.date, item.time);
-    if (now >= dtPending) return "Completed";
-    return "Pending";
-  }
 
-  const dt = parseDateTime(item.date, item.time);
-  if (now >= dt) return "Completed";
-  return item.confirmed ? "Confirmed" : "Pending";
+  if (item.status === "Confirmed") return "Confirmed";
+  if (item.status === "Pending") return "Pending";
+
+  return "Pending";
 }
 
 /* -------------------- Badges -------------------- */
@@ -151,6 +129,18 @@ const StatusBadge = ({ itemStatus }) => {
 
 /* -------------------- Component -------------------- */
 export default function AppointmentPage() {
+
+   const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const payment_status = params.get("payment_status");
+
+    if (payment_status === "Paid") {
+      toast.success("Appointment Confirmed 🎉");
+    }
+  }, [location]);
+
   const { isLoaded, isSignedIn, getToken } = useAuth();
   const { user } = useUser();
 

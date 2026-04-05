@@ -11,8 +11,39 @@ import {
 } from "lucide-react";
 import logo from "../assets/logo.png";
 import { footerStyles } from "../assets/dummyStyles";
+import { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 
 const Footer = () => {
+
+  const [email, setEmail] = useState("");
+
+  const handleSubscribe = async () => {
+    if (!email) {
+      toast.error("Enter email");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        "http://localhost:4000/api/newsletter/subscribe",
+        { email }
+      );
+
+      if (res.data.success) {
+        toast.success("Subscribed successfully 🎉");
+        setEmail("");
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (err) {
+      toast.error("Server error");
+    }
+  };
+
+
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
@@ -36,7 +67,7 @@ const Footer = () => {
       Icon: Linkedin,
       color: footerStyles.linkedinColor,
       name: "LinkedIn",
-      href: "https://www.linkedin.com/in/tushartyagi28/", 
+      href: "https://www.linkedin.com/in/tushartyagi28/",
     },
   ];
 
@@ -150,12 +181,16 @@ const Footer = () => {
 
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
                 className="flex-1 w-full min-w-0 px-5 py-3 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 text-gray-800 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-green-400"
-                style={{ width: "100%" }}
               />
 
-              <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full flex items-center justify-center gap-2 transition w-full sm:w-auto whitespace-nowrap shadow-md hover:shadow-lg">
+              <button
+                onClick={handleSubscribe}
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full flex items-center justify-center gap-2 transition w-full sm:w-auto whitespace-nowrap shadow-md hover:shadow-lg"
+              >
                 <Send className="w-4 h-4" />
                 Subscribe
               </button>
@@ -185,10 +220,18 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className={footerStyles.bottomSection}>
+        <div className={`${footerStyles.bottomSection} flex justify-between items-center flex-wrap gap-2`}>
+
+          {/* Left */}
           <div className={footerStyles.copyright}>
             <span>© {currentYear} CuraDesk Healthcare</span>
           </div>
+
+          {/* Right */}
+          <div className="text-sm text-gray-700 font-medium">
+            Designed by <span className="font-semibold text-emerald-500 hover:text-emerald-400 transition">Tushar Tyagi</span>
+          </div>
+
         </div>
       </div>
 

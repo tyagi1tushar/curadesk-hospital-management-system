@@ -24,13 +24,8 @@ const safeNumber = (v) => {
     return Number.isFinite(n) ? n : null;
 };
 
-const buildFrontendBase = (req) => {
-    if (FRONTEND_URL) return FRONTEND_URL.replace(/\/$/, "");
-    const origin = req.get("origin") || req.get("referer");
-    if (origin) return origin.replace(/\/$/, "");
-    const host = req.get("host");
-    if (host) return `${req.protocol || "http"}://${host}`.replace(/\/$/, "");
-    return null;
+const buildFrontendBase = () => {
+    return process.env.FRONTEND_URL.replace(/\/$/, "");
 };
 
 function resolveClerkUserId(req) {
