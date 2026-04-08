@@ -3,9 +3,9 @@
 A full-stack Hospital Management System built using the MERN stack to streamline healthcare operations such as appointment booking, doctor management, patient records, and secure online payments.
 
 
-# 🚀 Features
+## 🚀 Features
 
-## 👨‍💼 Admin Panel
+ 👨‍💼 Admin Panel
 
 	•	Add, edit, and manage doctors & services
 	•	View, reschedule, or cancel appointments
@@ -13,13 +13,13 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 	•	Track earnings and bookings
 	•	Dark mode enabled dashboard 🌙
 
-## 🩺 Doctor Panel
+ 🩺 Doctor Panel
 
 	•	View assigned appointments
 	•	Update appointment status
 	•	Manage patient interactions
 
-## 🧑 Patient Panel
+ 🧑 Patient Panel
 
 	•	Register/Login securely (Clerk Auth)
 	•	Book appointments with doctors/services
@@ -28,7 +28,7 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 
 
 
-# ✨ Core Functionalities
+## ✨ Core Functionalities
 
 	•	🔐 Role-based Authentication (Admin / Doctor / Patient)
 	•	📅 Appointment Scheduling System with status tracking
@@ -42,7 +42,7 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 
 
 
-# 🧩 Base Template & Customization
+## 🧩 Base Template & Customization
 
 This project was initially built using a base template, which was extended and customized with additional features and improvements:
 
@@ -53,28 +53,28 @@ This project was initially built using a base template, which was extended and c
 	•	Added Stripe payment integration for secure online transactions
 	•	Improved backend logic for appointment status handling and admin controls
 
-# 🛠️ Tech Stack
+## 🛠️ Tech Stack
 
-## Frontend:
+ Frontend:
 
 	•	React.js (Vite)
 	•	Tailwind CSS
 	•	Context API
 
-## Backend:
+ Backend:
 
 	•	Node.js
 	•	Express.js
 
-## Database:
+ Database:
 
 	•	MongoDB (Mongoose)
 
-## Authentication:
+ Authentication:
 
 	•	Clerk
 
-## Integrations:
+ Integrations:
 
 	•	Stripe (Payments)
 	•	Cloudinary (Image Uploads)
@@ -82,7 +82,7 @@ This project was initially built using a base template, which was extended and c
 
 
 
-# 📦 Project Structure
+## 📦 Project Structure
 
 ```bash
 root/
@@ -110,15 +110,15 @@ root/
 ```
 
 
-# ⚙️ Installation & Setup
+## ⚙️ Installation & Setup
 
-## 1️⃣ Clone Repository
+ 1️⃣ Clone Repository
 
 	git clone https://github.com/tyagi1tushar/curadesk-hospital-management-system.git
 	
 	cd hospital-management-system
 	
-## 2️⃣ Backend Setup
+ 2️⃣ Backend Setup
 
 	cd backend
 	
@@ -139,7 +139,7 @@ Run backend:
 
 	npm start
 
-## 3️⃣ Frontend Setup
+ 3️⃣ Frontend Setup
 
 Patient/Doctor Frontend
 
@@ -153,7 +153,7 @@ Admin Panel
 	npm install
 	npm run dev
 
-# 🔄 Workflow Overview
+## 🔄 Workflow Overview
 
 	1.	Patient selects doctor/service
 	2.	Books appointment
@@ -163,13 +163,13 @@ Admin Panel
 
 
 
-# 📸 Screenshots
+## 📸 Screenshots
 
 Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 
 
 
-# 🌟 Future Improvements
+## 🌟 Future Improvements
 
 	•	📊 Dashboard analytics (charts & insights)
 	•	🔍 Search & filter doctors/services
@@ -179,7 +179,7 @@ Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 
 
 
-# 📌 Learning Outcomes
+## 📌 Learning Outcomes
 
 	•	Built a complete MERN stack application from scratch
 	•	Implemented role-based access control & secure APIs
@@ -188,19 +188,19 @@ Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 
 
 
-# 🤝 Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Fork the repo and submit a PR 🚀
 
 
 
-# ⭐ Support
+## ⭐ Support
 
 If you like this project, give it a ⭐ on GitHub!
 
 
 
-# 📬 Contact
+## 📬 Contact
 
 Feel free to connect with me for feedback or collaboration.
 
