@@ -7,26 +7,39 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 🚀 Features
 
 👨‍💼 Admin Panel
+
 	•	Add, edit, and manage doctors & services
+
 	•	View, reschedule, or cancel appointments
+
 	•	Update appointment status (Pending, Confirmed, Completed, Cancelled)
+
 	•	Track earnings and bookings
+
 	•	Dark mode enabled dashboard 🌙
 
 🩺 Doctor Panel
+
 	•	View assigned appointments
+
 	•	Update appointment status
+
 	•	Manage patient interactions
 
 🧑 Patient Panel
+
 	•	Register/Login securely (Clerk Auth)
+
 	•	Book appointments with doctors/services
+
 	•	View appointment history
+
 	•	Chatbot assistance for doctor discovery 🤖
 
 ⸻
 
 ✨ Core Functionalities
+
 	•	🔐 Role-based Authentication (Admin / Doctor / Patient)
 	•	📅 Appointment Scheduling System with status tracking
 	•	💳 Online Payments using Stripe (secure checkout & auto-confirmation)
@@ -42,6 +55,7 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 🧩 Base Template & Customization
 
 This project was initially built using a base template, which was extended and customized with additional features and improvements:
+
 	•	Integrated email notifications (Nodemailer) for appointment updates
 	•	Developed a chatbot interface for patient guidance and booking assistance
 	•	Implemented dark mode support in the admin panel
@@ -52,21 +66,26 @@ This project was initially built using a base template, which was extended and c
 🛠️ Tech Stack
 
 Frontend:
+
 	•	React.js (Vite)
 	•	Tailwind CSS
 	•	Context API
 
 Backend:
+
 	•	Node.js
 	•	Express.js
 
 Database:
+
 	•	MongoDB (Mongoose)
 
 Authentication:
+
 	•	Clerk
 
 Integrations:
+
 	•	Stripe (Payments)
 	•	Cloudinary (Image Uploads)
 	•	Nodemailer (Emails)
@@ -102,43 +121,47 @@ root/
 
 1️⃣ Clone Repository
 
-git clone https://github.com/your-username/hospital-management-system.git
-cd hospital-management-system
-
+	git clone https://github.com/your-username/hospital-management-system.git
+	
+	cd hospital-management-system
+	
 2️⃣ Backend Setup
 
-cd backend
-npm install
+	cd backend
+	
+	npm install
 
 Create .env file:
 
-MONGO_URI=your_mongodb_uri
-CLERK_SECRET_KEY=your_clerk_secret
-STRIPE_SECRET_KEY=your_stripe_secret
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-EMAIL_USER=your_email
-EMAIL_PASS=your_password
+	MONGO_URI=your_mongodb_uri
+	CLERK_SECRET_KEY=your_clerk_secret
+	STRIPE_SECRET_KEY=your_stripe_secret
+	CLOUDINARY_CLOUD_NAME=your_cloud_name
+	CLOUDINARY_API_KEY=your_api_key
+	CLOUDINARY_API_SECRET=your_api_secret
+	EMAIL_USER=your_email
+	EMAIL_PASS=your_password
 
 Run backend:
-npm start
+
+	npm start
 
 3️⃣ Frontend Setup
 
 Patient/Doctor Frontend
 
-cd frontend
-npm install
-npm run dev
+	cd frontend
+	npm install
+	npm run dev
 
 Admin Panel
 
-cd admin
-npm install
-npm run dev
+	cd admin
+	npm install
+	npm run dev
 
 🔄 Workflow Overview
+
 	1.	Patient selects doctor/service
 	2.	Books appointment
 	3.	Completes Stripe payment
@@ -154,6 +177,7 @@ Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 ⸻
 
 🌟 Future Improvements
+
 	•	📊 Dashboard analytics (charts & insights)
 	•	🔍 Search & filter doctors/services
 	•	📱 Full dark mode across all panels
@@ -163,6 +187,7 @@ Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 ⸻
 
 📌 Learning Outcomes
+
 	•	Built a complete MERN stack application from scratch
 	•	Implemented role-based access control & secure APIs
 	•	Integrated Stripe payments, Cloudinary, and email services
