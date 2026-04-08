@@ -2,7 +2,6 @@
 
 A full-stack Hospital Management System built using the MERN stack to streamline healthcare operations such as appointment booking, doctor management, patient records, and secure online payments.
 
-⸻
 
 # 🚀 Features
 
@@ -27,7 +26,7 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 	•	View appointment history
 	•	Chatbot assistance for doctor discovery 🤖
 
-⸻
+
 
 # ✨ Core Functionalities
 
@@ -41,7 +40,7 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 	•	⚡ Responsive UI built with React + Tailwind CSS
 	•	🔒 Protected Backend APIs & Middleware Security
 
-⸻
+
 
 # 🧩 Base Template & Customization
 
@@ -81,7 +80,7 @@ This project was initially built using a base template, which was extended and c
 	•	Cloudinary (Image Uploads)
 	•	Nodemailer (Emails)
 
-⸻
+
 
 # 📦 Project Structure
 
@@ -162,13 +161,13 @@ Admin Panel
 	4.	Appointment automatically marked as Confirmed
 	5.	Email notification sent to patient
 
-⸻
+
 
 # 📸 Screenshots
 
 Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 
-⸻
+
 
 # 🌟 Future Improvements
 
@@ -178,7 +177,7 @@ Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 	•	📩 SMS/WhatsApp notifications
 	•	🏥 Multi-hospital support
 
-⸻
+
 
 # 📌 Learning Outcomes
 
@@ -187,19 +186,19 @@ Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 	•	Integrated Stripe payments, Cloudinary, and email services
 	•	Improved skills in system design, UI/UX, and scalability
 
-⸻
+
 
 # 🤝 Contributing
 
 Contributions are welcome! Fork the repo and submit a PR 🚀
 
-⸻
+
 
 # ⭐ Support
 
 If you like this project, give it a ⭐ on GitHub!
 
-⸻
+
 
 # 📬 Contact
 
