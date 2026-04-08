@@ -9,31 +9,22 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 👨‍💼 Admin Panel
 
 	•	Add, edit, and manage doctors & services
-
 	•	View, reschedule, or cancel appointments
-
 	•	Update appointment status (Pending, Confirmed, Completed, Cancelled)
-
 	•	Track earnings and bookings
-
 	•	Dark mode enabled dashboard 🌙
 
 🩺 Doctor Panel
 
 	•	View assigned appointments
-
 	•	Update appointment status
-
 	•	Manage patient interactions
 
 🧑 Patient Panel
 
 	•	Register/Login securely (Clerk Auth)
-
 	•	Book appointments with doctors/services
-
 	•	View appointment history
-
 	•	Chatbot assistance for doctor discovery 🤖
 
 ⸻
