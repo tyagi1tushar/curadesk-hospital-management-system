@@ -6,7 +6,7 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 
 ## 🚀 Features
 
-👨‍💼 Admin Panel
+# 👨‍💼 Admin Panel
 
 	•	Add, edit, and manage doctors & services
 	•	View, reschedule, or cancel appointments
@@ -14,13 +14,13 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 	•	Track earnings and bookings
 	•	Dark mode enabled dashboard 🌙
 
-🩺 Doctor Panel
+# 🩺 Doctor Panel
 
 	•	View assigned appointments
 	•	Update appointment status
 	•	Manage patient interactions
 
-🧑 Patient Panel
+# 🧑 Patient Panel
 
 	•	Register/Login securely (Clerk Auth)
 	•	Book appointments with doctors/services
@@ -29,7 +29,7 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 
 ⸻
 
-✨ Core Functionalities
+## ✨ Core Functionalities
 
 	•	🔐 Role-based Authentication (Admin / Doctor / Patient)
 	•	📅 Appointment Scheduling System with status tracking
@@ -43,7 +43,7 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 
 ⸻
 
-🧩 Base Template & Customization
+## 🧩 Base Template & Customization
 
 This project was initially built using a base template, which was extended and customized with additional features and improvements:
 
@@ -56,26 +56,26 @@ This project was initially built using a base template, which was extended and c
 
 ## 🛠️ Tech Stack
 
-Frontend:
+# Frontend:
 
 	•	React.js (Vite)
 	•	Tailwind CSS
 	•	Context API
 
-Backend:
+# Backend:
 
 	•	Node.js
 	•	Express.js
 
-Database:
+# Database:
 
 	•	MongoDB (Mongoose)
 
-Authentication:
+# Authentication:
 
 	•	Clerk
 
-Integrations:
+# Integrations:
 
 	•	Stripe (Payments)
 	•	Cloudinary (Image Uploads)
@@ -113,13 +113,13 @@ root/
 
 ## ⚙️ Installation & Setup
 
-1️⃣ Clone Repository
+# 1️⃣ Clone Repository
 
-	git clone https://github.com/your-username/hospital-management-system.git
+	git clone https://github.com/tyagi1tushar/fullstack-hospital-management
 	
 	cd hospital-management-system
 	
-2️⃣ Backend Setup
+# 2️⃣ Backend Setup
 
 	cd backend
 	
@@ -140,7 +140,7 @@ Run backend:
 
 	npm start
 
-3️⃣ Frontend Setup
+# 3️⃣ Frontend Setup
 
 Patient/Doctor Frontend
 
