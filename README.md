@@ -83,21 +83,22 @@ Integrations:
 
 ⸻
 
-🗂️ Project Structure
+## 📦 Project Structure
 
+```bash
 root/
 │
 ├── admin/            # Admin dashboard (React + Vite)
 │   └── src/
 │       ├── components/
 │       ├── pages/
-│       ├── context/
+│       └── context/
 │
 ├── frontend/         # Patient & Doctor frontend
 │   └── src/
 │       ├── components/
 │       ├── pages/
-│       ├── doctor/
+│       └── doctor/
 │
 ├── backend/          # Node.js + Express API
 │   ├── controllers/
@@ -107,6 +108,8 @@ root/
 │   ├── services/
 │   ├── utilities/
 │   └── config/
+```
+
 
 ⚙️ Installation & Setup
 
