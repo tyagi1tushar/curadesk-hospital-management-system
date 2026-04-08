@@ -115,7 +115,7 @@ root/
 
 ## 1️⃣ Clone Repository
 
-	git clone https://github.com/tyagi1tushar/fullstack-hospital-management
+	git clone https://github.com/tyagi1tushar/curadesk-hospital-management-system.git
 	
 	cd hospital-management-system
 	
