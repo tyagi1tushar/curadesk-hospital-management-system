@@ -189,7 +189,7 @@ const Footer = () => {
 
               <button
                 onClick={handleSubscribe}
-                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full flex items-center justify-center gap-2 transition w-full sm:w-auto whitespace-nowrap shadow-md hover:shadow-lg"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full flex items-center justify-center gap-2 transition w-full sm:w-auto whitespace-nowrap shadow-md hover:shadow-lg"
               >
                 <Send className="w-4 h-4" />
                 Subscribe
@@ -228,8 +228,8 @@ const Footer = () => {
           </div>
 
           {/* Right */}
-          <div className="text-sm text-gray-700 font-medium">
-            Designed by <span className="font-semibold text-emerald-500 hover:text-emerald-400 transition">Tushar Tyagi</span>
+          <div className="text-sm text-cyan-700 font-large">
+            Designed by <span className="font-bold text-blue-600 hover:text-blue-700 transition">Tushar Tyagi</span>
           </div>
 
         </div>

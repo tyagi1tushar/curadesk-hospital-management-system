@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import Stripe from "stripe";
 import { getAuth } from "@clerk/express";
 import { clerkClient } from "@clerk/clerk-sdk-node";
+import { notifyPatient } from "../services/notificationService.js";
 
 dotenv.config();
 
@@ -167,6 +168,15 @@ export const createAppointment = async (req, res) => {
 
         const clerkUserId = resolveClerkUserId(req);
 
+        // ✅ Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email && !emailRegex.test(email)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid email format"
+            });
+        }
+
         if (!clerkUserId) {
             return res.status(401).json({
                 success: false,
@@ -253,6 +263,7 @@ export const createAppointment = async (req, res) => {
             doctorImage,
             patientName: String(patientName).trim(),
             mobile: String(mobile).trim(),
+            email: email,
             age: age ? Number(age) : undefined,
             gender: gender ? String(gender) : "",
             date: String(date),
@@ -274,6 +285,21 @@ export const createAppointment = async (req, res) => {
                 payment: { method: base.payment.method, status: "Paid", amount: 0 },
                 paidAt: new Date(),
             });
+            await notifyPatient({
+                email,
+                type: "success",
+                message: `
+    <p>👨‍⚕️ Doctor: Dr. ${doctorName}</p>
+    <p>📅 Date: ${date}</p>
+    <p>⏰ Time: ${time}</p>
+    <p>🧑 Patient: ${patientName}</p>
+    <p>💰 Fee: ₹${numericFee}</p>
+  `,
+            });
+
+
+
+
             return res.status(201).json({ success: true, appointment: created, checkoutUrl: null });
         }
 
@@ -284,6 +310,19 @@ export const createAppointment = async (req, res) => {
                 status: "Pending",
                 payment: { method: "Cash", status: "Pending", amount: numericFee },
             });
+            await notifyPatient({
+                email,
+                type: "success",
+                message: `
+    <p>👨‍⚕️ Doctor: Dr. ${doctorName}</p>
+    <p>📅 Date: ${date}</p>
+    <p>⏰ Time: ${time}</p>
+    <p>🧑 Patient: ${patientName}</p>
+    <p>💰 Fee: ₹${numericFee}</p>
+  `,
+            });
+
+
             return res.status(201).json({ success: true, appointment: created, checkoutUrl: null });
         }
 
@@ -448,6 +487,17 @@ export const confirmPayment = async (req, res) => {
         if (!appt) {
             return res.status(404).json({ success: false, message: "Appointment not found for this payment session" });
         }
+        await notifyPatient({
+            email: appt.email,
+            type: "success",
+            message: `
+    <p>👨‍⚕️ Doctor: Dr. ${appt.doctorName}</p>
+    <p>📅 Date: ${appt.date}</p>
+    <p>⏰ Time: ${appt.time}</p>
+    <p>🧑 Patient: ${appt.patientName}</p>
+    <p>💰 Fee: ₹${appt.fees}</p>
+  `,
+        });
 
         return res.json({ success: true, appointment: appt });
 
@@ -509,25 +559,51 @@ export const updateAppointment = async (req, res) => {
 //to cancel appointment
 
 // to cancelAppointment
+
 export const cancelAppointment = async (req, res) => {
     try {
         const { id } = req.params;
-        const appt = await Appointment.findById(id);
 
-        if (!appt)
+        const updated = await Appointment.findByIdAndUpdate(
+            id,
+            { status: "Canceled" },
+            { new: true }
+        );
+
+        if (!updated) {
             return res.status(404).json({
                 success: false,
                 message: "Appointment not found"
             });
+        }
 
-        appt.status = "Canceled";
-        await appt.save();
+        // ✅ SEND EMAIL AFTER CANCEL
+        if (updated.email) {
+            await notifyPatient({
+                email: updated.email,
+                type: "cancel", // ✅ IMPORTANT
+                message: `
+    <p>👨‍⚕️ Doctor: Dr. ${updated.doctorName}</p>
+    <p>📅 Date: ${updated.date}</p>
+    <p>⏰ Time: ${updated.time}</p>
+    <p>🧑 Patient: ${updated.patientName}</p>
 
-        return res.json({ success: true, appointment: appt });
+    <p style="color:red;"><strong>Your appointment has been cancelled.</strong></p>
+  `,
+            });
+        }
+
+        return res.json({
+            success: true,
+            appointment: updated
+        });
 
     } catch (err) {
         console.error("cancelAppointment error:", err);
-        return res.status(500).json({ success: false, message: "Server error" });
+        return res.status(500).json({
+            success: false,
+            message: "Server error"
+        });
     }
 };
 

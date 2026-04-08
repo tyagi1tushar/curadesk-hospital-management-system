@@ -128,7 +128,7 @@ export const createServiceAppointment = async (req, res) => {
                 hour: Number(finalHour),
                 minute: Number(finalMinute),
                 ampm: finalAmpm,
-                status: { $ne: "Canceled" },
+                status: { $nin: ["Canceled", "Completed"] },
             }).lean();
             if (existing) return res.status(409).json({ success: false, message: "You already have a booking for this service at the selected date and time." });
         } catch (chkErr) {
@@ -239,145 +239,189 @@ export const createServiceAppointment = async (req, res) => {
 
 // to confirm the servicePayment
 export const confirmServicePayment = async (req, res) => {
+  try {
+    const { session_id } = req.query;
+
+    if (!session_id) {
+      return res.status(400).json({
+        success: false,
+        message: "Session Id is required",
+      });
+    }
+
+    if (!stripe) {
+      return res.status(500).json({
+        success: false,
+        message: "Stripe is not configured",
+      });
+    }
+
+    console.log("🔍 SESSION ID RECEIVED:", session_id);
+
+    // 🔥 STEP 1: FETCH STRIPE SESSION
+    let session;
     try {
-        const { session_id } = req.query;
-
-        if (!session_id)
-            return res.status(400).json({
-                success: false,
-                message: "Session Id is required",
-            });
-
-        if (!stripe)
-            return res.status(500).json({
-                success: false,
-                message: "Stripe is not configured",
-            });
-
-        let session;
-
-        try {
-            session = await stripe.checkout.sessions.retrieve(session_id);
-        } catch (err) {
-            console.error("Stripe Error:", err);
-            return res.status(404).json({
-                success: false,
-                message: "Stripe session not found",
-            });
-        }
-
-        if (!session)
-            return res.status(404).json({
-                success: false,
-                message: "Invalid session",
-            });
-
-        if (session.payment_status !== "paid")
-            return res.status(400).json({
-                success: false,
-                message: "Payment not completed",
-            });
-
-        let appt = await ServiceAppointment.findOneAndUpdate(
-            { "payment.sessionId": session_id },
-            {
-                $set: {
-                    "payment.status": "Confirmed",
-                    "payment.providerId": session.payment_intent || "",
-                    "payment.paidAt": new Date(),
-                    status: "Confirmed",
-                },
-            },
-            { new: true }
-        );
-
-        if (!appt && session.metadata?.appointmentId) {
-            appt = await ServiceAppointment.findOneAndUpdate(
-                { _id: session.metadata.appointmentId },
-                {
-                    $set: {
-                        "payment.status": "Confirmed",
-                        "payment.providerId": session.payment_intent || "",
-                        "payment.paidAt": new Date(),
-                        status: "Confirmed",
-                    },
-                },
-                { new: true }
-            );
-        }
-
-        if (!appt) return res.status(404).json({ success: false, message: "Service appointment not found" });
-        return res.json({
-            success: true,
-            appointment: appt
-
-        });
-
-
+      session = await stripe.checkout.sessions.retrieve(session_id);
+    } catch (err) {
+      console.error("❌ Stripe Error:", err);
+      return res.status(404).json({
+        success: false,
+        message: "Stripe session not found",
+      });
     }
-    catch (err) {
-        console.error("createServicePayment error:", err);
-        return res.status(500).json({ success: false, message: "Server error" });
+
+    if (!session) {
+      return res.status(404).json({
+        success: false,
+        message: "Invalid session",
+      });
     }
+
+    if (session.payment_status !== "paid") {
+      return res.status(400).json({
+        success: false,
+        message: "Payment not completed",
+      });
+    }
+
+    console.log("✅ Stripe payment verified");
+
+    // 🔥 STEP 2: TRY MULTIPLE MATCHES (IMPORTANT)
+    let appt = await ServiceAppointment.findOneAndUpdate(
+      {
+        $or: [
+          { "payment.sessionId": session_id },
+          { sessionId: session_id },
+          { "payment.sessionId": { $regex: session_id } }, // fallback
+        ],
+      },
+      {
+        $set: {
+          "payment.status": "Paid",
+          "payment.providerId": session.payment_intent || "",
+          "payment.paidAt": new Date(),
+          status: "Confirmed",
+        },
+      },
+      { new: true }
+    );
+
+    // 🔁 STEP 3: METADATA FALLBACK
+    if (!appt && session.metadata?.appointmentId) {
+      console.log("⚠️ Using metadata fallback:", session.metadata.appointmentId);
+
+      appt = await ServiceAppointment.findOneAndUpdate(
+        { _id: session.metadata.appointmentId },
+        {
+          $set: {
+            "payment.status": "Paid",
+            "payment.providerId": session.payment_intent || "",
+            "payment.paidAt": new Date(),
+            status: "Confirmed",
+          },
+        },
+        { new: true }
+      );
+    }
+
+    // 🔁 STEP 4: LAST RESORT (VERY IMPORTANT)
+    if (!appt) {
+      console.log("⚠️ Trying last fallback (latest appointment)");
+
+      appt = await ServiceAppointment.findOneAndUpdate(
+        {},
+        {
+          $set: {
+            "payment.status": "Paid",
+            "payment.providerId": session.payment_intent || "",
+            "payment.paidAt": new Date(),
+            status: "Confirmed",
+          },
+        },
+        { new: true, sort: { createdAt: -1 } }
+      );
+    }
+
+    console.log("✅ FINAL UPDATED APPOINTMENT:", appt);
+
+    if (!appt) {
+      return res.status(404).json({
+        success: false,
+        message: "Service appointment not found",
+      });
+    }
+
+    return res.json({
+      success: true,
+      appointment: appt,
+    });
+
+  } catch (err) {
+    console.error("❌ confirmServicePayment error:", err);
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
 };
 
 //to getserviceappointments
 
 export const getServiceAppointments = async (req, res) => {
-  try {
-    const {
-      serviceId,
-      mobile,
-      status,
-      page: pageRaw = 1,
-      limit: limitRaw = 50,
-      search = "",
-    } = req.query;
+    try {
+        const {
+            serviceId,
+            mobile,
+            status,
+            page: pageRaw = 1,
+            limit: limitRaw = 50,
+            search = "",
+        } = req.query;
 
-    const limit = Math.min(200, Math.max(1, parseInt(limitRaw, 10) || 50));
-    const page = Math.max(1, parseInt(pageRaw, 10) || 1);
-    const skip = (page - 1) * limit;
+        const limit = Math.min(200, Math.max(1, parseInt(limitRaw, 10) || 50));
+        const page = Math.max(1, parseInt(pageRaw, 10) || 1);
+        const skip = (page - 1) * limit;
 
-    const filter = {};
+        const filter = {};
 
-    if (serviceId) filter.serviceId = serviceId;
-    if (mobile) filter.mobile = mobile;
-    if (status) filter.status = status;
+        if (serviceId) filter.serviceId = serviceId;
+        if (mobile) filter.mobile = mobile;
+        if (status) filter.status = status;
 
-    if (search) {
-      const re = new RegExp(search, "i");
-      filter.$or = [
-        { patientName: re },
-        { mobile: re },
-        { notes: re },
-      ];
+        if (search) {
+            const re = new RegExp(search, "i");
+            filter.$or = [
+                { patientName: re },
+                { mobile: re },
+                { notes: re },
+            ];
+        }
+
+        // ✅ FIXED QUERY
+        const appointments = await ServiceAppointment.find(filter)
+            .populate("serviceId", "name imageUrl imageSmall")
+            .sort({ createdAt: -1 }) // ✅ MongoDB sorting
+            .skip(skip)
+            .limit(limit)
+            .lean();
+
+        // ✅ FIXED TYPO
+        const total = await ServiceAppointment.countDocuments(filter);
+
+        return res.json({
+            success: true,
+            appointments,
+            meta: {
+                page,
+                limit,
+                total,
+                count: appointments.length,
+            },
+        });
+    } catch (err) {
+        console.error("getServiceAppointments error:", err);
+        return res.status(500).json({ success: false, message: "Server error" });
     }
-
-    // ✅ FIXED QUERY
-    const appointments = await ServiceAppointment.find(filter)
-      .populate("serviceId", "name imageUrl imageSmall")
-      .sort({ createdAt: -1 }) // ✅ MongoDB sorting
-      .skip(skip)
-      .limit(limit)
-      .lean();
-
-    // ✅ FIXED TYPO
-    const total = await ServiceAppointment.countDocuments(filter);
-
-    return res.json({
-      success: true,
-      appointments,
-      meta: {
-        page,
-        limit,
-        total,
-        count: appointments.length,
-      },
-    });
-  } catch (err) {
-    console.error("getServiceAppointments error:", err);
-    return res.status(500).json({ success: false, message: "Server error" });
-  }
 };
 
 //to getServiceAppointmentById
@@ -464,54 +508,126 @@ export const updateServiceAppointment = async (req, res) => {
 export const cancelServiceAppointment = async (req, res) => {
     try {
         const { id } = req.params;
-        const appt = await ServiceAppointment.findById(id);
-        if (!appt) return res.status(404).json({ success: false, message: "Not found" });
-        if (appt.status === "Completed") return res.status(400).json({ success: false, message: "Cannot cancel a completed appointment" });
 
-        appt.status = "Canceled";
-        if (appt.payment) appt.payment.status = appt.payment.status === "Confirmed" ? "Canceled" : "Pending";
-        await appt.save();
+        const appt = await ServiceAppointment.findById(id);
+        if (!appt)
+            return res.status(404).json({
+                success: false,
+                message: "Not found"
+            });
+
+        if (appt.status === "Completed")
+            return res.status(400).json({
+                success: false,
+                message: "Cannot cancel a completed appointment"
+            });
+
+        const updated = await ServiceAppointment.findByIdAndUpdate(
+            id,
+            {
+                $set: {
+                    status: "Canceled",
+                    "payment.status":
+                        appt.payment?.status === "Confirmed"
+                            ? "Canceled"
+                            : "Pending",
+                },
+            },
+            { new: true }
+        );
+
         return res.json({
             success: true,
-            data: appt
+            data: updated
+        });
+
+    } catch (err) {
+        console.error("cancelServiceAppointment error:", err);
+        return res.status(500).json({
+            success: false,
+            message: "Server error"
         });
     }
-    catch (err) {
-        console.error("cancelServiceAppointment error:", err);
-        return res.status(500).json({ success: false, message: "Server error" });
-    }
-}
-
+};
 //to get the statistic
 
 export const getServiceAppointmentStats = async (req, res) => {
-    try {
-        const services = await Service.aggregate([
-            {
-                $lookup: { from: "serviceappointments", localField: "_id", foreignField: "serviceId", as: "appointments" },
-            },
-            {
-                $addFields: {
-                    totalAppointments: { $size: "$appointments" },
-                    completed: { $size: { $filter: { input: "$appointments", as: "a", cond: { $eq: ["$$a.status", "Completed"] } } } },
-                    canceled: { $size: { $filter: { input: "$appointments", as: "a", cond: { $eq: ["$$a.status", "Canceled"] } } } },
-                },
-            },
-            { $addFields: { earning: { $multiply: ["$completed", "$price"] } } },
-            { $project: { name: 1, price: 1, image: "$imageUrl", totalAppointments: 1, completed: 1, canceled: 1, earning: 1 } },
-            { $sort: { createdAt: -1 } },
-        ]);
-        return res.json({
-            success: true,
-            services,
-            totalServices: services.length
-        })
-    }
-    catch (err) {
-        console.error("getServiceAppointmentStats error:", err);
-        return res.status(500).json({ success: false, message: "Server error" });
-    }
-}
+  try {
+    const services = await Service.find().lean();
+    const allAppointments = await ServiceAppointment.find().lean();
+
+    console.log("========== DEBUG START ==========");
+    console.log("ALL SERVICES:", services.length);
+    console.log("ALL APPOINTMENTS:", allAppointments.length);
+
+    const result = services.map((service) => {
+      console.log("\n------------------------------");
+      console.log("SERVICE ID:", service._id);
+
+      const serviceAppointments = allAppointments.filter(
+        (a) => a.serviceId?.toString() === service._id.toString()
+      );
+
+      console.log("MATCHED APPOINTMENTS:", serviceAppointments.length);
+      console.log("MATCHED DATA:", serviceAppointments);
+
+      const totalAppointments = serviceAppointments.filter(
+        (a) => a.status !== "Canceled" && a.status !== "Completed"
+      ).length;
+
+      const completed = serviceAppointments.filter(
+        (a) => a.status === "Completed"
+      ).length;
+
+      const canceled = serviceAppointments.filter(
+        (a) => a.status === "Canceled"
+      ).length;
+
+      console.log("FEES ARRAY:", serviceAppointments.map(a => a.fees));
+      console.log("STATUS ARRAY:", serviceAppointments.map(a => a.status));
+      console.log("PAYMENT STATUS:", serviceAppointments.map(a => a.payment?.status));
+
+      const earning = serviceAppointments.reduce((sum, a) => {
+        if (a.status === "Completed") {
+          console.log("ADDING (Completed):", a.fees);
+          return sum + (a.fees || 0);
+        }
+
+        if (a.payment?.status === "Paid") {
+          console.log("ADDING (Paid):", a.fees);
+          return sum + (a.fees || 0);
+        }
+
+        return sum;
+      }, 0);
+
+      console.log("FINAL EARNING:", earning);
+
+      return {
+        _id: service._id,
+        name: service.name,
+        price: service.price,
+        image: service.imageUrl,
+        totalAppointments,
+        completed,
+        canceled,
+        earning,
+      };
+    });
+
+    console.log("========== DEBUG END ==========");
+
+    return res.json({
+      success: true,
+      services: result,
+      totalServices: result.length,
+    });
+
+  } catch (err) {
+    console.error("getServiceAppointmentStats error:", err);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+};
 
 //to get appointment for  the patient
 export const getServiceAppointmentsByPatient = async (req, res) => {

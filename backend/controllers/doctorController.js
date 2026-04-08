@@ -1,6 +1,7 @@
 import Doctor from "../models/doctor.js";
 import { uploadToCloudinary, deleteFromCloudinary } from "../utilities/cloudinary.js";
 import jwt from "jsonwebtoken";
+import Appointment from "../models/Appointment.js";
 
 /* =========================
    HELPER FUNCTIONS
@@ -146,7 +147,35 @@ export async function createDoctor(req, res) {
 export const getDoctors = async (req, res) => {
   try {
     const docs = await Doctor.find().select("-password").lean();
-    const normalized = docs.map(d => normalizeDocForClient(d));
+
+    const doctorsWithEarnings = await Promise.all(
+      docs.map(async (doc) => {
+
+        const earningsAgg = await Appointment.aggregate([
+          {
+            $match: {
+              doctorId: doc._id,
+              "payment.status": "Paid"
+            }
+          },
+          {
+            $group: {
+              _id: null,
+              total: { $sum: "$fees" }
+            }
+          }
+        ]);
+
+        return {
+          ...doc,
+          earnings: earningsAgg[0]?.total || 0
+        };
+      })
+    );
+
+    const normalized = doctorsWithEarnings.map(d =>
+      normalizeDocForClient(d)
+    );
 
     return res.json({
       success: true,

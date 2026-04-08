@@ -216,6 +216,15 @@ export default function DoctorDetail() {
       return;
     }
 
+    // ✅ ADD THIS HERE
+    if (!formData.email) {
+      toast.error("Email is required to receive confirmation", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+      return;
+    }
+
     // Mobile must be exactly 10 digits
     const mobileDigits = (formData.mobile || "").replace(/\D/g, "");
     if (mobileDigits.length !== 10) {
@@ -283,7 +292,7 @@ export default function DoctorDetail() {
       fee: fee,
       fees: fee,
       paymentMethod: paymentMethod || "Online",
-      email: formData.email || undefined,
+      email: formData.email,
     };
 
     try {
@@ -405,8 +414,8 @@ export default function DoctorDetail() {
       </div>
       <div
         className={`${doctorDetailStyles.mainContent} ${isVisible
-            ? doctorDetailStyles.visibleState
-            : doctorDetailStyles.hiddenState
+          ? doctorDetailStyles.visibleState
+          : doctorDetailStyles.hiddenState
           }`}
       >
         {/* profile card */}
@@ -432,7 +441,7 @@ export default function DoctorDetail() {
                     className={`${doctorDetailStyles.statIcon} ${doctorDetailStyles.heartIcon}`}
                   />
                   <div className={doctorDetailStyles.statValue}>
-                   {successRate}%
+                    {successRate}%
                   </div>
                   <div className={doctorDetailStyles.statLabel}>Success</div>
                 </div>
@@ -560,8 +569,8 @@ export default function DoctorDetail() {
                           key={date.toISOString()}
                           onClick={() => setSelectedDate(date)}
                           className={`${doctorDetailStyles.dateButton} ${isSelected
-                              ? doctorDetailStyles.dateButtonSelected
-                              : doctorDetailStyles.dateButtonUnselected
+                            ? doctorDetailStyles.dateButtonSelected
+                            : doctorDetailStyles.dateButtonUnselected
                             }`}
                         >
                           <div className={doctorDetailStyles.dateContent}>
@@ -639,7 +648,8 @@ export default function DoctorDetail() {
 
                     <input
                       type="email"
-                      placeholder="Email (optional - for receipts)"
+                      required
+                      placeholder="Enter your email"
                       className={doctorDetailStyles.emailInput}
                       value={formData.email}
                       onChange={(e) =>
@@ -669,8 +679,8 @@ export default function DoctorDetail() {
                       key={slot}
                       onClick={() => setSelectedSlot(slot)}
                       className={`${doctorDetailStyles.timeSlotButton} ${selectedSlot === slot
-                          ? doctorDetailStyles.timeSlotButtonSelected
-                          : doctorDetailStyles.timeSlotButtonUnselected
+                        ? doctorDetailStyles.timeSlotButtonSelected
+                        : doctorDetailStyles.timeSlotButtonUnselected
                         }`}
                     >
                       <div className={doctorDetailStyles.timeSlotContent}>
@@ -745,8 +755,8 @@ export default function DoctorDetail() {
                     <div className={doctorDetailStyles.paymentOptions}>
                       <label
                         className={`${doctorDetailStyles.paymentOption} ${paymentMethod === "Cash"
-                            ? doctorDetailStyles.paymentOptionSelected
-                            : doctorDetailStyles.paymentOptionUnselected
+                          ? doctorDetailStyles.paymentOptionSelected
+                          : doctorDetailStyles.paymentOptionUnselected
                           }`}
                       >
                         <input
@@ -761,8 +771,8 @@ export default function DoctorDetail() {
                       </label>
                       <label
                         className={`${doctorDetailStyles.paymentOption} ${paymentMethod === "Online"
-                            ? doctorDetailStyles.paymentOptionSelected
-                            : doctorDetailStyles.paymentOptionUnselected
+                          ? doctorDetailStyles.paymentOptionSelected
+                          : doctorDetailStyles.paymentOptionUnselected
                           }`}
                       >
                         <input
@@ -782,8 +792,8 @@ export default function DoctorDetail() {
                     onClick={handleBooking}
                     disabled={!selectedDate || !selectedSlot || isSubmitting}
                     className={`${doctorDetailStyles.bookingButton} ${!selectedDate || !selectedSlot || isSubmitting
-                        ? doctorDetailStyles.bookingButtonDisabled
-                        : doctorDetailStyles.bookingButtonEnabled
+                      ? doctorDetailStyles.bookingButtonDisabled
+                      : doctorDetailStyles.bookingButtonEnabled
                       }`}
                   >
                     <div className={doctorDetailStyles.bookingButtonContent}>

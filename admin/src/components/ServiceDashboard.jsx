@@ -15,6 +15,7 @@ const API_BASE = "http://localhost:4000";
    Normalizer - robust to multiple backend shapes
    ----------------------- */
 function normalizeService(doc) {
+  const earning = Number(doc.earning ?? doc.totalEarning ?? 0);
   if (!doc) return null;
   const id = doc._id || doc.id || String(Math.random()).slice(2);
   const name = doc.name || doc.title || doc.serviceName || "Untitled Service";
@@ -54,6 +55,7 @@ function normalizeService(doc) {
     totalAppointments: Number(totalAppointments) || 0,
     completed: Number(completed) || 0,
     canceled: Number(canceled) || 0,
+    earning, 
     raw: doc,
   };
 }
@@ -145,7 +147,7 @@ export default function ServiceDashboard({ services: servicesProp = null }) {
         // cleanup global
         // eslint-disable-next-line no-undef
         delete window.refreshServices;
-      } catch {}
+      } catch { }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -247,7 +249,7 @@ export default function ServiceDashboard({ services: servicesProp = null }) {
         acc.totalAppointments += s.totalAppointments;
         acc.totalCompleted += s.completed;
         acc.totalCanceled += s.canceled;
-        acc.totalEarning += s.completed * s.price;
+       acc.totalEarning += s.earning || 0;
         return acc;
       },
       {
@@ -283,9 +285,8 @@ export default function ServiceDashboard({ services: servicesProp = null }) {
             <div className={serviceDashboardStyles.refresh.countText}>
               {loading
                 ? "Loading..."
-                : `${filteredServices.length} service${
-                    filteredServices.length !== 1 ? "s" : ""
-                  }`}
+                : `${filteredServices.length} service${filteredServices.length !== 1 ? "s" : ""
+                }`}
             </div>
             <button
               onClick={() => {
@@ -389,7 +390,7 @@ export default function ServiceDashboard({ services: servicesProp = null }) {
               </div>
             ) : (
               visibleServices.map((s) => {
-                const earning = s.completed * s.price;
+                const earning = s.earning || 0;
                 return (
                   <div
                     key={s.id}

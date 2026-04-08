@@ -13,7 +13,7 @@ import DHome from "./pages/DHome";
 import List from "./pages/List";
 import EditProfile from "./pages/EditProfile";
 import Appointments from "./pages/Appointments";
-import Chatbot from "./components/chatbot/Chatbot";
+
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -53,8 +53,8 @@ const ScrollButton = () => {
   return (
     <button
       onClick={scrollTop}
-      className={`fixed right-4 bottom-6 z-50 w-11 h-11 rounded-full flex items-center justify-center 
-      bg-emerald-600 text-white shadow-lg transition-all duration-300 
+      className={`fixed left-4 bottom-6 z-50 w-11 h-11 rounded-full flex items-center justify-center 
+      bg-blue-600 text-white shadow-lg transition-all duration-300 
       ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"} 
       hover:scale-110 hover:shadow-xl`}
       title="Go to top"
@@ -124,7 +124,7 @@ const App = () => {
           <Route path="*" element={<div className="p-10 text-center">Page Not Found</div>} />
         </Routes>
       </div>
-      <Chatbot />
+     
 
       <ScrollButton />
     </>

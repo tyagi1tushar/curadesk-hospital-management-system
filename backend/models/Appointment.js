@@ -8,6 +8,7 @@ const appointmentSchema = new mongoose.Schema({
 
     patientName: { type: String, required: true, trim: true },
     mobile: { type: String, required: true, trim: true },
+    email: { type: String, required: true, trim: true },
     age: { type: Number, default: null },
     gender: { type: String, default: "" },
 

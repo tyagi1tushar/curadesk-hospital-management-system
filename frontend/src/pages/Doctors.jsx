@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import DoctorsPage from '../components/DoctorsPage'
 import Footer from '../components/Footer'
+import Chatbot from "../components/chatbot/Chatbot";
 
 const Doctors = () => {
   return (
@@ -9,6 +10,7 @@ const Doctors = () => {
         <Navbar/>
         <DoctorsPage/>
         <Footer/>
+        <Chatbot />
     </div>
   )
 }

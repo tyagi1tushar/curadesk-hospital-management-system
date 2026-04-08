@@ -63,14 +63,7 @@ function normalizeDoctor(doc) {
             0,
     };
 
-    let earnings = null;
-    if (doc.earnings !== undefined && doc.earnings !== null)
-        earnings = safeNumber(doc.earnings, 0);
-    else if (doc.revenue !== undefined && doc.revenue !== null)
-        earnings = safeNumber(doc.revenue, 0);
-    else if (appointments.completed && fee)
-        earnings = fee * safeNumber(appointments.completed, 0);
-    else earnings = 0;
+    let earnings = safeNumber(doc.earnings || 0);
 
     return {
         id,
