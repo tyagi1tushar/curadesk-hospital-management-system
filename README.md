@@ -1,10 +1,10 @@
-Hospital Management System (MERN Stack)
+## Hospital Management System (MERN Stack)
 
 A full-stack Hospital Management System built using the MERN stack to streamline healthcare operations such as appointment booking, doctor management, patient records, and secure online payments.
 
 ⸻
 
-🚀 Features
+## 🚀 Features
 
 👨‍💼 Admin Panel
 
@@ -54,7 +54,7 @@ This project was initially built using a base template, which was extended and c
 	•	Added Stripe payment integration for secure online transactions
 	•	Improved backend logic for appointment status handling and admin controls
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 
 Frontend:
 
@@ -111,7 +111,7 @@ root/
 ```
 
 
-⚙️ Installation & Setup
+## ⚙️ Installation & Setup
 
 1️⃣ Clone Repository
 
@@ -154,7 +154,7 @@ Admin Panel
 	npm install
 	npm run dev
 
-🔄 Workflow Overview
+## 🔄 Workflow Overview
 
 	1.	Patient selects doctor/service
 	2.	Books appointment
@@ -164,13 +164,13 @@ Admin Panel
 
 ⸻
 
-📸 Screenshots
+## 📸 Screenshots
 
 Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 
 ⸻
 
-🌟 Future Improvements
+## 🌟 Future Improvements
 
 	•	📊 Dashboard analytics (charts & insights)
 	•	🔍 Search & filter doctors/services
@@ -180,7 +180,7 @@ Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 
 ⸻
 
-📌 Learning Outcomes
+## 📌 Learning Outcomes
 
 	•	Built a complete MERN stack application from scratch
 	•	Implemented role-based access control & secure APIs
@@ -189,19 +189,19 @@ Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 
 ⸻
 
-🤝 Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Fork the repo and submit a PR 🚀
 
 ⸻
 
-⭐ Support
+## ⭐ Support
 
 If you like this project, give it a ⭐ on GitHub!
 
 ⸻
 
-📬 Contact
+## 📬 Contact
 
 Feel free to connect with me for feedback or collaboration.
 
