@@ -21,6 +21,12 @@ const serviceAppointmentSchema = new mongoose.Schema(
       index: true, // Helpful for filtering
     },
 
+    email: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
     age: {
       type: Number,
       min: 0,

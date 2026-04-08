@@ -162,10 +162,9 @@ const testimonials = [
   return (
     <div className={testimonialStyles.container}>
       <div className={testimonialStyles.headerContainer}>
-        <h2 className={testimonialStyles.title}>Voices of Trust</h2>
+        <h2 className={testimonialStyles.title}>Trusted Experiences</h2>
         <p className={testimonialStyles.subtitle}>
-          Real stories from doctors and patients sharing their positive
-          experiences with our healthcare platform.
+         Real feedback from doctors and patients who use our platform to manage care more efficiently.
         </p>
       </div>
 

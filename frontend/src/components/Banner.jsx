@@ -9,7 +9,7 @@ import {
   Ribbon,
   ShieldCheck,
 } from "lucide-react";
-import banner from "../assets/New_Banner.jpeg";
+import banner from "../assets/New_Banner.png";
 import { useNavigate } from "react-router-dom";
 import { bannerStyles } from "../assets/dummyStyles";
 
@@ -60,9 +60,9 @@ const Banner = () => {
 
               {/* Tagline */}
               <p className={bannerStyles.tagline}>
-                Premium Healthcare
+                All-in-One 
                 <span className={`block ${bannerStyles.taglineHighlight}`}>
-                  At Your Fingertips
+                  Hospital Management System
                 </span>
               </p>
 

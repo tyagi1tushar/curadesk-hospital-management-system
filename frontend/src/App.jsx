@@ -9,7 +9,7 @@ import Service from "./pages/Service";
 import ServiceDetailPage from "./pages/ServiceDetailPage";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
-import DHome from "./pages/DHome";
+import DoctorHome from "./pages/DoctorHome";
 import List from "./pages/List";
 import EditProfile from "./pages/EditProfile";
 import Appointments from "./pages/Appointments";
@@ -115,7 +115,7 @@ const App = () => {
 
           {/* Doctor Admin */}
           <Route path="/doctor-admin/login" element={<Login />} />
-          <Route path="/doctor-admin/:id" element={<DHome />} />
+          <Route path="/doctor-admin/:id" element={<DoctorHome />} />
           <Route path="/doctor-admin/:id/appointments" element={<List />} />
           <Route path="/doctor-admin/:id/profile/edit" element={<EditProfile />} />
 

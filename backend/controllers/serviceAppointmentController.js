@@ -2,6 +2,7 @@ import ServiceAppointment from "../models/serviceAppointment.js";
 import Service from "../models/Service.js";
 import Stripe from "stripe";
 import { getAuth } from "@clerk/express";
+import { notifyPatient } from "../services/notificationService.js";
 
 const stripeKey = process.env.STRIPE_SECRET_KEY || null;
 const stripe = stripeKey
@@ -151,6 +152,7 @@ export const createServiceAppointment = async (req, res) => {
             serviceImage: { url: finalServiceImageUrl, publicId: finalServiceImagePublicId },
             patientName: String(patientName).trim(),
             mobile: String(mobile).trim(),
+            email: email || "",
             age: age ? Number(age) : undefined,
             gender: gender || "",
             date: String(date),
@@ -170,7 +172,19 @@ export const createServiceAppointment = async (req, res) => {
 
         // Cash booking
         if (paymentMethod === "Cash") {
-            const created = await ServiceAppointment.create({ ...base, status: "Pending", payment: { method: "Cash", status: "Pending", amount: numericAmount, meta } });
+            const created = await ServiceAppointment.create({
+                ...base, status: "Pending", payment: { method: "Cash", status: "Pending", amount: numericAmount, meta }
+            });
+            await notifyPatient({
+                email,
+                type: "success",
+                message: `
+    <p>Your service has been booked successfully.</p>
+    <p><b>Service:</b> ${resolvedServiceName}</p>
+    <p><b>Date:</b> ${date}</p>
+    <p><b>Time:</b> ${finalHour}:${finalMinute} ${finalAmpm}</p>
+  `,
+            });
             return res.status(201).json({ success: true, appointment: created, checkoutUrl: null });
         }
 
@@ -224,6 +238,17 @@ export const createServiceAppointment = async (req, res) => {
                 status: "Confirmed",
                 payment: { method: "Online", status: "Pending", amount: numericAmount, sessionId: session.id || "" },
             });
+            await notifyPatient({
+                email,
+                type: "success",
+                message: `
+    <p>Your service has been booked successfully.</p>
+    <p><b>Service:</b> ${resolvedServiceName}</p>
+    <p><b>Date:</b> ${date}</p>
+    <p><b>Time:</b> ${finalHour}:${finalMinute} ${finalAmpm}</p>
+  `,
+            });
+
             return res.status(201).json({ success: true, appointment: created, checkoutUrl: session.url || null });
         } catch (dbErr) {
             console.error("DB error saving service appointment after stripe session:", dbErr);
@@ -239,130 +264,130 @@ export const createServiceAppointment = async (req, res) => {
 
 // to confirm the servicePayment
 export const confirmServicePayment = async (req, res) => {
-  try {
-    const { session_id } = req.query;
-
-    if (!session_id) {
-      return res.status(400).json({
-        success: false,
-        message: "Session Id is required",
-      });
-    }
-
-    if (!stripe) {
-      return res.status(500).json({
-        success: false,
-        message: "Stripe is not configured",
-      });
-    }
-
-    console.log("🔍 SESSION ID RECEIVED:", session_id);
-
-    // 🔥 STEP 1: FETCH STRIPE SESSION
-    let session;
     try {
-      session = await stripe.checkout.sessions.retrieve(session_id);
+        const { session_id } = req.query;
+
+        if (!session_id) {
+            return res.status(400).json({
+                success: false,
+                message: "Session Id is required",
+            });
+        }
+
+        if (!stripe) {
+            return res.status(500).json({
+                success: false,
+                message: "Stripe is not configured",
+            });
+        }
+
+        console.log("🔍 SESSION ID RECEIVED:", session_id);
+
+        // 🔥 STEP 1: FETCH STRIPE SESSION
+        let session;
+        try {
+            session = await stripe.checkout.sessions.retrieve(session_id);
+        } catch (err) {
+            console.error("❌ Stripe Error:", err);
+            return res.status(404).json({
+                success: false,
+                message: "Stripe session not found",
+            });
+        }
+
+        if (!session) {
+            return res.status(404).json({
+                success: false,
+                message: "Invalid session",
+            });
+        }
+
+        if (session.payment_status !== "paid") {
+            return res.status(400).json({
+                success: false,
+                message: "Payment not completed",
+            });
+        }
+
+        console.log("✅ Stripe payment verified");
+
+        // 🔥 STEP 2: TRY MULTIPLE MATCHES (IMPORTANT)
+        let appt = await ServiceAppointment.findOneAndUpdate(
+            {
+                $or: [
+                    { "payment.sessionId": session_id },
+                    { sessionId: session_id },
+                    { "payment.sessionId": { $regex: session_id } }, // fallback
+                ],
+            },
+            {
+                $set: {
+                    "payment.status": "Paid",
+                    "payment.providerId": session.payment_intent || "",
+                    "payment.paidAt": new Date(),
+                    status: "Confirmed",
+                },
+            },
+            { new: true }
+        );
+
+        // 🔁 STEP 3: METADATA FALLBACK
+        if (!appt && session.metadata?.appointmentId) {
+            console.log("⚠️ Using metadata fallback:", session.metadata.appointmentId);
+
+            appt = await ServiceAppointment.findOneAndUpdate(
+                { _id: session.metadata.appointmentId },
+                {
+                    $set: {
+                        "payment.status": "Paid",
+                        "payment.providerId": session.payment_intent || "",
+                        "payment.paidAt": new Date(),
+                        status: "Confirmed",
+                    },
+                },
+                { new: true }
+            );
+        }
+
+        // 🔁 STEP 4: LAST RESORT (VERY IMPORTANT)
+        if (!appt) {
+            console.log("⚠️ Trying last fallback (latest appointment)");
+
+            appt = await ServiceAppointment.findOneAndUpdate(
+                {},
+                {
+                    $set: {
+                        "payment.status": "Paid",
+                        "payment.providerId": session.payment_intent || "",
+                        "payment.paidAt": new Date(),
+                        status: "Confirmed",
+                    },
+                },
+                { new: true, sort: { createdAt: -1 } }
+            );
+        }
+
+        console.log("✅ FINAL UPDATED APPOINTMENT:", appt);
+
+        if (!appt) {
+            return res.status(404).json({
+                success: false,
+                message: "Service appointment not found",
+            });
+        }
+
+        return res.json({
+            success: true,
+            appointment: appt,
+        });
+
     } catch (err) {
-      console.error("❌ Stripe Error:", err);
-      return res.status(404).json({
-        success: false,
-        message: "Stripe session not found",
-      });
+        console.error("❌ confirmServicePayment error:", err);
+        return res.status(500).json({
+            success: false,
+            message: "Server error",
+        });
     }
-
-    if (!session) {
-      return res.status(404).json({
-        success: false,
-        message: "Invalid session",
-      });
-    }
-
-    if (session.payment_status !== "paid") {
-      return res.status(400).json({
-        success: false,
-        message: "Payment not completed",
-      });
-    }
-
-    console.log("✅ Stripe payment verified");
-
-    // 🔥 STEP 2: TRY MULTIPLE MATCHES (IMPORTANT)
-    let appt = await ServiceAppointment.findOneAndUpdate(
-      {
-        $or: [
-          { "payment.sessionId": session_id },
-          { sessionId: session_id },
-          { "payment.sessionId": { $regex: session_id } }, // fallback
-        ],
-      },
-      {
-        $set: {
-          "payment.status": "Paid",
-          "payment.providerId": session.payment_intent || "",
-          "payment.paidAt": new Date(),
-          status: "Confirmed",
-        },
-      },
-      { new: true }
-    );
-
-    // 🔁 STEP 3: METADATA FALLBACK
-    if (!appt && session.metadata?.appointmentId) {
-      console.log("⚠️ Using metadata fallback:", session.metadata.appointmentId);
-
-      appt = await ServiceAppointment.findOneAndUpdate(
-        { _id: session.metadata.appointmentId },
-        {
-          $set: {
-            "payment.status": "Paid",
-            "payment.providerId": session.payment_intent || "",
-            "payment.paidAt": new Date(),
-            status: "Confirmed",
-          },
-        },
-        { new: true }
-      );
-    }
-
-    // 🔁 STEP 4: LAST RESORT (VERY IMPORTANT)
-    if (!appt) {
-      console.log("⚠️ Trying last fallback (latest appointment)");
-
-      appt = await ServiceAppointment.findOneAndUpdate(
-        {},
-        {
-          $set: {
-            "payment.status": "Paid",
-            "payment.providerId": session.payment_intent || "",
-            "payment.paidAt": new Date(),
-            status: "Confirmed",
-          },
-        },
-        { new: true, sort: { createdAt: -1 } }
-      );
-    }
-
-    console.log("✅ FINAL UPDATED APPOINTMENT:", appt);
-
-    if (!appt) {
-      return res.status(404).json({
-        success: false,
-        message: "Service appointment not found",
-      });
-    }
-
-    return res.json({
-      success: true,
-      appointment: appt,
-    });
-
-  } catch (err) {
-    console.error("❌ confirmServicePayment error:", err);
-    return res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
-  }
 };
 
 //to getserviceappointments
@@ -536,6 +561,16 @@ export const cancelServiceAppointment = async (req, res) => {
             { new: true }
         );
 
+        await notifyPatient({
+            email: updated.email,
+            type: "cancel",
+            message: `
+    <p>Your service appointment has been cancelled.</p>
+    <p><b>Service:</b> ${updated.serviceName}</p>
+    <p><b>Date:</b> ${updated.date}</p>
+  `,
+        });
+
         return res.json({
             success: true,
             data: updated
@@ -552,81 +587,81 @@ export const cancelServiceAppointment = async (req, res) => {
 //to get the statistic
 
 export const getServiceAppointmentStats = async (req, res) => {
-  try {
-    const services = await Service.find().lean();
-    const allAppointments = await ServiceAppointment.find().lean();
+    try {
+        const services = await Service.find().lean();
+        const allAppointments = await ServiceAppointment.find().lean();
 
-    console.log("========== DEBUG START ==========");
-    console.log("ALL SERVICES:", services.length);
-    console.log("ALL APPOINTMENTS:", allAppointments.length);
+        console.log("========== DEBUG START ==========");
+        console.log("ALL SERVICES:", services.length);
+        console.log("ALL APPOINTMENTS:", allAppointments.length);
 
-    const result = services.map((service) => {
-      console.log("\n------------------------------");
-      console.log("SERVICE ID:", service._id);
+        const result = services.map((service) => {
+            console.log("\n------------------------------");
+            console.log("SERVICE ID:", service._id);
 
-      const serviceAppointments = allAppointments.filter(
-        (a) => a.serviceId?.toString() === service._id.toString()
-      );
+            const serviceAppointments = allAppointments.filter(
+                (a) => a.serviceId?.toString() === service._id.toString()
+            );
 
-      console.log("MATCHED APPOINTMENTS:", serviceAppointments.length);
-      console.log("MATCHED DATA:", serviceAppointments);
+            console.log("MATCHED APPOINTMENTS:", serviceAppointments.length);
+            console.log("MATCHED DATA:", serviceAppointments);
 
-      const totalAppointments = serviceAppointments.filter(
-        (a) => a.status !== "Canceled" && a.status !== "Completed"
-      ).length;
+            const totalAppointments = serviceAppointments.filter(
+                (a) => a.status !== "Canceled" && a.status !== "Completed"
+            ).length;
 
-      const completed = serviceAppointments.filter(
-        (a) => a.status === "Completed"
-      ).length;
+            const completed = serviceAppointments.filter(
+                (a) => a.status === "Completed"
+            ).length;
 
-      const canceled = serviceAppointments.filter(
-        (a) => a.status === "Canceled"
-      ).length;
+            const canceled = serviceAppointments.filter(
+                (a) => a.status === "Canceled"
+            ).length;
 
-      console.log("FEES ARRAY:", serviceAppointments.map(a => a.fees));
-      console.log("STATUS ARRAY:", serviceAppointments.map(a => a.status));
-      console.log("PAYMENT STATUS:", serviceAppointments.map(a => a.payment?.status));
+            console.log("FEES ARRAY:", serviceAppointments.map(a => a.fees));
+            console.log("STATUS ARRAY:", serviceAppointments.map(a => a.status));
+            console.log("PAYMENT STATUS:", serviceAppointments.map(a => a.payment?.status));
 
-      const earning = serviceAppointments.reduce((sum, a) => {
-        if (a.status === "Completed") {
-          console.log("ADDING (Completed):", a.fees);
-          return sum + (a.fees || 0);
-        }
+            const earning = serviceAppointments.reduce((sum, a) => {
+                if (a.status === "Completed") {
+                    console.log("ADDING (Completed):", a.fees);
+                    return sum + (a.fees || 0);
+                }
 
-        if (a.payment?.status === "Paid") {
-          console.log("ADDING (Paid):", a.fees);
-          return sum + (a.fees || 0);
-        }
+                if (a.payment?.status === "Paid") {
+                    console.log("ADDING (Paid):", a.fees);
+                    return sum + (a.fees || 0);
+                }
 
-        return sum;
-      }, 0);
+                return sum;
+            }, 0);
 
-      console.log("FINAL EARNING:", earning);
+            console.log("FINAL EARNING:", earning);
 
-      return {
-        _id: service._id,
-        name: service.name,
-        price: service.price,
-        image: service.imageUrl,
-        totalAppointments,
-        completed,
-        canceled,
-        earning,
-      };
-    });
+            return {
+                _id: service._id,
+                name: service.name,
+                price: service.price,
+                image: service.imageUrl,
+                totalAppointments,
+                completed,
+                canceled,
+                earning,
+            };
+        });
 
-    console.log("========== DEBUG END ==========");
+        console.log("========== DEBUG END ==========");
 
-    return res.json({
-      success: true,
-      services: result,
-      totalServices: result.length,
-    });
+        return res.json({
+            success: true,
+            services: result,
+            totalServices: result.length,
+        });
 
-  } catch (err) {
-    console.error("getServiceAppointmentStats error:", err);
-    return res.status(500).json({ success: false, message: "Server error" });
-  }
+    } catch (err) {
+        console.error("getServiceAppointmentStats error:", err);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
 };
 
 //to get appointment for  the patient

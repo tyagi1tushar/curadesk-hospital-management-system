@@ -11,6 +11,14 @@ const detectDepartment = (msg) => {
     return "General Physician";
   }
 
+   if (msg.includes("brain") || msg.includes("headache")) {
+    return "Neurologist";
+  }
+
+   if (msg.includes("rashes") || msg.includes("skin")) {
+    return "Dermatologist";
+  }
+
   return "General Physician";
 };
 
@@ -42,7 +50,7 @@ export const chatbotReply = async (req, res) => {
       })
       .filter((doc) => doc.availableSlots.length > 0);
 
-    // ✅ CASE 1
+    
     if (availableDoctors.length > 0) {
       return res.json({
         type: "available",
@@ -51,7 +59,7 @@ export const chatbotReply = async (req, res) => {
       });
     }
 
-    // ❌ CASE 2
+    
     return res.json({
       type: "no-slots",
       reply: `No slots available for ${department}. Showing doctors for later booking`,

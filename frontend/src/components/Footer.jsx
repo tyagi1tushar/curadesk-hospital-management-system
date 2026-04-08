@@ -59,7 +59,7 @@ const Footer = () => {
     { name: "Blood Sugar Test", href: "/services" },
     { name: "Full Blood Count", href: "/services" },
     { name: "X-Ray Scan", href: "/services" },
-    { name: "Blood Sugar Test", href: "/services" },
+    { name: "Thyroid Test", href: "/services" },
   ];
 
   const socialLinks = [
@@ -106,8 +106,7 @@ const Footer = () => {
             </div>
 
             <p className={footerStyles.companyDescription}>
-              Your trusted partner in healthcare innovation. We’re committed to
-              providing exceptional medical care with cutting-edge technology.
+             Streamlining healthcare operations with smart appointment management, secure records, and seamless patient care.
             </p>
 
             <div className={footerStyles.contactContainer}>
@@ -191,30 +190,12 @@ const Footer = () => {
                 onClick={handleSubscribe}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full flex items-center justify-center gap-2 transition w-full sm:w-auto whitespace-nowrap shadow-md hover:shadow-lg"
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-2 h-2" />
                 Subscribe
               </button>
 
             </div>
 
-            {/* LinkedIn */}
-            <div className={`${footerStyles.socialContainer} mt-4`}>
-              {socialLinks.map(({ Icon, color, name, href }) => (
-                <a
-                  key={name}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${footerStyles.socialLink} group`}
-                >
-                  <div className="absolute inset-0 bg-white/20 backdrop-blur-md rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-
-                  <Icon
-                    className={`${footerStyles.socialIcon} ${color} transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(59,130,246,1)]`}
-                  />
-                </a>
-              ))}
-            </div>
           </div>
 
         </div>
@@ -222,10 +203,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className={`${footerStyles.bottomSection} flex justify-between items-center flex-wrap gap-2`}>
 
-          {/* Left */}
-          <div className={footerStyles.copyright}>
-            <span>© {currentYear} CuraDesk Healthcare</span>
-          </div>
+         
 
           {/* Right */}
           <div className="text-sm text-cyan-700 font-large">
