@@ -172,7 +172,6 @@ Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 ## 🌟 Future Improvements
 
 	•	📊 Dashboard analytics (charts & insights)
-	•	🔍 Search & filter doctors/services
 	•	📱 Full dark mode across all panels
 	•	📩 SMS/WhatsApp notifications
 	•	🏥 Multi-hospital support
