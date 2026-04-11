@@ -3,7 +3,6 @@ import { requireAuth } from "@clerk/express";
 
 const router = express.Router();
 
-// 👇 THIS IS THE MAGIC
 router.get("/me", requireAuth(), (req, res) => {
 
   const clerkId = req.auth.userId;
