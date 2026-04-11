@@ -34,24 +34,12 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 	•	📅 Appointment Scheduling System with status tracking
 	•	💳 Online Payments using Stripe (secure checkout & auto-confirmation)
 	•	📧 Email Notifications (Nodemailer) for booking updates
-	•	🤖 Chatbot Integration for guided booking
+	•	🤖 Chatbot Integration for guided doctor booking
 	•	🌙 Dark Mode Support (Admin Panel)
 	•	🖼️ Image Uploads via Cloudinary
 	•	⚡ Responsive UI built with React + Tailwind CSS
 	•	🔒 Protected Backend APIs & Middleware Security
 
-
-
-## 🧩 Base Template & Customization
-
-This project was initially built using a base template, which was extended and customized with additional features and improvements:
-
-	•	Integrated email notifications (Nodemailer) for appointment updates
-	•	Developed a chatbot interface for patient guidance and booking assistance
-	•	Implemented dark mode support in the admin panel
-	•	Enhanced overall UI/UX and responsiveness
-	•	Added Stripe payment integration for secure online transactions
-	•	Improved backend logic for appointment status handling and admin controls
 
 ## 🛠️ Tech Stack
 
@@ -133,7 +121,7 @@ Create .env file:
 	CLOUDINARY_API_KEY=your_api_key
 	CLOUDINARY_API_SECRET=your_api_secret
 	EMAIL_USER=your_email
-	EMAIL_PASS=your_password
+	EMAIL_PASS=your_email_app_password
 
 Run backend:
 
@@ -184,13 +172,6 @@ Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 	•	Implemented role-based access control & secure APIs
 	•	Integrated Stripe payments, Cloudinary, and email services
 	•	Improved skills in system design, UI/UX, and scalability
-
-
-
-## 🤝 Contributing
-
-Contributions are welcome! Fork the repo and submit a PR 🚀
-
 
 
 ## ⭐ Support
