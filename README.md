@@ -1,12 +1,21 @@
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,100:22c55e&height=200&section=header&text=CuraDesk&fontSize=40&fontColor=ffffff&animation=fadeIn&fontAlignY=35"/>
+</p>
+
 # Hospital Management System (MERN Stack)
+
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?size=22&color=22C55E&center=true&vCenter=true&width=700&lines=Hospital+Management+System;MERN+Stack+Project;Admin+Doctor+Patient+Panels;Secure+Payments+%26+Appointments"/>
+</p>
+
+<p align="center">
 
 ![Frontend](https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge&logo=react)
 ![Backend](https://img.shields.io/badge/Backend-Node.js-green?style=for-the-badge&logo=node.js)
 ![Database](https://img.shields.io/badge/Database-MongoDB-green?style=for-the-badge&logo=mongodb)
 ![Payments](https://img.shields.io/badge/Payments-Stripe-purple?style=for-the-badge&logo=stripe)
 
-A full-stack Hospital Management System built using the MERN stack to streamline healthcare operations such as appointment booking, doctor management, patient records, and secure online payments.
-
+</p>
 
 ## 🚀 Features
 
@@ -177,6 +186,10 @@ Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 -	Implemented role-based access control & secure APIs
 -	Integrated Stripe payments, Cloudinary, and email services
 -	Improved skills in system design, UI/UX, and scalability
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:22c55e,100:0f172a&height=120&section=footer"/>
+</p>
 
 
 
