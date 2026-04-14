@@ -174,15 +174,7 @@ Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 -	Improved skills in system design, UI/UX, and scalability
 
 
-## ⭐ Support
 
-If you like this project, give it a ⭐ on GitHub!
-
-
-
-## 📬 Contact
-
-Feel free to connect with me for feedback or collaboration.
 
 
 
