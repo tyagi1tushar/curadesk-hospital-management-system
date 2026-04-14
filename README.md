@@ -1,5 +1,10 @@
 # Hospital Management System (MERN Stack)
 
+![Frontend](https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge&logo=react)
+![Backend](https://img.shields.io/badge/Backend-Node.js-green?style=for-the-badge&logo=node.js)
+![Database](https://img.shields.io/badge/Database-MongoDB-green?style=for-the-badge&logo=mongodb)
+![Payments](https://img.shields.io/badge/Payments-Stripe-purple?style=for-the-badge&logo=stripe)
+
 A full-stack Hospital Management System built using the MERN stack to streamline healthcare operations such as appointment booking, doctor management, patient records, and secure online payments.
 
 
