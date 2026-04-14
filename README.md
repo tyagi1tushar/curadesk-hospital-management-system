@@ -143,11 +143,11 @@ Admin Panel
 
 ## 🔄 Workflow Overview
 
-- 1.	Patient selects doctor/service
-- 2.	Books appointment
-- 3.	Completes Stripe payment
-- 4.	Appointment automatically marked as Confirmed
-- 5.	Email notification sent to patient
+1.	Patient selects doctor/service
+2.	Books appointment
+3.	Completes Stripe payment
+4.	Appointment automatically marked as Confirmed
+5.	Email notification sent to patient
 
 
 
