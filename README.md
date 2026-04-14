@@ -5,68 +5,68 @@ A full-stack Hospital Management System built using the MERN stack to streamline
 
 ## 🚀 Features
 
- 👨‍💼 Admin Panel
+👨‍💼 Admin Panel
 
-	•	Add, edit, and manage doctors & services
-	•	View, reschedule, or cancel appointments
-	•	Update appointment status (Pending, Confirmed, Completed, Cancelled)
-	•	Track earnings and bookings
-	•	Dark mode enabled dashboard 🌙
+-	Add, edit, and manage doctors & services
+-	View, reschedule, or cancel appointments
+-	Update appointment status (Pending, Confirmed, Completed, Cancelled)
+-	Track earnings and bookings
+-	Dark mode enabled dashboard 🌙
 
  🩺 Doctor Panel
 
-	•	View assigned appointments
-	•	Update appointment status
-	•	Manage patient interactions
+-	View assigned appointments
+-	Update appointment status
+-	Manage patient interactions
 
  🧑 Patient Panel
 
-	•	Register/Login securely (Clerk Auth)
-	•	Book appointments with doctors/services
-	•	View appointment history
-	•	Chatbot assistance for doctor discovery 🤖
+-	Register/Login securely (Clerk Auth)
+-	Book appointments with doctors/services
+-	View appointment history
+-	Chatbot assistance for doctor discovery 🤖
 
 
 
 ## ✨ Core Functionalities
 
-	•	🔐 Role-based Authentication (Admin / Doctor / Patient)
-	•	📅 Appointment Scheduling System with status tracking
-	•	💳 Online Payments using Stripe (secure checkout & auto-confirmation)
-	•	📧 Email Notifications (Nodemailer) for booking updates
-	•	🤖 Chatbot Integration for guided doctor booking
-	•	🌙 Dark Mode Support (Admin Panel)
-	•	🖼️ Image Uploads via Cloudinary
-	•	⚡ Responsive UI built with React + Tailwind CSS
-	•	🔒 Protected Backend APIs & Middleware Security
+-	🔐 Role-based Authentication (Admin / Doctor / Patient)
+-	📅 Appointment Scheduling System with status tracking
+-	💳 Online Payments using Stripe (secure checkout & auto-confirmation)
+-	📧 Email Notifications (Nodemailer) for booking updates
+-	🤖 Chatbot Integration for guided doctor booking
+-	🌙 Dark Mode Support (Admin Panel)
+-	🖼️ Image Uploads via Cloudinary
+-	⚡ Responsive UI built with React + Tailwind CSS
+-	🔒 Protected Backend APIs & Middleware Security
 
 
 ## 🛠️ Tech Stack
 
  Frontend:
 
-	•	React.js (Vite)
-	•	Tailwind CSS
-	•	Context API
+-	React.js (Vite)
+-	Tailwind CSS
+-	Context API
 
  Backend:
 
-	•	Node.js
-	•	Express.js
+-	Node.js
+-	Express.js
 
  Database:
 
-	•	MongoDB (Mongoose)
+-	MongoDB (Mongoose)
 
  Authentication:
 
-	•	Clerk
+-	Clerk
 
  Integrations:
 
-	•	Stripe (Payments)
-	•	Cloudinary (Image Uploads)
-	•	Nodemailer (Emails)
+-	Stripe (Payments)
+-	Cloudinary (Image Uploads)
+-	Nodemailer (Emails)
 
 
 
@@ -143,11 +143,11 @@ Admin Panel
 
 ## 🔄 Workflow Overview
 
-	1.	Patient selects doctor/service
-	2.	Books appointment
-	3.	Completes Stripe payment
-	4.	Appointment automatically marked as Confirmed
-	5.	Email notification sent to patient
+- 1.	Patient selects doctor/service
+- 2.	Books appointment
+- 3.	Completes Stripe payment
+- 4.	Appointment automatically marked as Confirmed
+- 5.	Email notification sent to patient
 
 
 
@@ -159,19 +159,19 @@ Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
 
 ## 🌟 Future Improvements
 
-	•	📊 Dashboard analytics (charts & insights)
-	•	📱 Full dark mode across all panels
-	•	📩 SMS/WhatsApp notifications
-	•	🏥 Multi-hospital support
+-	📊 Dashboard analytics (charts & insights)
+-	📱 Full dark mode across all panels
+-	📩 SMS/WhatsApp notifications
+-	🏥 Multi-hospital support
 
 
 
 ## 📌 Learning Outcomes
 
-	•	Built a complete MERN stack application from scratch
-	•	Implemented role-based access control & secure APIs
-	•	Integrated Stripe payments, Cloudinary, and email services
-	•	Improved skills in system design, UI/UX, and scalability
+-	Built a complete MERN stack application from scratch
+-	Implemented role-based access control & secure APIs
+-	Integrated Stripe payments, Cloudinary, and email services
+-	Improved skills in system design, UI/UX, and scalability
 
 
 ## ⭐ Support
