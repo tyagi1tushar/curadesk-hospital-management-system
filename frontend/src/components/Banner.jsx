@@ -12,6 +12,7 @@ import {
 import banner from "../assets/New_Banner.png";
 import { useNavigate } from "react-router-dom";
 import { bannerStyles } from "../assets/dummyStyles";
+import { CreditCard } from "lucide-react";
 
 const Banner = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const Banner = () => {
                 <div className={bannerStyles.titleContainer}>
                   {/* Responsive heading sizes: smaller on phones, same on desktop */}
                   <h1 className={bannerStyles.title}>
-                    CuraDesk 
+                    CuraDesk
                     <span className={bannerStyles.titleGradient}>Health</span>
                   </h1>
 
@@ -60,7 +61,7 @@ const Banner = () => {
 
               {/* Tagline */}
               <p className={bannerStyles.tagline}>
-                All-in-One 
+                All-in-One
                 <span className={`block ${bannerStyles.taglineHighlight}`}>
                   Hospital Management System
                 </span>
@@ -68,35 +69,32 @@ const Banner = () => {
 
               {/* Features Grid */}
               <div className={bannerStyles.featuresGrid}>
-                <div
-                  className={`${bannerStyles.featureItem} ${bannerStyles.featureBorderGreen}`}
-                >
-                  <Ribbon className={bannerStyles.featureIcon} />
+                <div className={`${bannerStyles.featureItem} ${bannerStyles.featureBorderGreen} hover:scale-105 hover:shadow-lg transition-all duration-200`}>
+                  <Users className={bannerStyles.featureIcon} />
                   <span className={bannerStyles.featureText}>
-                    Certified Specialists
+                    Role-Based Dashboards
                   </span>
                 </div>
-                <div
-                  className={`${bannerStyles.featureItem} ${bannerStyles.featureBorderBlue}`}
-                >
-                  <Clock className={bannerStyles.featureIcon} />
-                  <span className={bannerStyles.featureText}>
-                    24/7 Availability
-                  </span>
-                </div>
-                <div
-                  className={`${bannerStyles.featureItem} ${bannerStyles.featureBorderEmerald}`}
-                >
+
+                <div className={`${bannerStyles.featureItem} ${bannerStyles.featureBorderBlue} hover:scale-105 hover:shadow-lg transition-all duration-200`}>
                   <ShieldCheck className={bannerStyles.featureIcon} />
                   <span className={bannerStyles.featureText}>
-                    Safe &amp; Secure
+                    Secure Auth (Clerk)
                   </span>
                 </div>
-                <div
-                  className={`${bannerStyles.featureItem} ${bannerStyles.featureBorderPurple}`}
-                >
-                  <Users className={bannerStyles.featureIcon} />
-                  <span className={bannerStyles.featureText}>500+ Doctors</span>
+
+                <div className={`${bannerStyles.featureItem} ${bannerStyles.featureBorderEmerald} hover:scale-105 hover:shadow-lg transition-all duration-200`}>
+                  <Calendar className={bannerStyles.featureIcon} />
+                  <span className={bannerStyles.featureText}>
+                    Appointment Booking
+                  </span>
+                </div>
+
+                <div className={`${bannerStyles.featureItem} ${bannerStyles.featureBorderPurple} hover:scale-105 hover:shadow-lg transition-all duration-200`}>
+                  <CreditCard className={bannerStyles.featureIcon} />
+                  <span className={bannerStyles.featureText}>
+                    Stripe Payments
+                  </span>
                 </div>
               </div>
 
