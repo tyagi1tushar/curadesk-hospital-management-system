@@ -167,7 +167,165 @@ Admin Panel
 
 ## 📸 Screenshots
 
-Add your UI screenshots here (Admin Dashboard, Booking Page, Chatbot, etc.)
+### 🧑‍💻 User Experience
+
+<table>
+<tr>
+<td align="center">
+
+<img src="./screenshots/user-dashboard.png" width="100%" />
+<br/>
+<b>User Dashboard</b><br/>
+Overview of user activity and appointments
+
+</td>
+
+<td align="center">
+
+<img src="./screenshots/booking.png" width="100%" />
+<br/>
+<b>Booking System</b><br/>
+Book appointments with doctors/services
+
+</td>
+</tr>
+
+<tr>
+<td align="center">
+
+<img src="./screenshots/payment.png" width="100%" />
+<br/>
+<b>Payment Flow</b><br/>
+Secure Stripe checkout experience
+
+</td>
+
+<td align="center">
+
+<img src="./screenshots/chatbot.png" width="100%" />
+<br/>
+<b>AI Chatbot</b><br/>
+Helps users discover suitable doctors
+
+</td>
+</tr>
+
+<tr>
+<td align="center">
+
+<img src="./screenshots/user-history.png" width="100%" />
+<br/>
+<b>Appointment History</b><br/>
+Track past and upcoming bookings
+
+</td>
+
+<td align="center">
+
+<img src="./screenshots/user-profile.png" width="100%" />
+<br/>
+<b>User Profile</b><br/>
+Manage personal details and records
+
+</td>
+</tr>
+</table>
+
+---
+
+### 🩺 Doctor Panel
+
+<table>
+<tr>
+<td align="center">
+
+<img src="./screenshots/doctor-dashboard.png" width="100%" />
+<br/>
+<b>Doctor Dashboard</b><br/>
+View and manage assigned appointments
+
+</td>
+
+<td align="center">
+
+<img src="./screenshots/doctor-profile.png" width="100%" />
+<br/>
+<b>Doctor Profile Management</b><br/>
+Update profile status and manage patient interactions
+
+</td>
+</tr>
+</table>
+
+---
+
+### 🌗 Admin Dashboard (Light vs Dark Mode)
+
+<table>
+<tr>
+<td align="center">
+
+<b>🌞 Light Mode</b><br/>
+<img src="./screenshots/admin-dashboard-light.png" width="100%" />
+
+</td>
+
+<td align="center">
+
+<b>🌙 Dark Mode</b><br/>
+<img src="./screenshots/admin-dashboard-dark.png" width="100%" />
+
+</td>
+</tr>
+</table>
+
+Dark mode is implemented in the admin panel to enhance usability during extended operational workflows.
+
+---
+
+### 👨‍💼 Admin Controls
+
+<table>
+<tr>
+<td align="center">
+
+<img src="./screenshots/admin-doctors.png" width="100%" />
+<br/>
+<b>Doctor Management</b><br/>
+Add, edit, and manage doctors
+
+</td>
+
+<td align="center">
+
+<img src="./screenshots/admin-appointment-doctors.png" width="100%" />
+<br/>
+<b>Doctor Appointment Management</b><br/>
+Update statuses and manage bookings for Doctors
+
+</td>
+</tr>
+
+<tr>
+<td align="center">
+
+<img src="./screenshots/admin-appointment-services.png" width="100%" />
+<br/>
+<b>Service Appointment Management</b><br/>
+Update statuses and manage bookings for Services
+
+</td>
+
+<td align="center">
+
+<img src="./screenshots/admin-services.png" width="100%" />
+<br/>
+<b>Service Management</b><br/>
+Manage available hospital services
+
+</td>
+</tr>
+</table>
 
 
 
