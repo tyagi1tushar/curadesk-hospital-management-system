@@ -298,7 +298,7 @@ Add, edit, and manage doctors
 
 <td align="center">
 
-<img src="./screenshots/admin-appointment-doctors.png" width="100%" />
+<img src="./screenshots/admin-appointments-doctors.png" width="100%" />
 <br/>
 <b>Doctor Appointment Management</b><br/>
 Update statuses and manage bookings for Doctors
