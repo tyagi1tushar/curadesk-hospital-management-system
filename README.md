@@ -106,77 +106,7 @@ Built for portfolio-grade full stack and AI engineering demonstration.
 -	Stripe (Payments)
 -	Cloudinary (Image Uploads)
 -	Nodemailer (Emails)
--   Gemini AI (LLM + Embeddings)
--   ChromaDB (Vector Database)
--   Redis (Caching & Session Memory)
--   Docker & Docker Compose
--   PDF2JSON (PDF Parsing)
 
-## 🏗️ System Architecture
-
-```txt
-React Frontend
-        ↓
-Express Backend
-        ↓
-MongoDB + Clerk + Cloudinary
-        ↓
-AI Layer
-(Gemini + OCR + ChromaDB + Redis + RAG)
-```
-
-## 🧠 AI Architecture
-
-The project includes an advanced AI-powered healthcare assistant system.
-
-## 🧠 Conversational Memory System
-
-CuraDesk AI includes persistent conversational memory.
-
-Features:
-
-- Chat history stored securely
-- Memory restored after chatbot reopening
-- Context-aware follow-up conversations
-- Frontend-only chat expiry (1 hour)
-- User-side "Clear Chat" option
-- Database memory preserved for system intelligence and analytics
-
-### AI Features
-
-- Symptom-based doctor recommendation chatbot
-- AI-powered medical report upload & analysis
-- Multi-page PDF extraction
-- OCR-powered text recognition (Tesseract)
-- Retrieval-Augmented Generation (RAG)
-- Semantic similarity search
-- ChromaDB vector retrieval
-- Redis-based caching
-- Persistent conversational memory
-- Context-aware follow-up conversations
-- Chat history restoration
-- Frontend-only privacy-based memory expiry
-- User-side clear chat functionality
-
-### AI Pipeline
-
-```txt
-PDF Upload
-   ↓
-Text Extraction
-   ↓
-OCR + Cleaning
-   ↓
-Chunking
-   ↓
-Gemini Embeddings
-   ↓
-ChromaDB Storage
-   ↓
-Semantic Retrieval
-   ↓
-AI-Powered Question Answering
-```
 
 
 ## 📦 Project Structure
@@ -476,11 +406,6 @@ CuraDesk AI demonstrates:
 -	Implemented role-based access control & secure APIs
 -	Integrated Stripe payments, Cloudinary, and email services
 -	Improved skills in system design, UI/UX, and scalability
--   Built a complete Retrieval-Augmented Generation (RAG) pipeline
--   Implemented vector embeddings & semantic search
--   Integrated Dockerized AI infrastructure
--   Worked with Redis caching and ChromaDB vector storage
--   Developed AI-powered document understanding system
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:22c55e,100:0f172a&height=120&section=footer"/>
