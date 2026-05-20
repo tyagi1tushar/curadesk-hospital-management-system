@@ -6,7 +6,7 @@
   <img src="https://readme-typing-svg.herokuapp.com?size=22&color=22C55E&center=true&vCenter=true&width=700&lines=Hospital+Management+System;MERN+Stack+Project;Admin+Doctor+Patient+Panels;Secure+Payments+%26+Appointments"/>
 </p>
 
-# CuraDesk AI – AI Powered Hospital Management System
+# CuraDesk AI – AI-Powered Hospital Management System
 
 ## 🏥 About CuraDesk AI
 
@@ -106,6 +106,8 @@ Built for portfolio-grade full stack and AI engineering demonstration.
 -	Stripe (Payments)
 -	Cloudinary (Image Uploads)
 -	Nodemailer (Emails)
+-   Tesseract OCR (Offline OCR Engine)
+-   Docker (Redis + ChromaDB Containers)
 
 
 
@@ -202,13 +204,26 @@ Admin Panel
 ## 🤖 AI Report Workflow
 
 1. User uploads medical PDF report
-2. Backend extracts and cleans text
-3. Text is chunked into semantic sections
-4. Gemini generates vector embeddings
-5. Embeddings stored inside ChromaDB
-6. User asks questions about report
-7. RAG pipeline retrieves relevant chunks
-8. AI assistant responds contextually
+2. PDF parsing + Tesseract OCR extraction
+3. Text cleaning & preprocessing
+4. Multi-page chunking
+5. Gemini embedding generation
+6. ChromaDB vector storage
+7. Semantic retrieval using RAG
+8. Context-aware AI response generation
+
+## 🔎 OCR & Document Intelligence
+
+CuraDesk AI uses Tesseract OCR and PDF processing pipelines to understand uploaded medical reports.
+
+Features:
+
+- Offline OCR processing
+- PDF-to-image conversion
+- Multi-page report extraction
+- Semantic chunking
+- AI-ready preprocessing
+- Vector-based medical report understanding
 
 
 ## 📸 Screenshots
@@ -406,6 +421,11 @@ CuraDesk AI demonstrates:
 -	Implemented role-based access control & secure APIs
 -	Integrated Stripe payments, Cloudinary, and email services
 -	Improved skills in system design, UI/UX, and scalability
+-   Built Retrieval-Augmented Generation (RAG) pipelines
+-   Worked with vector databases using ChromaDB
+-   Implemented OCR pipelines using Tesseract
+-   Designed conversational AI memory systems
+-   Used Redis for AI caching and chat persistence
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:22c55e,100:0f172a&height=120&section=footer"/>
