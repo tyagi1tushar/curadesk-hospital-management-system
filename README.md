@@ -175,22 +175,22 @@ Run:
 
 ```bash
 docker-compose up 
-
+```
 
  3️⃣ Frontend Setup
 
 Patient/Doctor Frontend
-
+```bash
 	cd frontend
 	npm install
 	npm run dev
-
+```
 Admin Panel
-
+```bash
 	cd admin
 	npm install
 	npm run dev
-
+```
 ## 🔄 Workflow Overview
 
 1.	Patient selects doctor/service
