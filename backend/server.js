@@ -4,16 +4,21 @@ import 'dotenv/config';
 
 import { clerkMiddleware } from '@clerk/express'
 import { connectDB } from './config/db.js';
+import "./config/redis.js";
+import ragRoutes from "./routes/ragRoutes.js";
 import doctorRouter from './routes/doctorRouter.js';
 import serviceRouter from './routes/serviceRouter.js';
 import appointmentRouter from './routes/appointmentRouter.js';
 import serviceAppointmentRouter from './routes/serviceAppointmentRouter.js';
 import newsletterRoutes from "./routes/newsletterRoutes.js";
 import chatbotRouter from "./routes/chatbotRouter.js";
+import testRoutes from "./routes/testRoutes.js";
+import reportRoutes from "./routes/reportRoutes.js";
 
 
-console.log("MONGO_URI:", process.env.MONGO_URI);
-console.log("ALL ENV:", process.env);
+
+
+
 
 const app = express();
 const port = 4000;
@@ -63,6 +68,9 @@ app.use("/api/appointments", appointmentRouter);
 app.use("/api/service-appointments", serviceAppointmentRouter);
 app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/chatbot", chatbotRouter);
+app.use("/api/test", testRoutes);
+app.use("/api/reports", reportRoutes);
+app.use("/api/rag", ragRoutes);
 
 
 app.get('/', (req, res) => {

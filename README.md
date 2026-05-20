@@ -6,7 +6,15 @@
   <img src="https://readme-typing-svg.herokuapp.com?size=22&color=22C55E&center=true&vCenter=true&width=700&lines=Hospital+Management+System;MERN+Stack+Project;Admin+Doctor+Patient+Panels;Secure+Payments+%26+Appointments"/>
 </p>
 
-# Hospital Management System (MERN Stack)
+# CuraDesk AI – AI Powered Hospital Management System
+
+## 🏥 About CuraDesk AI
+
+CuraDesk AI is an advanced MERN-based Hospital Management System designed to streamline healthcare workflows through secure appointment management and AI-powered assistance.
+
+The platform combines role-based healthcare management with intelligent medical AI features including OCR-powered report analysis, Retrieval-Augmented Generation (RAG), conversational memory, semantic search, and contextual AI assistance.
+
+Built for portfolio-grade full stack and AI engineering demonstration.
 
 <p align="center">
 
@@ -14,6 +22,10 @@
 ![Backend](https://img.shields.io/badge/Backend-Node.js-green?style=for-the-badge&logo=node.js)
 ![Database](https://img.shields.io/badge/Database-MongoDB-green?style=for-the-badge&logo=mongodb)
 ![Payments](https://img.shields.io/badge/Payments-Stripe-purple?style=for-the-badge&logo=stripe)
+![AI](https://img.shields.io/badge/AI-Gemini-blueviolet?style=for-the-badge)
+![VectorDB](https://img.shields.io/badge/VectorDB-ChromaDB-orange?style=for-the-badge)
+![Redis](https://img.shields.io/badge/Cache-Redis-red?style=for-the-badge)
+![Docker](https://img.shields.io/badge/DevOps-Docker-blue?style=for-the-badge)
 
 </p>
 
@@ -35,10 +47,13 @@
 
  🧑 Patient Panel
 
--	Register/Login securely (Clerk Auth)
--	Book appointments with doctors/services
--	View appointment history
--	Chatbot assistance for doctor discovery 🤖
+-  Register/Login securely (Clerk Auth)
+-  Book appointments with doctors/services
+-  View appointment history
+-  🤖 AI Symptom Chatbot for smart doctor recommendations
+-  📄 AI Medical Report Upload & Analysis
+-  🧠 RAG-based Medical Report Question Answering
+-  🔍 Semantic Search using Vector Embeddings
 
 
 
@@ -49,10 +64,20 @@
 -	💳 Online Payments using Stripe (secure checkout & auto-confirmation)
 -	📧 Email Notifications (Nodemailer) for booking updates
 -	🤖 Chatbot Integration for guided doctor booking
+-   🧠 AI-Powered RAG (Retrieval-Augmented Generation) System
+-   📄 PDF Medical Report Upload & Text Extraction
+-   🔍 Semantic Search using ChromaDB Vector Database
+-   ⚡ Redis-based Chat Memory & Caching
+-   🐳 Dockerized AI Infrastructure (Redis + ChromaDB)
+-   🤖 AI Report Assistant for contextual report querying
 -	🌙 Dark Mode Support (Admin Panel)
 -	🖼️ Image Uploads via Cloudinary
 -	⚡ Responsive UI built with React + Tailwind CSS
 -	🔒 Protected Backend APIs & Middleware Security
+-   🧠 Persistent AI conversational memory
+-   📑 Multi-page PDF report understanding
+-   🧹 Frontend-only chat clearing & expiry
+-   ♻️ Report hash reuse & vector reuse optimization
 
 
 ## 🛠️ Tech Stack
@@ -81,7 +106,77 @@
 -	Stripe (Payments)
 -	Cloudinary (Image Uploads)
 -	Nodemailer (Emails)
+-   Gemini AI (LLM + Embeddings)
+-   ChromaDB (Vector Database)
+-   Redis (Caching & Session Memory)
+-   Docker & Docker Compose
+-   PDF2JSON (PDF Parsing)
 
+## 🏗️ System Architecture
+
+```txt
+React Frontend
+        ↓
+Express Backend
+        ↓
+MongoDB + Clerk + Cloudinary
+        ↓
+AI Layer
+(Gemini + OCR + ChromaDB + Redis + RAG)
+```
+
+## 🧠 AI Architecture
+
+The project includes an advanced AI-powered healthcare assistant system.
+
+## 🧠 Conversational Memory System
+
+CuraDesk AI includes persistent conversational memory.
+
+Features:
+
+- Chat history stored securely
+- Memory restored after chatbot reopening
+- Context-aware follow-up conversations
+- Frontend-only chat expiry (1 hour)
+- User-side "Clear Chat" option
+- Database memory preserved for system intelligence and analytics
+
+### AI Features
+
+- Symptom-based doctor recommendation chatbot
+- AI-powered medical report upload & analysis
+- Multi-page PDF extraction
+- OCR-powered text recognition (Tesseract)
+- Retrieval-Augmented Generation (RAG)
+- Semantic similarity search
+- ChromaDB vector retrieval
+- Redis-based caching
+- Persistent conversational memory
+- Context-aware follow-up conversations
+- Chat history restoration
+- Frontend-only privacy-based memory expiry
+- User-side clear chat functionality
+
+### AI Pipeline
+
+```txt
+PDF Upload
+   ↓
+Text Extraction
+   ↓
+OCR + Cleaning
+   ↓
+Chunking
+   ↓
+Gemini Embeddings
+   ↓
+ChromaDB Storage
+   ↓
+Semantic Retrieval
+   ↓
+AI-Powered Question Answering
+```
 
 
 ## 📦 Project Structure
@@ -136,10 +231,21 @@ Create .env file:
 	CLOUDINARY_API_SECRET=your_api_secret
 	EMAIL_USER=your_email
 	EMAIL_PASS=your_email_app_password
+	GEMINI_API_KEY=your_gemini_api_key
 
 Run backend:
 
 	npm start
+	
+ 2️⃣ Start AI Infrastructure
+
+ Make sure Docker Desktop is running.
+
+Run:
+
+```bash
+docker-compose up 
+
 
  3️⃣ Frontend Setup
 
@@ -163,6 +269,16 @@ Admin Panel
 4.	Appointment automatically marked as Confirmed
 5.	Email notification sent to patient
 
+## 🤖 AI Report Workflow
+
+1. User uploads medical PDF report
+2. Backend extracts and cleans text
+3. Text is chunked into semantic sections
+4. Gemini generates vector embeddings
+5. Embeddings stored inside ChromaDB
+6. User asks questions about report
+7. RAG pipeline retrieves relevant chunks
+8. AI assistant responds contextually
 
 
 ## 📸 Screenshots
@@ -327,14 +443,30 @@ Manage available hospital services
 </tr>
 </table>
 
+## 🌟 Future Roadmap
 
+- 📊 Dashboard analytics
+- 📱 Full dark mode support
+- 📩 SMS / WhatsApp notifications
+- 🏥 Multi-hospital support
+- 💬 Doctor–Patient chat system
+- 🧠 LangChain orchestration
+- ⚡ FastAPI AI microservices
+- 🔬 Advanced medical NLP
+- 🤖 Dedicated AI chatbot page
 
-## 🌟 Future Improvements
+## 💼 Portfolio Highlights
 
--	📊 Dashboard analytics (charts & insights)
--	📱 Full dark mode across all panels
--	📩 SMS/WhatsApp notifications
--	🏥 Multi-hospital support
+CuraDesk AI demonstrates:
+
+- Full Stack MERN Development
+- AI + RAG Engineering
+- OCR & Document Intelligence
+- Vector Databases
+- Secure Authentication
+- Payment Integration
+- Healthcare Workflow Design
+- Conversational AI Systems
 
 
 
@@ -344,6 +476,11 @@ Manage available hospital services
 -	Implemented role-based access control & secure APIs
 -	Integrated Stripe payments, Cloudinary, and email services
 -	Improved skills in system design, UI/UX, and scalability
+-   Built a complete Retrieval-Augmented Generation (RAG) pipeline
+-   Implemented vector embeddings & semantic search
+-   Integrated Dockerized AI infrastructure
+-   Worked with Redis caching and ChromaDB vector storage
+-   Developed AI-powered document understanding system
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:22c55e,100:0f172a&height=120&section=footer"/>

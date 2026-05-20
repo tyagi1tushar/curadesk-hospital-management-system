@@ -7,6 +7,9 @@ frontend/node_modules/
 .env
 backend/.env
 frontend/.env
+backend/config/google-vision-key.json
+backend/tmp/
+backend/eng.traineddata
 
 # Logs
 *.log
