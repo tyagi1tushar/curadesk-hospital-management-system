@@ -1,4 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
+import { askReportWithLangChain } from "./langchainReportService.js";
 
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,

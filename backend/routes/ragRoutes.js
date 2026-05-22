@@ -6,6 +6,8 @@ import { createEmbedding } from "../services/embeddingService.js";
 
 import { GoogleGenAI } from "@google/genai";
 
+import { askReportWithLangChain } from "../services/langchainReportService.js";
+
 import redisClient from "../config/redis.js";
 
 import ChatSession
@@ -121,15 +123,6 @@ router.post("/ask", async (req, res) => {
         JSON.parse(cachedAnswer)
       );
     }
-
-
-
-
-
-
-
-
-
 
     let finalAnswer = "";
 
@@ -277,53 +270,14 @@ ${doc}
       if (!needsAI) {
 
         console.log(
-          "SMART RETRIEVAL MODE"
+          "LANGCHAIN RETRIEVAL MODE"
         );
 
-        const prompt = `
-
-You are CuraDesk AI.
-
-Answer ONLY using the provided context.
-
-Extract the exact answer.
-
-Do NOT return full document.
-
-Keep answer:
-- short
-- precise
-- factual
-
-CONTEXT:
-${relevantChunks}
-
-QUESTION:
-${question}
-
-`;
-
-        try {
-
-          const response =
-            await ai.models.generateContent({
-
-              model:
-                "gemini-3-flash-preview",
-
-              contents:
-                prompt,
-            });
-
-          finalAnswer =
-            response.text?.trim()
-            || relevantChunks;
-
-        } catch {
-
-          finalAnswer =
-            relevantChunks;
-        }
+        finalAnswer =
+          await askReportWithLangChain(
+            relevantChunks,
+            question
+          );
       }
 
       // =========================
@@ -333,66 +287,14 @@ ${question}
       else {
 
         console.log(
-          "GEMINI MODE"
+          "LANGCHAIN GEMINI MODE"
         );
 
-        // AI PROMPT
-
-        const prompt = `
-
-You are CuraDesk AI.
-
-Answer ONLY using the provided context.
-
-The context may contain OCR mistakes.
-
-Infer meaning carefully from the text.
-
-Keep answers:
-- short
-- factual
-- easy to understand
-
-If enough information exists in context,
-answer confidently.
-
-Only say
-"I could not find relevant information."
-when context truly lacks the answer.
-
-CONTEXT:
-${relevantChunks}
-
-QUESTION:
-${question}
-
-`;
-
-        try {
-
-          const response =
-            await ai.models.generateContent({
-
-              model:
-                "gemini-3-flash-preview",
-
-              contents: prompt,
-            });
-
-          finalAnswer =
-            response.text?.trim() ||
-            relevantChunks;
-
-        } catch (err) {
-
-          console.log(
-            "GEMINI ERROR:",
-            err
+        finalAnswer =
+          await askReportWithLangChain(
+            relevantChunks,
+            question
           );
-
-          finalAnswer =
-            relevantChunks;
-        }
       }
     }
 
