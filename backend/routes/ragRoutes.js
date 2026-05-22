@@ -4,6 +4,7 @@ import { createEmbedding } from "../services/embeddingService.js";
 import { GoogleGenAI } from "@google/genai";
 import { askReportWithLangChain } from "../services/langchainReportService.js";
 import { getRetriever } from "../services/langchainRetrieverService.js";
+import { getChatHistory } from "../services/langchainMemoryService.js";
 import redisClient from "../config/redis.js";
 import ChatSession from "../models/chatSessionModel.js";
 import Message from "../models/messageModel.js";
@@ -114,11 +115,21 @@ router.post("/ask", async (req, res) => {
       return res.json(
         JSON.parse(cachedAnswer)
       );
-    }
+    } 
 
     let finalAnswer = "";
 
     let relevantChunks = "";
+
+    const history =
+      await getChatHistory(
+        chatSession._id
+      );
+
+    console.log(
+      "CHAT HISTORY:",
+      history
+    );
 
     // =========================
     // SIMPLE QUESTIONS
@@ -232,8 +243,7 @@ router.post("/ask", async (req, res) => {
 
       ) **/
 
-      if (!docs || docs.length === 0) 
-      {
+      if (!docs || docs.length === 0) {
 
         return res.json({
 
@@ -308,9 +318,10 @@ ${doc.pageContent}
 
         finalAnswer =
           await askReportWithLangChain(
+            history,
             relevantChunks,
             question
-          );
+          )
 
         console.log(
           "LANGCHAIN ANSWER:",
@@ -330,9 +341,10 @@ ${doc.pageContent}
 
         finalAnswer =
           await askReportWithLangChain(
+            history,
             relevantChunks,
             question
-          );
+          )
 
         console.log(
           "LANGCHAIN ANSWER:",
