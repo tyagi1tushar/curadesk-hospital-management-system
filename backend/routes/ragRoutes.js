@@ -1,20 +1,12 @@
 import express from "express";
-
 import { collection } from "../services/chromaService.js";
-
 import { createEmbedding } from "../services/embeddingService.js";
-
 import { GoogleGenAI } from "@google/genai";
-
 import { askReportWithLangChain } from "../services/langchainReportService.js";
-
+import { getRetriever } from "../services/langchainRetrieverService.js";
 import redisClient from "../config/redis.js";
-
-import ChatSession
-  from "../models/chatSessionModel.js";
-
-import Message
-  from "../models/messageModel.js";
+import ChatSession from "../models/chatSessionModel.js";
+import Message from "../models/messageModel.js";
 
 const router = express.Router();
 
@@ -177,7 +169,7 @@ router.post("/ask", async (req, res) => {
 
       // CREATE EMBEDDING
 
-      const questionEmbedding =
+      /** const questionEmbedding =
         await createEmbedding(question);
 
       // VECTOR SEARCH
@@ -202,16 +194,35 @@ router.post("/ask", async (req, res) => {
           ],
 
           nResults: 3,
-        });
+        }); **/
+
+      console.log(
+        "LANGCHAIN RETRIEVER MODE"
+      );
+
+      const retriever =
+        await getRetriever(
+          reportHash
+        );
+
+      const docs =
+        await retriever.invoke(
+          question
+        );
+
+      console.log(
+        "RETRIEVED DOCS:",
+        docs
+      );
 
       console.log(
         "RAG RESULTS:",
-        results
+        docs
       );
 
       // EMPTY RESULT
 
-      if (
+      /** if (
 
         !results.documents ||
 
@@ -219,7 +230,10 @@ router.post("/ask", async (req, res) => {
 
         results.documents[0].length === 0
 
-      ) {
+      ) **/
+
+      if (!docs || docs.length === 0) 
+      {
 
         return res.json({
 
@@ -232,7 +246,7 @@ router.post("/ask", async (req, res) => {
 
       // REMOVE DUPLICATES
 
-      relevantChunks =
+      /** relevantChunks =
 
         results.documents[0]
 
@@ -256,6 +270,25 @@ ${doc}
             }
           )
 
+          .join("\n"); **/
+
+      relevantChunks =
+        docs
+          .map(
+            (doc, i) => {
+
+              const page =
+                doc.metadata?.page;
+
+              return `
+
+Page ${page}:
+
+${doc.pageContent}
+
+`;
+            }
+          )
           .join("\n");
 
       console.log(
@@ -278,6 +311,11 @@ ${doc}
             relevantChunks,
             question
           );
+
+        console.log(
+          "LANGCHAIN ANSWER:",
+          finalAnswer
+        );
       }
 
       // =========================
@@ -295,6 +333,11 @@ ${doc}
             relevantChunks,
             question
           );
+
+        console.log(
+          "LANGCHAIN ANSWER:",
+          finalAnswer
+        );
       }
     }
 
