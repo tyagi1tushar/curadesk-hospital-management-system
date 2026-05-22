@@ -13,40 +13,53 @@ export const chatbotReply = async (req, res) => {
       ? JSON.parse(oldMessages)
       : [];
 
-      console.log("CHAT HISTORY:", history);
-
+    console.log("CHAT HISTORY:", history);
     history.push({
       role: "user",
       content: message,
     });
+
+    console.log("CALLING analyzeSymptoms...");
+    console.log("MESSAGE:", message);
 
     const aiResponse = await analyzeSymptoms(
       message,
       history
     );
 
+    console.log("AI RESPONSE:", aiResponse);
+
     history.push({
       role: "assistant",
       content: JSON.stringify(aiResponse),
     });
 
+    console.log("SAVING TO REDIS...");
+
     await redisClient.set(
       sessionId,
       JSON.stringify(history),
-      {
-        EX: 3600,
-      }
+      "EX",
+      3600
     );
+
+    console.log("REDIS SAVED");
 
     const department = aiResponse.department;
 
     const today = new Date().toISOString().split("T")[0];
+
+    console.log("DEPARTMENT:", department);
+    console.log("LOOKING FOR DOCTORS...");
 
     const doctors = await Doctor.find({
       specialization: department,
       availability: "Available",
     }).lean();
 
+    console.log("DOCTORS FOUND:", doctors);
+    console.log("TODAY:", today);
+    console.log("MAPPING DOCTOR SLOTS...");
     const availableDoctors = doctors
       .map((doc) => {
         const slots =
