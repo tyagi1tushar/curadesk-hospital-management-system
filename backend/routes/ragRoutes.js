@@ -8,6 +8,7 @@ import { getChatHistory } from "../services/langchainMemoryService.js";
 import redisClient from "../config/redis.js";
 import ChatSession from "../models/chatSessionModel.js";
 import Message from "../models/messageModel.js";
+import crypto from "crypto";
 
 const router = express.Router();
 
@@ -100,10 +101,14 @@ router.post("/ask", async (req, res) => {
 
     // REDIS CACHE CHECK
 
+    const historyHash =
+      crypto
+        .createHash("sha256")
+        .update(history || "")
+        .digest("hex");
 
     const cacheKey =
-
-      `rag:v2:${userId}:${reportHash}:${question.toLowerCase()}`
+      `rag:v3:${userId}:${reportHash}:${historyHash}:${question.toLowerCase()}`
 
     const cachedAnswer =
       await redisClient.get(cacheKey);
@@ -115,7 +120,7 @@ router.post("/ask", async (req, res) => {
       return res.json(
         JSON.parse(cachedAnswer)
       );
-    } 
+    }
 
     let finalAnswer = "";
 
