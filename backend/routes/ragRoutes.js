@@ -5,9 +5,13 @@ import { GoogleGenAI } from "@google/genai";
 import { askReportWithLangChain } from "../services/langchainReportService.js";
 import { getRetriever } from "../services/langchainRetrieverService.js";
 import { getChatHistory } from "../services/langchainMemoryService.js";
+import { buildGraph } from "../services/langgraphService.js";
+import { summarizeMedicalReport } from "../services/reportAIService.js";
+import { analyzeSymptoms } from "../services/aiService.js";
 import redisClient from "../config/redis.js";
 import ChatSession from "../models/chatSessionModel.js";
 import Message from "../models/messageModel.js";
+import Doctor from "../models/doctor.js";
 import crypto from "crypto";
 
 const router = express.Router();
@@ -100,6 +104,15 @@ router.post("/ask", async (req, res) => {
     }
 
     // REDIS CACHE CHECK
+    const history =
+      await getChatHistory(
+        chatSession._id
+      );
+
+    console.log(
+      "CHAT HISTORY:",
+      history
+    );
 
     const historyHash =
       crypto
@@ -126,15 +139,142 @@ router.post("/ask", async (req, res) => {
 
     let relevantChunks = "";
 
-    const history =
-      await getChatHistory(
-        chatSession._id
-      );
+
+
+    const graph =
+      buildGraph();
+
+    const graphResult =
+      await graph.invoke({
+
+        question,
+
+      });
 
     console.log(
-      "CHAT HISTORY:",
-      history
+      "GRAPH RESULT:",
+      graphResult
     );
+
+    
+
+     if (
+      graphResult.route ===
+      "symptom"
+    ) {
+
+      console.log(
+        "LANGGRAPH SYMPTOM ROUTE"
+      );
+
+      const aiResponse =
+        await analyzeSymptoms(
+          question
+        );
+
+      const department =
+        aiResponse.department;
+
+      const today =
+        new Date()
+          .toISOString()
+          .split("T")[0];
+
+      const doctors =
+        await Doctor.find({
+
+          specialization:
+            department,
+
+          availability:
+            "Available",
+
+        }).lean();
+
+      console.log(
+        "SYMPTOM DOCTORS:",
+        doctors
+      );
+
+      const availableDoctors =
+        doctors
+          .map((doc) => {
+
+            const slots =
+              doc.schedule?.[today] ||
+              doc.schedule?.get?.(
+                today
+              ) ||
+              [];
+
+            return {
+
+              _id:
+                doc._id,
+
+              name:
+                doc.name,
+
+              specialization:
+                doc.specialization,
+
+              fee:
+                doc.fee,
+
+              availableSlots:
+                slots,
+            };
+          })
+
+          .filter(
+            doc =>
+              doc.availableSlots
+                .length > 0
+          );
+
+
+
+      finalAnswer = `
+
+🏥 Department:
+${department}
+
+⚠️ Severity:
+${aiResponse.severity}
+
+💡 Advice:
+${aiResponse.advice}
+
+`;
+
+      return res.json({
+
+        type:
+          availableDoctors
+            .length > 0
+
+            ? "available"
+
+            : "no-slots",
+
+        answer:
+          finalAnswer,
+
+        doctors:
+          availableDoctors
+            .length > 0
+
+            ? availableDoctors
+
+            : doctors,
+
+        context: "",
+      });
+
+
+    }
+
+
 
     // =========================
     // SIMPLE QUESTIONS
@@ -311,45 +451,64 @@ ${doc.pageContent}
         relevantChunks
       );
 
+      if (
+      graphResult.route ===
+      "summary"
+    ) {
+
+      console.log(
+        "LANGGRAPH SUMMARY ROUTE"
+      );
+
+      finalAnswer =
+        await summarizeMedicalReport(
+          relevantChunks
+        );
+
+      return res.json({
+
+        answer:
+          finalAnswer,
+
+        context: "",
+      });
+    }
+
       // =========================
       // RETRIEVAL ONLY
       // =========================
 
-      if (!needsAI) {
+      if (
+        graphResult.route ===
+        "rag"
+      ) {
 
-        console.log(
-          "LANGCHAIN RETRIEVAL MODE"
-        );
+        if (!needsAI) {
 
-        finalAnswer =
-          await askReportWithLangChain(
-            history,
-            relevantChunks,
-            question
-          )
+          console.log(
+            "LANGCHAIN RETRIEVAL MODE"
+          );
 
-        console.log(
-          "LANGCHAIN ANSWER:",
-          finalAnswer
-        );
-      }
+          finalAnswer =
+            await askReportWithLangChain(
+              history,
+              relevantChunks,
+              question
+            );
 
-      // =========================
-      // GEMINI MODE
-      // =========================
+        } else {
 
-      else {
+          console.log(
+            "LANGCHAIN GEMINI MODE"
+          );
 
-        console.log(
-          "LANGCHAIN GEMINI MODE"
-        );
-
-        finalAnswer =
-          await askReportWithLangChain(
-            history,
-            relevantChunks,
-            question
-          )
+          finalAnswer =
+            await askReportWithLangChain(
+              history,
+              relevantChunks,
+              question
+            );
+        }
 
         console.log(
           "LANGCHAIN ANSWER:",

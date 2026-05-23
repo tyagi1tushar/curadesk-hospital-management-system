@@ -376,6 +376,12 @@ const ChatWindow = ({ onClose }) => {
 
           context:
             res.data.context || "",
+
+          doctors:
+            res.data.doctors || [],
+
+          type:
+            res.data.type || null,
         };
 
         setMessages((prev) => [
@@ -468,7 +474,7 @@ const ChatWindow = ({ onClose }) => {
       <div
         className="
         flex justify-between items-center
-        px-5 py-4
+        px-5 py-1
         border-b border-white/20
         bg-white/20 backdrop-blur-xl"
       >
@@ -551,20 +557,18 @@ const ChatWindow = ({ onClose }) => {
       {/* REPORT UPLOAD */}
       <div
         className="
-        px-4 py-3
+        px-3 py-0
         border-b border-white/20
         bg-white/10"
       >
 
-        <p className="text-sm font-semibold text-gray-700 mb-3">
-          AI Report Assistant
-        </p>
+
 
         {/* MODERN UPLOAD BOX */}
         <label
           className="
           flex flex-col items-center justify-center
-          w-full p-5
+          w-full p-1
           border-2 border-dashed border-blue-300
           rounded-2xl cursor-pointer
           bg-blue-50/40 hover:bg-blue-100/40
@@ -618,7 +622,7 @@ const ChatWindow = ({ onClose }) => {
           onClick={uploadReport}
           disabled={!file || uploading}
           className="
-          mt-3 w-full
+          mt-1 w-full
           bg-blue-600 hover:bg-blue-700
           disabled:bg-gray-300
           text-white py-2.5 rounded-xl

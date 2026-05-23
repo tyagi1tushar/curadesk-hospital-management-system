@@ -45,7 +45,7 @@ const MessageBubble = ({ msg }) => {
 
       {/* MESSAGE ROW */}
       <div
-        className={`max-w-[90%] px-4 py-3 rounded-2xl text-sm shadow-md leading-relaxed
+        className={`max-w-[95%] px-4 py-2 rounded-2xl text-sm shadow-md leading-relaxed
   ${msg.sender === "user"
             ? "bg-blue-500 text-white rounded-br-none"
             : "bg-white/80 backdrop-blur-md border border-white/40 text-gray-800 rounded-bl-none"}`}
@@ -61,23 +61,23 @@ const MessageBubble = ({ msg }) => {
 
             <div
               className="
-      mt-3
-      p-3
+      mt-1
+      p-2
       rounded-2xl
       bg-gradient-to-br
       from-gray-50
       to-gray-100
       border border-gray-200
       shadow-inner
-      max-h-44
+      max-h-51
       overflow-y-auto"
             >
 
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-1 mb-2">
 
                 <div
                   className="
-          w-2 h-2
+          w-1 h-1
           rounded-full
           bg-blue-500"
                 />
@@ -97,7 +97,7 @@ const MessageBubble = ({ msg }) => {
 
               <p
                 className="
-        text-xs
+        text-sm
         leading-relaxed
         text-gray-700
         whitespace-pre-line"
@@ -115,7 +115,7 @@ const MessageBubble = ({ msg }) => {
       {msg.sender === "bot" && msg.doctors?.map((doc) => (
         <div
           key={doc._id}
-          className="mt-2 w-full bg-white border rounded-xl p-3 shadow-sm"
+          className="mt-2 w-full bg-white border rounded-xl p-2 shadow-sm"
         >
           {/* HEADER */}
           <div className="flex items-center gap-3">
