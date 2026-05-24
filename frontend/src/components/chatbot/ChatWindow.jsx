@@ -98,9 +98,7 @@ const ChatWindow = ({ onClose }) => {
 
     if (
 
-      !reportUploaded ||
-
-      !currentReportHash ||
+      !user ||
 
       historyLoaded.current
 
@@ -125,7 +123,7 @@ const ChatWindow = ({ onClose }) => {
                 params: {
 
                   reportHash:
-                    currentReportHash,
+                    currentReportHash || null,
                 },
 
                 headers: {
@@ -166,49 +164,51 @@ const ChatWindow = ({ onClose }) => {
             );
 
           const formatted =
-
             res.data
-
               .filter(
-
                 (msg) =>
-
                   new Date(
-
                     msg.createdAt
-
                   ).getTime()
-
                   >
-
                   effectiveClearTime
               )
+              .map((msg) => ({
 
-              .map(
+                sender:
+                  msg.role === "assistant"
+                    ? "bot"
+                    : "user",
 
-                (msg) => ({
+                text:
+                  msg.text,
+              }));
 
-                  role:
-                    msg.role,
+          if (formatted.length > 0) {
 
-                  text:
-                    msg.text,
-                })
-              );
+            setMessages(formatted);
 
-          setMessages(
-            formatted
-          );
+          } else {
 
-          historyLoaded.current =
-            true;
-
-        } catch (err) {
+            setMessages([
+              {
+                sender: "bot",
+                text:
+                  "Hi 👋 Tell me your symptoms or upload a medical report.",
+              },
+            ]);
+          }
+        }
+        catch (err) {
 
           console.log(
             "History load failed",
             err
           );
+        }
+        finally {
+          historyLoaded.current =
+            true;
         }
       };
 

@@ -61,9 +61,9 @@ const Banner = () => {
 
               {/* Tagline */}
               <p className={bannerStyles.tagline}>
-                All-in-One
+                AI-Powered
                 <span className={`block ${bannerStyles.taglineHighlight}`}>
-                  Hospital Management System
+                  Healthcare & Medical Assistant
                 </span>
               </p>
 
@@ -72,28 +72,28 @@ const Banner = () => {
                 <div className={`${bannerStyles.featureItem} ${bannerStyles.featureBorderGreen} hover:scale-105 hover:shadow-lg transition-all duration-200`}>
                   <Users className={bannerStyles.featureIcon} />
                   <span className={bannerStyles.featureText}>
-                    Role-Based Dashboards
+                    AI Report Analysis
                   </span>
                 </div>
 
                 <div className={`${bannerStyles.featureItem} ${bannerStyles.featureBorderBlue} hover:scale-105 hover:shadow-lg transition-all duration-200`}>
                   <ShieldCheck className={bannerStyles.featureIcon} />
                   <span className={bannerStyles.featureText}>
-                    Secure Auth (Clerk)
+                    Symptom Triage
                   </span>
                 </div>
 
                 <div className={`${bannerStyles.featureItem} ${bannerStyles.featureBorderEmerald} hover:scale-105 hover:shadow-lg transition-all duration-200`}>
                   <Calendar className={bannerStyles.featureIcon} />
                   <span className={bannerStyles.featureText}>
-                    Appointment Booking
+                    Doctor Recommendation
                   </span>
                 </div>
 
                 <div className={`${bannerStyles.featureItem} ${bannerStyles.featureBorderPurple} hover:scale-105 hover:shadow-lg transition-all duration-200`}>
                   <CreditCard className={bannerStyles.featureIcon} />
                   <span className={bannerStyles.featureText}>
-                    Stripe Payments
+                    Smart Appointment Booking
                   </span>
                 </div>
               </div>

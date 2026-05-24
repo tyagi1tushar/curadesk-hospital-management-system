@@ -48,6 +48,12 @@ router.post("/ask", async (req, res) => {
     const userId =
       authData?.userId;
 
+    const normalizedQuestion =
+      question
+        ?.trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+
     console.log(
       "CHAT USER ID:",
       userId
@@ -121,7 +127,7 @@ router.post("/ask", async (req, res) => {
         .digest("hex");
 
     const cacheKey =
-      `rag:v3:${userId}:${reportHash}:${historyHash}:${question.toLowerCase()}`
+      `rag:v3:${userId}:${reportHash}:${historyHash}:${normalizedQuestion}`;
 
     const cachedAnswer =
       await redisClient.get(cacheKey);
@@ -144,135 +150,11 @@ router.post("/ask", async (req, res) => {
     const graph =
       buildGraph();
 
-    const graphResult =
-      await graph.invoke({
-
-        question,
-
-      });
-
-    console.log(
-      "GRAPH RESULT:",
-      graphResult
-    );
-
-    
-
-     if (
-      graphResult.route ===
-      "symptom"
-    ) {
-
-      console.log(
-        "LANGGRAPH SYMPTOM ROUTE"
-      );
-
-      const aiResponse =
-        await analyzeSymptoms(
-          question
-        );
-
-      const department =
-        aiResponse.department;
-
-      const today =
-        new Date()
-          .toISOString()
-          .split("T")[0];
-
-      const doctors =
-        await Doctor.find({
-
-          specialization:
-            department,
-
-          availability:
-            "Available",
-
-        }).lean();
-
-      console.log(
-        "SYMPTOM DOCTORS:",
-        doctors
-      );
-
-      const availableDoctors =
-        doctors
-          .map((doc) => {
-
-            const slots =
-              doc.schedule?.[today] ||
-              doc.schedule?.get?.(
-                today
-              ) ||
-              [];
-
-            return {
-
-              _id:
-                doc._id,
-
-              name:
-                doc.name,
-
-              specialization:
-                doc.specialization,
-
-              fee:
-                doc.fee,
-
-              availableSlots:
-                slots,
-            };
-          })
-
-          .filter(
-            doc =>
-              doc.availableSlots
-                .length > 0
-          );
 
 
 
-      finalAnswer = `
-
-🏥 Department:
-${department}
-
-⚠️ Severity:
-${aiResponse.severity}
-
-💡 Advice:
-${aiResponse.advice}
-
-`;
-
-      return res.json({
-
-        type:
-          availableDoctors
-            .length > 0
-
-            ? "available"
-
-            : "no-slots",
-
-        answer:
-          finalAnswer,
-
-        doctors:
-          availableDoctors
-            .length > 0
-
-            ? availableDoctors
-
-            : doctors,
-
-        context: "",
-      });
 
 
-    }
 
 
 
@@ -451,28 +333,240 @@ ${doc.pageContent}
         relevantChunks
       );
 
-      if (
-      graphResult.route ===
-      "summary"
-    ) {
+      const graphResult =
+        await graph.invoke({
+
+          question,
+
+          relevantChunks,
+        });
 
       console.log(
-        "LANGGRAPH SUMMARY ROUTE"
+        "GRAPH RESULT:",
+        graphResult
       );
 
-      finalAnswer =
-        await summarizeMedicalReport(
-          relevantChunks
+      if (
+        graphResult.route ===
+        "symptom"
+      ) {
+
+        console.log(
+          "LANGGRAPH SYMPTOM ROUTE"
         );
 
-      return res.json({
+        // ======================
+        // SYMPTOM CACHE KEY
+        // ======================
 
-        answer:
-          finalAnswer,
+        const symptomCacheKey =
+          `symptom:v1:${userId}:${normalizedQuestion}`;
 
-        context: "",
-      });
-    }
+        // ======================
+        // REDIS CHECK
+        // ======================
+
+        const cachedSymptom =
+
+          await redisClient.get(
+            symptomCacheKey
+          );
+
+        if (
+          cachedSymptom
+        ) {
+
+          console.log(
+            "SYMPTOM CACHE HIT"
+          );
+
+          return res.json(
+
+            JSON.parse(
+              cachedSymptom
+            )
+          );
+        }
+
+        // ======================
+        // GRAPH CALL
+        // ======================
+
+        const symptomResult =
+
+          await graph.invoke({
+
+            question,
+          });
+
+        const finalResponse = {
+
+          answer:
+
+            `Department: ${symptomResult
+              .aiResponse
+              ?.department ||
+
+            "General Physician"
+            }
+
+Severity: ${symptomResult
+              .aiResponse
+              ?.severity ||
+
+            "low"
+            }
+
+Advice: ${symptomResult
+              .aiResponse
+              ?.advice ||
+
+            "Please consult a doctor."
+            }`,
+
+          doctors:
+            symptomResult
+              .doctors || [],
+
+          type:
+
+            symptomResult
+              .doctors?.length > 0
+
+              ? "available"
+
+              : "no-slots",
+        };
+
+        // ======================
+        // MONGO SAVE
+        // ======================
+
+        await Message.create({
+
+          chatSessionId:
+            chatSession._id,
+
+          role:
+            "user",
+
+          text:
+            question,
+        });
+
+        await Message.create({
+
+          chatSessionId:
+            chatSession._id,
+
+          role:
+            "assistant",
+
+          text:
+            finalResponse.answer,
+        });
+
+        // ======================
+        // REDIS SAVE
+        // ======================
+
+        await redisClient.set(
+
+          symptomCacheKey,
+
+          JSON.stringify(
+            finalResponse
+          ),
+
+          "EX",
+
+          86400
+        );
+
+        console.log(
+          "SYMPTOM CACHE SAVED"
+        );
+
+        return res.json(
+          finalResponse
+        );
+      }
+
+      if (
+        graphResult.route ===
+        "summary"
+      ) {
+
+        console.log(
+          "LANGGRAPH SUMMARY ROUTE"
+        );
+
+        const summaryResult =
+          await graph.invoke({
+
+            question,
+
+            relevantChunks,
+          });
+
+        finalAnswer =
+          summaryResult.answer;
+
+        const finalResponse = {
+
+          answer:
+            finalAnswer,
+
+          context: "",
+        };
+
+        // SAVE USER MESSAGE
+
+        await Message.create({
+
+          chatSessionId:
+            chatSession._id,
+
+          role:
+            "user",
+
+          text:
+            question,
+        });
+
+        // SAVE AI MESSAGE
+
+        await Message.create({
+
+          chatSessionId:
+            chatSession._id,
+
+          role:
+            "assistant",
+
+          text:
+            finalAnswer,
+        });
+
+        // REDIS CACHE
+
+        await redisClient.set(
+
+          cacheKey,
+
+          JSON.stringify(
+            finalResponse
+          ),
+
+          "EX",
+
+          86400
+        );
+
+        return res.json(
+          finalResponse
+        );
+      }
 
       // =========================
       // RETRIEVAL ONLY

@@ -1,47 +1,208 @@
+import { summarizeMedicalReport } from "./reportAIService.js";
+import Doctor from "../models/doctor.js";
+import { analyzeSymptoms } from "./aiService.js";
+
 export const ragNode =
-  async (state) => {
+    async (state) => {
 
-    console.log(
-      "RAG NODE"
-    );
+        console.log(
+            "RAG NODE"
+        );
 
-    return {
+        return {
 
-      ...state,
+            ...state,
 
-      node:
-        "rag",
+            node:
+                "rag",
+        };
     };
-  };
+
+const symptomMap = {
+    headache: {
+        department: "General Physician",
+        severity: "low",
+        advice: "Rest, hydrate, and consult a doctor if persistent."
+    },
+    chest: {
+        department: "Cardiologist",
+        severity: "high",
+        advice: "Seek medical attention."
+    },
+    fever: {
+        department: "General Physician",
+        severity: "medium",
+        advice: "Monitor temperature and hydrate."
+    }
+};
 
 export const summaryNode =
-  async (state) => {
+    async (state) => {
 
-    console.log(
-      "SUMMARY NODE"
-    );
+        console.log(
+            "SUMMARY NODE"
+        );
 
-    return {
+        const answer =
+            await summarizeMedicalReport(
 
-      ...state,
+                state.relevantChunks
+            );
 
-      node:
-        "summary",
+        return {
+
+            ...state,
+
+            answer,
+
+            node:
+                "summary",
+        };
     };
-  };
 
 export const symptomNode =
-  async (state) => {
+    async (state) => {
 
-    console.log(
-      "SYMPTOM NODE"
-    );
+        console.log(
+            "SYMPTOM NODE"
+        );
 
-    return {
+        const q =
+            state.question
+                ?.toLowerCase() || "";
 
-      ...state,
+        // =====================
+        // RULE-BASED FAST PATH
+        // =====================
 
-      node:
-        "symptom",
+        let aiResponse =
+            null;
+
+        for (
+            const key
+            in symptomMap
+        ) {
+
+            if (
+                q.includes(key)
+            ) {
+
+                console.log(
+                    "LOCAL SYMPTOM MATCH:",
+                    key
+                );
+
+                aiResponse =
+                    symptomMap[
+                    key
+                    ];
+
+                break;
+            }
+        }
+
+        // =====================
+        // GEMINI FALLBACK
+        // =====================
+
+        if (
+            !aiResponse
+        ) {
+
+            console.log(
+                "GEMINI SYMPTOM FALLBACK"
+            );
+
+            aiResponse =
+                await analyzeSymptoms(
+                    state.question
+                );
+        }
+
+        const department =
+            aiResponse.department;
+
+        const today =
+            new Date()
+                .toISOString()
+                .split("T")[0];
+
+        const doctors =
+            await Doctor.find({
+
+                specialization:
+                    department,
+
+                availability:
+                    "Available",
+
+            }).lean();
+
+        const availableDoctors =
+            doctors
+
+                .map((doc) => {
+
+                    const slots =
+                        doc.schedule?.[
+                        today
+                        ] ||
+
+                        doc.schedule?.get?.(
+                            today
+                        ) ||
+
+                        [];
+
+                    return {
+
+                        _id:
+                            doc._id,
+
+                        name:
+                            doc.name,
+
+                        specialization:
+                            doc.specialization,
+
+                        fee:
+                            doc.fee,
+
+                        imageUrl:
+                            doc.imageUrl,
+
+                        rating:
+                            doc.rating,
+
+                        availableSlots:
+                            slots,
+                    };
+                })
+
+                .filter(
+
+                    (doc) =>
+                        doc
+                            .availableSlots
+                            .length > 0
+                );
+
+        return {
+
+            ...state,
+
+            node:
+                "symptom",
+
+            aiResponse,
+
+            doctors:
+
+                availableDoctors
+                    .length > 0
+
+                    ? availableDoctors
+
+                    : doctors,
+        };
     };
-  };

@@ -128,8 +128,8 @@ export const bannerStyles = {
   starIcon: "w-4 h-4 fill-yellow-400 text-yellow-400",
 
   // Tagline
-  tagline: "text-lg sm:text-xl md:text-2xl lg:text-3xl font-light  text-gray-700 gray-300 gray-300 mb-5 leading-tight",
-  taglineHighlight: "text-cyan-600 font-semibold",
+  tagline: "text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold  text-blue-900 gray-300 gray-300 mb-5 leading-tight",
+  taglineHighlight: "text-cyan-900 font-semibold",
 
   // Features grid
   featuresGrid: "grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 text-sm sm:text-base",
