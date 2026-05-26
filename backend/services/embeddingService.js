@@ -1,18 +1,31 @@
-import { GoogleGenAI } from "@google/genai";
+import axios from "axios";
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-});
+export const createEmbedding =
+  async (text) => {
 
-export const createEmbedding = async (
-  text
-) => {
+    try {
 
-  const response =
-    await ai.models.embedContent({
-      model: "gemini-embedding-001",
-      contents: text,
-    });
+      console.log(
+        "CALLING FASTAPI EMBEDDING..."
+      );
 
-  return response.embeddings[0].values;
-};
+      const response =
+        await axios.post(
+          "http://localhost:8001/embed-report",
+          {
+            text,
+          }
+        );
+
+      return response.data.embedding;
+
+    } catch (err) {
+
+      console.log(
+        "EMBED ERROR:",
+        err.message
+      );
+
+      throw err;
+    }
+  };

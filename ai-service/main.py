@@ -48,6 +48,9 @@ class RagRequest(BaseModel):
     context: str
     history: str = ""
 
+class EmbedRequest(BaseModel):
+    text: str
+
 
 @app.get("/")
 def root():
@@ -223,6 +226,35 @@ Rules:
 
         return {
             "answer": response.text
+        }
+
+    except Exception as e:
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+
+@app.post("/embed-report")
+def embed_report(
+    data: EmbedRequest
+):
+
+    try:
+
+        print(
+            "FASTAPI EMBEDDING CALLED"
+        )
+
+        response = genai.embed_content(
+            model=
+            "models/gemini-embedding-001",
+            content=
+            data.text
+        )
+
+        return {
+            "embedding": response["embedding"]
         }
 
     except Exception as e:
