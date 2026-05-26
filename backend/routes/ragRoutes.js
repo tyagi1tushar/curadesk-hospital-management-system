@@ -333,13 +333,19 @@ ${doc.pageContent}
         relevantChunks
       );
 
+
       const graphResult =
         await graph.invoke({
 
           question,
 
           relevantChunks,
+
+          userId,
+
+          history,
         });
+
 
       console.log(
         "GRAPH RESULT:",
@@ -393,11 +399,7 @@ ${doc.pageContent}
         // ======================
 
         const symptomResult =
-
-          await graph.invoke({
-
-            question,
-          });
+          graphResult;
 
         const finalResponse = {
 
@@ -501,16 +503,8 @@ Advice: ${symptomResult
           "LANGGRAPH SUMMARY ROUTE"
         );
 
-        const summaryResult =
-          await graph.invoke({
-
-            question,
-
-            relevantChunks,
-          });
-
         finalAnswer =
-          summaryResult.answer;
+          graphResult.answer;
 
         const finalResponse = {
 
@@ -577,37 +571,12 @@ Advice: ${symptomResult
         "rag"
       ) {
 
-        if (!needsAI) {
-
-          console.log(
-            "LANGCHAIN RETRIEVAL MODE"
-          );
-
-          finalAnswer =
-            await askReportWithLangChain(
-              history,
-              relevantChunks,
-              question
-            );
-
-        } else {
-
-          console.log(
-            "LANGCHAIN GEMINI MODE"
-          );
-
-          finalAnswer =
-            await askReportWithLangChain(
-              history,
-              relevantChunks,
-              question
-            );
-        }
-
         console.log(
-          "LANGCHAIN ANSWER:",
-          finalAnswer
+          "LANGGRAPH RAG ROUTE"
         );
+
+        finalAnswer =
+          graphResult.answer;
       }
     }
 

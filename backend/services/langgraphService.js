@@ -31,6 +31,12 @@ const graphState = {
   aiResponse: null,
 
   doctors: null,
+
+  userId: null,
+
+  history: null,
+
+  cacheHit: false,
 };
 
 // ======================
@@ -206,6 +212,36 @@ ${question}
       response.text
         .trim()
         .toLowerCase();
+
+    const validRoutes = [
+
+      "rag",
+
+      "summary",
+
+      "symptom",
+    ];
+
+    if (
+
+      !validRoutes.includes(
+        route
+      )
+
+    ) {
+
+      console.log(
+        "INVALID ROUTE → rag"
+      );
+
+      return {
+
+        ...state,
+
+        route:
+          "rag",
+      };
+    }
 
     console.log(
       "LLM ROUTE:",

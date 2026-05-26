@@ -2,6 +2,8 @@ import { summarizeMedicalReport } from "./reportAIService.js";
 import Doctor from "../models/doctor.js";
 import { analyzeSymptoms } from "./aiService.js";
 
+import { askReportWithLangChain } from "./langchainReportService.js";
+
 export const ragNode =
     async (state) => {
 
@@ -9,12 +11,22 @@ export const ragNode =
             "RAG NODE"
         );
 
+        const answer =
+            await askReportWithLangChain(
+                state.history,
+                state.relevantChunks,
+                state.question,
+                state.userId
+            );
+
         return {
 
             ...state,
 
             node:
                 "rag",
+
+            answer,
         };
     };
 
@@ -46,14 +58,31 @@ export const summaryNode =
         const answer =
             await summarizeMedicalReport(
 
-                state.relevantChunks
+                state.relevantChunks,
+                state.userId
             );
+
+        const formattedSummary = `
+
+🩺 Short Summary:
+${answer.short_summary}
+
+📌 Important Findings:
+${answer.important_findings}
+
+⚠ Possible Abnormalities:
+${answer.possible_abnormalities}
+
+💡 Patient Explanation:
+${answer.patient_explanation}
+`;
 
         return {
 
             ...state,
 
-            answer,
+            answer:
+                formattedSummary,
 
             node:
                 "summary",

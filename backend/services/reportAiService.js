@@ -1,45 +1,78 @@
-import { GoogleGenAI } from "@google/genai";
-import { askReportWithLangChain } from "./langchainReportService.js";
+import axios from "axios";
+import redisClient from "../config/redis.js";
+import crypto from "crypto";
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-});
+export const summarizeMedicalReport =
+  async (
+    reportText,
+    userId
+  ) => {
 
-export const summarizeMedicalReport = async (
-  reportText
-) => {
+    try {
 
-  try {
+      const reportHash =
+        crypto
+          .createHash("sha256")
+          .update(reportText)
+          .digest("hex");
 
-    const prompt = `
-You are an AI medical assistant.
+      const cacheKey =
+        `summary:v2:${userId}:${reportHash}`;
 
-Analyze the following medical report.
+      // CACHE CHECK
+      const cached =
+        await redisClient.get(
+          cacheKey
+        );
 
-Give:
-1. Short summary
-2. Important findings
-3. Possible abnormalities
-4. Simple patient-friendly explanation
+      if (cached) {
 
-Keep response concise and clean.
+        console.log(
+          "SUMMARY CACHE HIT"
+        );
 
-Medical Report:
-${reportText}
-`;
+        return JSON.parse(
+          cached
+        );
+      }
 
-    const response =
-      await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: prompt,
-      });
+      console.log(
+        "CALLING FASTAPI SUMMARY..."
+      );
 
-    return response.text;
+      const response =
+        await axios.post(
+          "http://localhost:8001/summarize",
+          {
+            text:
+              reportText,
+          }
+        );
 
-  } catch (err) {
+      const summary =
+        response.data;
 
-    console.log("REPORT AI ERROR:", err);
+      // REDIS SAVE
+      await redisClient.set(
+        cacheKey,
+        JSON.stringify(summary),
+        "EX",
+        86400
+      );
 
-    return "AI report analysis failed.";
-  }
-};
+      console.log(
+        "FASTAPI SUMMARY SUCCESS"
+      );
+
+      return summary;
+
+    } catch (err) {
+
+      console.log(
+        "FASTAPI SUMMARY ERROR:",
+        err.message
+      );
+
+      return "Summary service unavailable.";
+    }
+  };

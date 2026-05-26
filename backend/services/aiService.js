@@ -1,73 +1,48 @@
-import { GoogleGenAI } from "@google/genai";
+import axios from "axios";
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-});
+export const analyzeSymptoms =
+  async (symptomText) => {
 
-export const analyzeSymptoms = async (
-  message,
-  history = []
-) => {
+    try {
 
-  try {
+      console.log(
+        "CALLING FASTAPI SYMPTOM..."
+      );
 
-    // Convert history into text
-    const previousConversation = history
-      .map((msg) => `${msg.role}: ${msg.content}`)
-      .join("\n");
+      const response =
+        await axios.post(
 
-    const prompt = `
-You are a medical assistant.
+          "http://localhost:8001/symptom-analysis",
 
-Analyze the symptoms carefully.
+          {
+            symptom:
+              symptomText,
+          }
+        );
 
-Choose ONLY ONE department from:
-- Cardiologist
-- Neurologist
-- Dermatologist
-- General Physician
+      console.log(
+        "FASTAPI SYMPTOM SUCCESS"
+      );
 
-Keep advice short and concise in 1-2 sentences.
+      return response.data;
 
-Conversation History:
-${previousConversation}
+    } catch (err) {
 
-Current Patient Message:
-"${message}"
+      console.log(
+        "FASTAPI SYMPTOM ERROR:",
+        err.message
+      );
 
-Return ONLY valid JSON.
+      return {
 
-Format:
-{
-  "department": "",
-  "severity": "",
-  "advice": ""
-}
-`;
+        department:
+          "General Physician",
 
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: prompt,
-    });
+        severity:
+          "medium",
 
-    const text = response.text;
-
-    // Remove markdown if Gemini adds it
-    const cleaned = text
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
-
-    return JSON.parse(cleaned);
-
-  } catch (err) {
-
-    console.log("FULL AI ERROR:", err);
-
-    return {
-      department: "General Physician",
-      severity: "low",
-      advice: "Please consult a doctor.",
-    };
-  }
-};
+        advice:
+          "Please consult a doctor.",
+      };
+    }
+  };
