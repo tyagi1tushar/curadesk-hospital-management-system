@@ -45,25 +45,60 @@ export const chatbotReply = async (req, res) => {
 
     console.log("REDIS SAVED");
 
-    const department = aiResponse.department;
+    const specialization =
+      aiResponse.specialization;
 
-    const today = new Date().toISOString().split("T")[0];
+    if (!specialization) {
 
-    console.log("DEPARTMENT:", department);
-    console.log("LOOKING FOR DOCTORS...");
+      return res.json({
 
-    const doctors = await Doctor.find({
-      specialization: department,
-      availability: "Available",
-    }).lean();
+        reply:
+          "Unable to determine specialist.",
 
-    console.log("DOCTORS FOUND:", doctors);
-    console.log("TODAY:", today);
-    console.log("MAPPING DOCTOR SLOTS...");
+        doctors: []
+      });
+    }
+
+    console.log(
+      "SPECIALIZATION:",
+      specialization
+    );
+
+    const doctors =
+      await Doctor.find({
+
+        specialization,
+
+        availability:
+          "Available",
+
+      }).lean();
+
+    console.log(
+      "DOCTORS FOUND:",
+      doctors
+    );
+
+    const today =
+      new Date()
+        .toISOString()
+        .split("T")[0];
+
+    console.log(
+      "TODAY:",
+      today
+    );
+
+    console.log(
+      "MAPPING DOCTOR SLOTS..."
+    );
+
     const availableDoctors = doctors
       .map((doc) => {
         const slots =
-          doc.schedule?.[today] || doc.schedule?.get?.(today) || [];
+          doc.schedule?.[today] ||
+          doc.schedule?.get?.(today) ||
+          [];
 
         return {
           _id: doc._id,
@@ -73,14 +108,18 @@ export const chatbotReply = async (req, res) => {
           availableSlots: slots,
         };
       })
-      .filter((doc) => doc.availableSlots.length > 0);
+      .filter(
+        doc =>
+          doc.availableSlots.length > 0
+      );
 
 
     if (availableDoctors.length > 0) {
       return res.json({
         type: "available",
         reply: `
-🏥 Department: ${department}
+🏥 Recommended Specialist:
+${specialization}
 
 ⚠️ Severity: ${aiResponse.severity}
 
@@ -95,7 +134,8 @@ ${aiResponse.advice}
     return res.json({
       type: "no-slots",
       reply: `
-🏥 Department: ${department}
+🏥 Recommended Specialist:
+${specialization}
 
 ⚠️ Severity: ${aiResponse.severity}
 
@@ -109,6 +149,14 @@ ${aiResponse.advice}
       doctors: doctors,
     });
   } catch (err) {
-    res.status(500).json({ message: "error" });
+
+    console.log(
+      "CHATBOT ERROR:",
+      err
+    );
+
+    res.status(500).json({
+      message: err.message
+    });
   }
 };

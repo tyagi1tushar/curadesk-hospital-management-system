@@ -182,6 +182,12 @@ const ChatWindow = ({ onClose }) => {
 
                 text:
                   msg.text,
+
+                doctors:
+                  msg.doctors || [],
+
+                type:
+                  msg.type || null,
               }));
 
           if (formatted.length > 0) {

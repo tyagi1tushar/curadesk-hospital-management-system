@@ -74,6 +74,33 @@ export const askReportWithLangChain =
         err.message
       );
 
-      return "RAG service unavailable.";
+      return "AI quota exceeded. Please retry in 1 minute.";
     }
+  };
+
+export const streamReportAnswer =
+  async (
+    history,
+    context,
+    question
+  ) => {
+
+    const response =
+      await axios.post(
+
+        "http://localhost:8001/rag-stream",
+
+        {
+          history,
+          context,
+          question,
+        },
+
+        {
+          responseType:
+            "stream",
+        }
+      );
+
+    return response.data;
   };

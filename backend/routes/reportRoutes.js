@@ -5,13 +5,13 @@ import PDFParser from "pdf2json";
 import crypto from "crypto";
 import { requireAuth } from "@clerk/express";
 
-import extractTextWithTesseract from "../services/tesseractService.js";
+// import extractTextWithTesseract from "../services/tesseractService.js";
 
 // import extractTextWithGoogleOCR from "../services/googleOcrService.js";
 
-import convertPdfToImages from "../services/pdfToImageService.js";
+// import convertPdfToImages from "../services/pdfToImageService.js";
 
-import path from "path";
+// import path from "path";
 
 import Report
   from "../models/reportModel.js";
@@ -19,9 +19,8 @@ import Report
 import { summarizeMedicalReport } from "../services/reportAiService.js";
 
 import cleanPdfText from "../utilities/cleanPdfText.js";
-import chunkText from "../utilities/chunkText.js";
 
-import { createEmbedding } from "../services/embeddingService.js";
+import { processReportAI, ocrReportAI } from "../services/reportAiService.js";
 
 import { collection } from "../services/chromaService.js";
 
@@ -172,84 +171,95 @@ router.post(
             ) {
 
               console.log(
-                "USING TESSERACT OCR..."
+                "CALLING FASTAPI OCR..."
               );
 
-              const outputDir =
-                await convertPdfToImages(
-                  req.file.path
+              const ocrResult =
+
+                await ocrReportAI(
+                  fs.readFileSync(
+                    req.file.path
+                  )
                 );
 
-              if (outputDir) {
+              pagesText.length = 0;
 
-                const files =
-                  fs
-                    .readdirSync(outputDir)
-                    .sort();
+              pagesText.push(
+                ...ocrResult.pages
+              );
 
-                let ocrText = "";
+              text =
 
-                for (const file of files) {
+                ocrResult.pages
 
-                  const imagePath =
-                    path.join(
-                      outputDir,
-                      file
-                    );
+                  .map(
+                    p => p.text
+                  )
 
-                  console.log(
-                    "OCR IMAGE:",
-                    imagePath
+                  .join(
+                    "\n"
                   );
 
-                  const pageText =
-                    await extractTextWithTesseract(
-                      imagePath
-                    );
+              console.log(
+                "FASTAPI OCR COMPLETE"
+              );
 
-                  ocrText +=
-                    pageText + "\n";
-                }
-
-                text = ocrText;
-
-                // DELETE OCR TEMP FOLDER
-
-                fs.rmSync(
-
-                  outputDir,
-
-                  {
-                    recursive: true,
-                    force: true,
-                  }
-                );
-
-                console.log(
-                  "OCR TEXT:",
-                  text
-                );
-              }
+              console.log(
+                "OCR TEXT:",
+                text
+              );
             }
 
             // CLEAN PAGES
 
-            const cleanedPages =
+            let cleanedPages = [];
 
-              pagesText.map(
+            // OCR USED
 
-                (p) => ({
+            if (
 
-                  page:
-                    p.page,
+              text &&
+              pagesText.every(
+                p => !p.text.trim()
+              )
+
+            ) {
+
+              cleanedPages = [
+
+                {
+
+                  page: 1,
 
                   text:
-
                     cleanPdfText(
-                      p.text
+                      text
                     ),
-                })
-              );
+                }
+              ];
+            }
+
+            // NORMAL PDF TEXT
+
+            else {
+
+              cleanedPages =
+
+                pagesText.map(
+
+                  (p) => ({
+
+                    page:
+                      p.page,
+
+                    text:
+
+                      cleanPdfText(
+                        p.text
+                      ),
+                  })
+                );
+            }
 
             console.log(
               "CLEANED PAGES:",
@@ -343,68 +353,59 @@ router.post(
 
 
 
-            // CHUNK TEXT
-            const pageChunks = [];
-
-            cleanedPages.forEach(
-
-              (p) => {
-
-                const chunks =
-
-                  chunkText(
-                    p.text
-                  );
-
-                chunks.forEach(
-
-                  (chunk) => {
-
-                    pageChunks.push({
-
-                      page:
-                        p.page,
-
-                      text:
-                        chunk,
-                    });
-                  }
-                );
-              }
+            console.log(
+              "CALLING FASTAPI PROCESS REPORT..."
             );
+
+            const {
+
+              chunks,
+
+              embeddings
+
+            } =
+
+              await processReportAI(
+                cleanedText
+              );
 
             if (
 
-              !pageChunks ||
+              !chunks ||
 
-              pageChunks.length === 0
+              chunks.length === 0
+
             ) {
 
               return res.status(400).json({
 
                 message:
-                  "Could not extract readable text from PDF.",
+                  "Could not process report text.",
               });
             }
+
+            const pageChunks =
+
+              chunks.map(
+
+                (chunk) => ({
+
+                  page:
+                    1,
+
+                  text:
+                    chunk,
+                })
+              );
+
+            console.log(
+              "FASTAPI PROCESS COMPLETE"
+            );
 
             console.log(
               "PAGE CHUNKS:",
               pageChunks
             );
-
-            // CREATE EMBEDDINGS
-            const embeddings =
-              await Promise.all(
-
-                pageChunks.map(
-
-                  (chunk) =>
-
-                    createEmbedding(
-                      chunk.text
-                    )
-                )
-              );
 
             console.log(
               "EMBEDDINGS CREATED"

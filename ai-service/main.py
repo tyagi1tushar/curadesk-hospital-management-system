@@ -1,10 +1,20 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import ( FastAPI, HTTPException, UploadFile, File )
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import google.generativeai as genai
 import json
 import os 
 from dotenv import load_dotenv
+from langchain_text_splitters import ( RecursiveCharacterTextSplitter )
+from pdf2image import convert_from_bytes
+from PIL import Image
+import io
+import pytesseract
+
+pytesseract.pytesseract.tesseract_cmd = (
+    r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+)
+
 
 load_dotenv()
 
@@ -16,7 +26,7 @@ genai.configure(
 )
 
 model = genai.GenerativeModel(
-    "gemini-3-flash-preview"
+    "gemini-3.5-flash"
 )
 
 app = FastAPI(
@@ -49,6 +59,11 @@ class RagRequest(BaseModel):
     history: str = ""
 
 class EmbedRequest(BaseModel):
+    text: str
+    
+class ProcessReportRequest(
+    BaseModel
+):
     text: str
 
 
@@ -145,23 +160,40 @@ def symptom_analysis(
         prompt = f"""
 You are a medical triage AI.
 
-Analyze:
+Analyze the symptom and identify the doctor specialization.
 
-{data.symptom}
-
-Return ONLY raw JSON.
+Return ONLY JSON.
 
 Example:
 
 {{
-  "department":"General Physician",
-  "severity":"medium",
-  "advice":"Rest and hydrate"
+  "specialization":"Cardiologist",
+  "severity":"high",
+  "advice":"Seek immediate medical attention"
 }}
 
-No markdown.
-No explanation.
-Only JSON.
+Valid specializations:
+
+- Cardiologist
+- Neurologist
+- Dermatologist
+- Orthopedic
+- ENT Specialist
+- General Physician
+- Gastroenterologist
+- Pulmonologist
+- Psychiatrist
+- Ophthalmologist
+
+Symptom:
+
+{data.symptom}
+
+Rules:
+- Return ONLY JSON
+- Use one specialization from the list
+- No markdown
+- No explanation
 """
 
         response = model.generate_content(
@@ -234,6 +266,7 @@ Rules:
             status_code=500,
             detail=str(e)
         )
+    
 
 @app.post("/embed-report")
 def embed_report(
@@ -261,5 +294,153 @@ def embed_report(
 
         raise HTTPException(
             status_code=500,
+            detail=str(e)
+        )
+        
+        
+@app.post(
+    "/process-report"
+)
+def process_report(
+    data:
+    ProcessReportRequest
+):
+
+    try:
+
+        print(
+            "PROCESS REPORT CALLED"
+        )
+
+        splitter = (
+            RecursiveCharacterTextSplitter(
+
+                chunk_size=1200,
+
+                chunk_overlap=200,
+
+                separators=[
+
+                    "\n\n",
+
+                    "\n",
+
+                    ". ",
+
+                    " ",
+
+                    ""
+                ],
+            )
+        )
+
+        chunks = (
+            splitter.split_text(
+                data.text
+            )
+        )
+
+        embeddings = []
+
+        for chunk in chunks:
+
+            response = (
+                genai.embed_content(
+
+                    model=
+                    "models/gemini-embedding-001",
+
+                    content=
+                    chunk
+                )
+            )
+
+            embeddings.append(
+
+                response[
+                    "embedding"
+                ]
+            )
+
+        return {
+
+            "chunks":
+                chunks,
+
+            "embeddings":
+                embeddings
+        }
+
+    except Exception as e:
+
+        raise HTTPException(
+
+            status_code=500,
+
+            detail=str(e)
+        )
+        
+        
+@app.post(
+    "/ocr-report"
+)
+async def ocr_report(
+
+    file:
+    UploadFile = File(...)
+):
+
+    try:
+
+        print(
+            "OCR REPORT CALLED"
+        )
+
+        pdf_bytes = (
+            await file.read()
+        )
+
+        images = (
+    convert_from_bytes(
+
+        pdf_bytes,
+
+        poppler_path=
+        r"C:\poppler\Library\bin"
+    )
+ )
+
+        pages = []
+
+        for i, img in enumerate(images):
+
+            text = (
+                pytesseract
+                .image_to_string(
+                    img
+                )
+            )
+
+            pages.append({
+
+                "page":
+                    i + 1,
+
+                "text":
+                    text
+            })
+
+        return {
+
+            "pages":
+                pages
+        }
+
+    except Exception as e:
+
+        raise HTTPException(
+
+            status_code=500,
+
             detail=str(e)
         )

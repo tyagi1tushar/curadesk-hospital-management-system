@@ -37,6 +37,13 @@ const messageSchema =
         required: true,
       },
 
+      doctors: {
+
+        type: Array,
+
+        default: [],
+      },
+
     },
 
     {

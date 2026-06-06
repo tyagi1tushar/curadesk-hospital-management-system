@@ -1,22 +1,38 @@
-const chunkText = (
-  text,
-  chunkSize = 1200
-) => {
+import {
 
-  const chunks = [];
+  RecursiveCharacterTextSplitter
 
-  for (
-    let i = 0;
-    i < text.length;
-    i += chunkSize
-  ) {
+} from "@langchain/textsplitters";
 
-    chunks.push(
-      text.slice(i, i + chunkSize)
+const chunkText =
+  async (
+    text
+  ) => {
+
+    const splitter =
+      new RecursiveCharacterTextSplitter({
+
+        chunkSize: 1200,
+
+        chunkOverlap: 200,
+
+        separators: [
+
+          "\n\n",
+
+          "\n",
+
+          ". ",
+
+          " ",
+
+          ""
+        ],
+      });
+
+    return await splitter.splitText(
+      text
     );
-  }
-
-  return chunks;
-};
+  };
 
 export default chunkText;

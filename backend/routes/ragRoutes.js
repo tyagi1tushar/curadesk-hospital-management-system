@@ -8,6 +8,7 @@ import { getChatHistory } from "../services/langchainMemoryService.js";
 import { buildGraph } from "../services/langgraphService.js";
 import { summarizeMedicalReport } from "../services/reportAIService.js";
 import { analyzeSymptoms } from "../services/aiService.js";
+import { streamReportAnswer } from "../services/langchainReportService.js";
 import redisClient from "../config/redis.js";
 import ChatSession from "../models/chatSessionModel.js";
 import Message from "../models/messageModel.js";
@@ -145,18 +146,10 @@ router.post("/ask", async (req, res) => {
 
     let relevantChunks = "";
 
-
+    let graphResult = null;
 
     const graph =
       buildGraph();
-
-
-
-
-
-
-
-
 
     // =========================
     // SIMPLE QUESTIONS
@@ -334,7 +327,7 @@ ${doc.pageContent}
       );
 
 
-      const graphResult =
+      graphResult =
         await graph.invoke({
 
           question,
@@ -352,234 +345,37 @@ ${doc.pageContent}
         graphResult
       );
 
-      if (
-        graphResult.route ===
-        "symptom"
-      ) {
-
-        console.log(
-          "LANGGRAPH SYMPTOM ROUTE"
-        );
-
-        // ======================
-        // SYMPTOM CACHE KEY
-        // ======================
-
-        const symptomCacheKey =
-          `symptom:v1:${userId}:${normalizedQuestion}`;
-
-        // ======================
-        // REDIS CHECK
-        // ======================
-
-        const cachedSymptom =
-
-          await redisClient.get(
-            symptomCacheKey
-          );
-
-        if (
-          cachedSymptom
-        ) {
-
-          console.log(
-            "SYMPTOM CACHE HIT"
-          );
-
-          return res.json(
-
-            JSON.parse(
-              cachedSymptom
-            )
-          );
-        }
-
-        // ======================
-        // GRAPH CALL
-        // ======================
-
-        const symptomResult =
-          graphResult;
-
-        const finalResponse = {
-
-          answer:
-
-            `Department: ${symptomResult
-              .aiResponse
-              ?.department ||
-
-            "General Physician"
-            }
-
-Severity: ${symptomResult
-              .aiResponse
-              ?.severity ||
-
-            "low"
-            }
-
-Advice: ${symptomResult
-              .aiResponse
-              ?.advice ||
-
-            "Please consult a doctor."
-            }`,
-
-          doctors:
-            symptomResult
-              .doctors || [],
-
-          type:
-
-            symptomResult
-              .doctors?.length > 0
-
-              ? "available"
-
-              : "no-slots",
-        };
-
-        // ======================
-        // MONGO SAVE
-        // ======================
-
-        await Message.create({
-
-          chatSessionId:
-            chatSession._id,
-
-          role:
-            "user",
-
-          text:
-            question,
-        });
-
-        await Message.create({
-
-          chatSessionId:
-            chatSession._id,
-
-          role:
-            "assistant",
-
-          text:
-            finalResponse.answer,
-        });
-
-        // ======================
-        // REDIS SAVE
-        // ======================
-
-        await redisClient.set(
-
-          symptomCacheKey,
-
-          JSON.stringify(
-            finalResponse
-          ),
-
-          "EX",
-
-          86400
-        );
-
-        console.log(
-          "SYMPTOM CACHE SAVED"
-        );
-
-        return res.json(
-          finalResponse
-        );
-      }
-
-      if (
-        graphResult.route ===
-        "summary"
-      ) {
-
-        console.log(
-          "LANGGRAPH SUMMARY ROUTE"
-        );
-
-        finalAnswer =
-          graphResult.answer;
-
-        const finalResponse = {
-
-          answer:
-            finalAnswer,
-
-          context: "",
-        };
-
-        // SAVE USER MESSAGE
-
-        await Message.create({
-
-          chatSessionId:
-            chatSession._id,
-
-          role:
-            "user",
-
-          text:
-            question,
-        });
-
-        // SAVE AI MESSAGE
-
-        await Message.create({
-
-          chatSessionId:
-            chatSession._id,
-
-          role:
-            "assistant",
-
-          text:
-            finalAnswer,
-        });
-
-        // REDIS CACHE
-
-        await redisClient.set(
-
-          cacheKey,
-
-          JSON.stringify(
-            finalResponse
-          ),
-
-          "EX",
-
-          86400
-        );
-
-        return res.json(
-          finalResponse
-        );
-      }
-
       // =========================
-      // RETRIEVAL ONLY
+      // SUPERVISOR AGENTS
       // =========================
 
-      if (
-        graphResult.route ===
-        "rag"
-      ) {
+      // =========================
+      // PHASE 3 MERGED RESPONSE
+      // =========================
 
-        console.log(
-          "LANGGRAPH RAG ROUTE"
-        );
+      finalAnswer =
 
-        finalAnswer =
-          graphResult.answer;
-      }
+        graphResult.answer ||
+
+        "Something went wrong generating response.";
+
+      console.log(
+        "FINAL MERGED ANSWER:",
+        finalAnswer
+      );
+
     }
 
+
+    if (!finalAnswer?.trim()) {
+
+      console.log(
+        "EMPTY FINAL ANSWER"
+      );
+
+      finalAnswer =
+        "Something went wrong generating response.";
+    }
 
     // SAVE USER MESSAGE
 
@@ -607,18 +403,27 @@ Advice: ${symptomResult
 
       text:
         finalAnswer,
+
+      doctors:
+        graphResult?.doctors || [],
     });
 
     // FINAL RESPONSE
 
+    console.log(
+      "GRAPH DOCTORS:",
+      graphResult?.doctors
+    );
 
     const finalResponse = {
 
       answer: finalAnswer,
 
       context: relevantChunks,
-    };
 
+      doctors:
+        graphResult?.doctors || [],
+    };
 
     // SAVE TO REDIS CACHE
 
@@ -645,6 +450,85 @@ Advice: ${symptomResult
     });
   }
 });
+
+
+router.post(
+  "/ask-stream",
+
+  async (req, res) => {
+
+    try {
+
+      const {
+
+        question,
+        reportHash
+
+      } = req.body;
+
+      const authData =
+        req.auth();
+
+      const userId =
+        authData?.userId;
+
+      if (!userId) {
+
+        return res.status(401).json({
+
+          message:
+            "Unauthorized",
+        });
+      }
+
+      const retriever =
+        await getRetriever(
+          reportHash
+        );
+
+      const docs =
+        await retriever.invoke(
+          question
+        );
+
+      const relevantChunks =
+        docs
+          .map(
+            doc =>
+              doc.pageContent
+          )
+          .join("\n");
+
+      const history = "";
+
+      const stream =
+        await streamReportAnswer(
+
+          history,
+          relevantChunks,
+          question
+        );
+
+      res.setHeader(
+        "Content-Type",
+        "text/plain"
+      );
+
+      stream.pipe(res);
+
+    } catch (err) {
+
+      console.log(
+        "STREAM ERROR:",
+        err
+      );
+
+      res
+        .status(500)
+        .end();
+    }
+  }
+);
 
 router.get(
 

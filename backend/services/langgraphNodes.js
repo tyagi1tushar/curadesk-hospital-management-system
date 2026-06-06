@@ -1,7 +1,7 @@
 import { summarizeMedicalReport } from "./reportAIService.js";
 import Doctor from "../models/doctor.js";
 import { analyzeSymptoms } from "./aiService.js";
-
+import { GoogleGenAI } from "@google/genai";
 import { askReportWithLangChain } from "./langchainReportService.js";
 
 export const ragNode =
@@ -21,32 +21,17 @@ export const ragNode =
 
         return {
 
-            ...state,
-
             node:
                 "rag",
 
-            answer,
+            partialAnswers: [
+
+                ...(state.partialAnswers || []),
+
+                `REPORT:\n${answer}`
+            ],
         };
     };
-
-const symptomMap = {
-    headache: {
-        department: "General Physician",
-        severity: "low",
-        advice: "Rest, hydrate, and consult a doctor if persistent."
-    },
-    chest: {
-        department: "Cardiologist",
-        severity: "high",
-        advice: "Seek medical attention."
-    },
-    fever: {
-        department: "General Physician",
-        severity: "medium",
-        advice: "Monitor temperature and hydrate."
-    }
-};
 
 export const summaryNode =
     async (state) => {
@@ -76,18 +61,21 @@ ${answer.possible_abnormalities}
 💡 Patient Explanation:
 ${answer.patient_explanation}
 `;
-
         return {
-
-            ...state,
-
-            answer:
-                formattedSummary,
 
             node:
                 "summary",
+
+            partialAnswers: [
+
+                ...(state.partialAnswers || []),
+
+                `SUMMARY:\n${formattedSummary}`
+            ],
         };
     };
+
+// SYMPTOPM ANALYSIS + DOCTOR RECOMMENDATION NODE
 
 export const symptomNode =
     async (state) => {
@@ -96,60 +84,18 @@ export const symptomNode =
             "SYMPTOM NODE"
         );
 
-        const q =
-            state.question
-                ?.toLowerCase() || "";
-
-        // =====================
-        // RULE-BASED FAST PATH
-        // =====================
-
-        let aiResponse =
-            null;
-
-        for (
-            const key
-            in symptomMap
-        ) {
-
-            if (
-                q.includes(key)
-            ) {
-
-                console.log(
-                    "LOCAL SYMPTOM MATCH:",
-                    key
-                );
-
-                aiResponse =
-                    symptomMap[
-                    key
-                    ];
-
-                break;
-            }
-        }
-
-        // =====================
-        // GEMINI FALLBACK
-        // =====================
-
-        if (
-            !aiResponse
-        ) {
-
-            console.log(
-                "GEMINI SYMPTOM FALLBACK"
+        const aiResponse =
+            await analyzeSymptoms(
+                state.question
             );
 
-            aiResponse =
-                await analyzeSymptoms(
-                    state.question
-                );
-        }
+        console.log(
+            "AI RESPONSE:",
+            aiResponse
+        );
 
-        const department =
-            aiResponse.department;
+        const specialization =
+            aiResponse.specialization;
 
         const today =
             new Date()
@@ -159,8 +105,7 @@ export const symptomNode =
         const doctors =
             await Doctor.find({
 
-                specialization:
-                    department,
+                specialization,
 
                 availability:
                     "Available",
@@ -169,19 +114,10 @@ export const symptomNode =
 
         const availableDoctors =
             doctors
-
                 .map((doc) => {
 
                     const slots =
-                        doc.schedule?.[
-                        today
-                        ] ||
-
-                        doc.schedule?.get?.(
-                            today
-                        ) ||
-
-                        [];
+                        doc.schedule?.[today] || [];
 
                     return {
 
@@ -206,32 +142,159 @@ export const symptomNode =
                         availableSlots:
                             slots,
                     };
-                })
+                });
 
-                .filter(
+        return {
 
-                    (doc) =>
-                        doc
-                            .availableSlots
-                            .length > 0
+            node:
+                "symptom",
+
+            doctors:
+                availableDoctors,
+
+            partialAnswers: [
+
+                ...(state.partialAnswers || []),
+
+                `🏥 Specialist: ${specialization}
+
+⚠ Severity: ${aiResponse.severity}
+
+💡 Advice:
+${aiResponse.advice}`
+            ],
+        };
+    };
+
+// ======================
+// MEMORY + RAG AGENT
+// ======================
+
+export const memoryNode =
+    async (state) => {
+
+        console.log(
+            "MEMORY + RAG AGENT"
+        );
+
+        const history =
+            state.history || "";
+
+        const question =
+            state.question || "";
+
+        try {
+
+            // ------------------
+            // Find last user topic
+            // ------------------
+
+            const userMessages =
+                history.match(
+                    /User:\s(.+)/g
+                ) || [];
+
+            const previousQuestion =
+
+                userMessages
+                    .slice(-1)[0]
+                    ?.replace(
+                        "User:",
+                        ""
+                    )
+                    ?.trim() ||
+
+                "";
+
+            console.log(
+                "MEMORY TOPIC:",
+                previousQuestion
+            );
+
+            // ------------------
+            // Run RAG again
+            // ------------------
+
+            const answer =
+                await askReportWithLangChain(
+
+                    history,
+
+                    state.relevantChunks,
+
+                    `${previousQuestion}
+${question}`,
+
+                    state.userId
                 );
+
+            return {
+
+                node:
+                    "memory",
+
+                partialAnswers: [
+
+                    ...(state.partialAnswers || []),
+
+                    `MEMORY:\n${answer}`
+                ],
+            };
+        }
+
+        catch (err) {
+
+            console.log(
+                "MEMORY RAG ERROR:",
+                err.message
+            );
+
+            return {
+
+                node:
+                    "memory",
+
+                partialAnswers: [
+
+                    ...(state.partialAnswers || []),
+
+                    "MEMORY:\nI could not recall previous context."
+                ],
+            };
+        }
+    };
+
+// ======================
+// MERGE NODE
+// ======================
+
+export const mergeNode =
+    async (state) => {
+
+        console.log(
+            "MERGE NODE"
+        );
+
+        const merged =
+
+            state.partialAnswers
+                ?.join(
+                    "\n\n"
+                ) ||
+
+            "No response generated.";
 
         return {
 
             ...state,
 
-            node:
-                "symptom",
-
-            aiResponse,
+            answer:
+                merged,
 
             doctors:
+                state.doctors || [],
 
-                availableDoctors
-                    .length > 0
-
-                    ? availableDoctors
-
-                    : doctors,
+            node:
+                "merge",
         };
     };

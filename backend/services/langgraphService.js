@@ -1,13 +1,16 @@
-import { StateGraph } from "@langchain/langgraph";
+import { StateGraph, Annotation } from "@langchain/langgraph";
 import { GoogleGenAI } from "@google/genai";
-
 import {
 
   ragNode,
 
   summaryNode,
 
-  symptomNode
+  symptomNode,
+
+  memoryNode,
+
+  mergeNode
 
 } from "./langgraphNodes.js";
 
@@ -18,32 +21,78 @@ const ai =
       process.env.GEMINI_API_KEY,
   });
 
-const graphState = {
-
-  question: null,
-
-  route: null,
-
-  answer: null,
-
-  relevantChunks: null,
-
-  aiResponse: null,
-
-  doctors: null,
-
-  userId: null,
-
-  history: null,
-
-  cacheHit: false,
-};
-
 // ======================
-// HYBRID ROUTER
+// GRAPH STATE
 // ======================
 
-const routerNode =
+const graphState =
+  Annotation.Root({
+
+    question:
+      Annotation(),
+
+    agent:
+      Annotation(),
+
+    answer:
+      Annotation(),
+
+    relevantChunks:
+      Annotation(),
+
+    aiResponse:
+      Annotation(),
+
+    doctors:
+      Annotation(),
+
+    userId:
+      Annotation(),
+
+    history:
+      Annotation(),
+
+    cacheHit:
+      Annotation(),
+
+    selectedAgents:
+      Annotation({
+
+        default:
+          () => [],
+      }),
+
+    partialAnswers:
+      Annotation({
+
+        reducer:
+          (x, y) => {
+
+            const merged = [
+
+              ...(x || []),
+
+              ...(y || [])
+            ];
+
+            return [
+
+              ...new Set(
+                merged
+              )
+            ];
+          },
+
+        default:
+          () => [],
+      }),
+  });
+
+// ======================
+// SUPERVISOR AGENT
+// ======================
+
+const supervisorNode =
   async (state) => {
 
     const question =
@@ -51,7 +100,7 @@ const routerNode =
         ?.toLowerCase() || "";
 
     console.log(
-      "LANGGRAPH ROUTER:",
+      "SUPERVISOR AGENT:",
       question
     );
 
@@ -93,7 +142,13 @@ const routerNode =
       "analyze report",
     ];
 
-    // FAST SYMPTOM
+    // =================
+    // FAST MULTI ROUTING
+    // =================
+
+    const selectedAgents = [];
+
+    // symptom
 
     if (
 
@@ -106,20 +161,12 @@ const routerNode =
 
     ) {
 
-      console.log(
-        "FAST ROUTE: symptom"
+      selectedAgents.push(
+        "symptomAgent"
       );
-
-      return {
-
-        ...state,
-
-        route:
-          "symptom",
-      };
     }
 
-    // FAST SUMMARY
+    // summary
 
     if (
 
@@ -132,128 +179,263 @@ const routerNode =
 
     ) {
 
+      selectedAgents.push(
+        "summaryAgent"
+      );
+    }
+
+    // memory
+
+    if (
+
+      question.includes(
+        "explain"
+      ) ||
+
+      question.includes(
+        "more"
+      ) ||
+
+      question.includes(
+        "continue"
+      ) ||
+
+      question.includes(
+        "elaborate"
+      )
+
+    ) {
+
+      selectedAgents.push(
+        "memoryAgent"
+      );
+    }
+
+    // FAST MATCH FOUND
+
+    if (
+      selectedAgents.length > 0
+    ) {
+
       console.log(
-        "FAST ROUTE: summary"
+        "FAST MULTI ROUTE:",
+        selectedAgents
       );
 
       return {
 
         ...state,
 
-        route:
-          "summary",
+        selectedAgents:
+          [...new Set(
+            selectedAgents
+          )],
       };
     }
 
     // =================
-    // GEMINI FALLBACK
+    // LLM SUPERVISOR FALLBACK
     // =================
 
+    // ======================
+    // LLM FALLBACK
+    // ======================
+
     console.log(
-      "LLM ROUTER FALLBACK"
+      "SUPERVISOR LLM FALLBACK"
     );
 
-    const prompt = `
+    try {
 
-You are an AI intent router.
+      const prompt = `
 
-Classify the query into ONLY ONE:
+You are an AI supervisor.
 
-symptom
-summary
-rag
+Choose ONE agent only:
+
+reportAgent
+summaryAgent
+symptomAgent
+memoryAgent
 
 Rules:
 
-symptom:
-- illness
-- symptoms
-- health complaints
-- pain
-- doctor recommendation
-- medical advice
-
-summary:
-- summarize report
-- summarize pdf
-- report overview
-- short analysis
-
-rag:
-- factual questions
+reportAgent:
+- report questions
+- factual retrieval
+- scores
+- projects
 - uploaded file questions
-- information retrieval
-- everything else
 
-Return ONLY:
+summaryAgent:
+- summarize
+- overview
+- report summary
 
-symptom
-OR
-summary
-OR
-rag
+symptomAgent:
+- symptoms
+- pain
+- illness
+- doctor recommendation
+
+memoryAgent:
+- follow-up questions
+- explain more
+- elaborate
+- continue
+- tell me more
+- previous answer clarification
+
+Return ONLY agent name.
 
 Question:
 ${question}
 
 `;
 
-    const response =
-      await ai.models.generateContent({
+      const response =
+        await ai.models.generateContent({
 
-        model:
-          "gemini-3-flash-preview",
+          model:
+            "gemini-3.5-flash",
 
-        contents:
-          prompt,
-      });
+          contents:
+            prompt,
+        });
 
-    const route =
-      response.text
-        .trim()
-        .toLowerCase();
+      const multiAgents = [];
 
-    const validRoutes = [
+      // summary
 
-      "rag",
+      if (
 
-      "summary",
+        question.includes(
+          "summarize"
+        )
 
-      "symptom",
-    ];
+      ) {
 
-    if (
+        multiAgents.push(
+          "summaryAgent"
+        );
+      }
 
-      !validRoutes.includes(
-        route
-      )
+      // symptom
 
-    ) {
+      if (
+
+        question.includes(
+          "pain"
+        ) ||
+
+        question.includes(
+          "headache"
+        ) ||
+
+        question.includes(
+          "dizzy"
+        )
+
+      ) {
+
+        multiAgents.push(
+          "symptomAgent"
+        );
+      }
+
+      // memory
+
+      if (
+
+        question.includes(
+          "explain"
+        ) ||
+
+        question.includes(
+          "more"
+        ) ||
+
+        question.includes(
+          "continue"
+        )
+
+      ) {
+
+        multiAgents.push(
+          "memoryAgent"
+        );
+      }
+
+      // default
+
+      if (
+
+        multiAgents.length === 0
+
+      ) {
+
+        multiAgents.push(
+          "reportAgent"
+        );
+      }
 
       console.log(
-        "INVALID ROUTE → rag"
+        "MULTI AGENTS:",
+        multiAgents
       );
 
       return {
 
         ...state,
 
-        route:
-          "rag",
+        selectedAgents:
+          multiAgents,
       };
+
     }
 
-    console.log(
-      "LLM ROUTE:",
-      route
-    );
+    catch (err) {
 
-    return {
+      console.log(
+        "SUPERVISOR FALLBACK ERROR:",
+        err.message
+      );
 
-      ...state,
+      // SAFE LOCAL FALLBACK
 
-      route,
-    };
+      if (
+
+        question.includes(
+          "explain"
+        ) ||
+
+        question.includes(
+          "more"
+        ) ||
+
+        question.includes(
+          "continue"
+        )
+
+      ) {
+
+        return {
+
+          ...state,
+
+          selectedAgents:
+            ["memoryAgent"]
+        };
+      }
+
+      return {
+
+        ...state,
+
+        selectedAgents:
+          ["reportAgent"],
+      };
+    }
   };
 
 // ======================
@@ -264,74 +446,109 @@ export const buildGraph =
   () => {
 
     const graph =
-      new StateGraph({
+      new StateGraph(
+        graphState
+      );
 
-        channels:
-          graphState,
-      });
-
-    // Nodes
+    // =================
+    // AGENTS
+    // =================
 
     graph.addNode(
-      "router",
-      routerNode
+      "supervisor",
+      supervisorNode
     );
 
     graph.addNode(
-      "rag",
+      "reportAgent",
       ragNode
     );
 
     graph.addNode(
-      "summary",
+      "summaryAgent",
       summaryNode
     );
 
     graph.addNode(
-      "symptom",
+      "symptomAgent",
       symptomNode
     );
 
-    // Entry
-
-    graph.setEntryPoint(
-      "router"
+    graph.addNode(
+      "memory",
+      memoryNode
     );
 
-    // Routing
+    graph.addNode(
+      "merge",
+      mergeNode
+    );
+
+    // =================
+    // ENTRY
+    // =================
+
+    graph.setEntryPoint(
+      "supervisor"
+    );
+
+    // =================
+    // SUPERVISOR ROUTING
+    // =================
 
     graph.addConditionalEdges(
 
-      "router",
+      "supervisor",
 
       (state) =>
-        state.route,
+        state.selectedAgents,
 
       {
 
-        rag:
-          "rag",
+        reportAgent:
+          "reportAgent",
 
-        summary:
-          "summary",
+        summaryAgent:
+          "summaryAgent",
 
-        symptom:
-          "symptom",
+        symptomAgent:
+          "symptomAgent",
+
+        memoryAgent:
+          "memory",
       }
     );
 
-    // Finish
+    // =================
+    // AGENTS → MERGE
+    // =================
 
-    graph.setFinishPoint(
-      "rag"
+    graph.addEdge(
+      "reportAgent",
+      "merge"
     );
 
-    graph.setFinishPoint(
-      "summary"
+    graph.addEdge(
+      "summaryAgent",
+      "merge"
     );
 
+    graph.addEdge(
+      "symptomAgent",
+      "merge"
+    );
+
+    graph.addEdge(
+      "memory",
+      "merge"
+    );
+
+    // =================
+    // FINISH
+    // =================
+
     graph.setFinishPoint(
-      "symptom"
+      "merge"
     );
 
     return graph.compile();
