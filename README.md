@@ -31,6 +31,22 @@ Patients can:
 
 The project demonstrates how Large Language Models can be safely integrated into healthcare applications using RAG, LangGraph orchestration, Redis memory, and AI guardrails.
 
+## 🎯 Key Engineering Highlights
+
+- 🔐 Clerk-based authentication with complete user data isolation
+- 🧠 LangGraph multi-agent AI orchestration
+- 📄 Retrieval-Augmented Generation (RAG) for medical reports
+- 📑 Automatic OCR document processing
+- 🧩 SHA-256 duplicate report detection
+- ♻️ Automatic embedding reuse
+- 🛡️ CuraShield AI safety layer
+- 🚫 Prompt injection protection
+- ⚡ Dead-end embedding recovery
+- 💬 Redis-powered conversational memory
+- 💳 Stripe payment workflows
+- 📧 Automated booking confirmation with invoice generation
+- 🐳 Dockerized Redis & ChromaDB infrastructure
+
 <p align="center">
 
 ![Frontend](https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge&logo=react)
@@ -305,7 +321,7 @@ FASTAPI --> LANGSMITH
 -  Register/Login securely (Clerk Auth)
 -  Book appointments with doctors/services
 -  View appointment history
--  🤖 AI Symptom Chatbot for smart doctor recommendations
+-  🤖 AI Healthcare Assistant with symptom triage, medical report analysis, RAG, and doctor recommendations
 -  📄 AI Medical Report Upload & Analysis
 -  🧠 RAG-based Medical Report Question Answering
 -  🔍 Semantic Search using Vector Embeddings
@@ -325,35 +341,6 @@ FASTAPI --> LANGSMITH
 - 🚫 Prompt Injection Protection
 - ⚠️ AI Risk Classification
 
-## ✨ Core Functionalities
-
--	🔐 Role-based Authentication (Admin / Doctor / Patient)
--	📅 Appointment Scheduling System with status tracking
--	💳 Online Payments using Stripe (secure checkout & auto-confirmation)
--	📧 Email Notifications (Nodemailer) for booking updates
--	🤖 Chatbot Integration for guided doctor booking
--   🧠 LangGraph Multi-Agent AI Assistant
--   🩺 AI Symptom Triage & Doctor Recommendation
--   🛡️ CuraShield AI Safety Layer
--   📄 OCR Medical Report Intelligence
--   🔍 Retrieval-Augmented Generation (RAG)
--   🧠 Persistent Conversational Memory
--   📄 PDF Medical Report Upload & Text Extraction
--   🔍 Semantic Search using ChromaDB Vector Database
--   ⚡ Redis-based Chat Memory & Caching
--   Dockerized Redis Cache
--   Dockerized ChromaDB Vector Store
--   AI-ready Local Development Environment
--   🤖 AI Report Assistant for contextual report querying
--	🌙 Dark Mode Support (Admin Panel)
--	🖼️ Image Uploads via Cloudinary
--	⚡ Responsive UI built with React + Tailwind CSS
--	🔒 Protected Backend APIs & Middleware Security
--   🧠 Persistent AI conversational memory
--   📑 Multi-page PDF report understanding
--   🧹 Frontend-only chat clearing & expiry
--   ♻️ Report hash reuse & vector reuse optimization
-
 ## 🛡️ CuraShield AI Safety Layer
 
 CuraShield is the AI safety framework integrated into CuraDesk AI to improve reliability and secure healthcare interactions.
@@ -367,20 +354,36 @@ Features:
 - Security-aware Response Pipeline
 - Low-latency Rule-based Prompt Protection
 
-## ⚙️ AI Microservice
+## ⚙️ AI Microservice & Optimizations
 
 CuraDesk separates AI workloads into an independent FastAPI service.
 
 Responsibilities:
 
-- OCR Pipeline
-- Gemini Integration
-- Medical Report Analysis
-- Symptom Triage
 - Prompt Injection Detection
 - Medical Safety Classification
+- Symptom Triage
+- OCR Processing
+- Medical Report Understanding
+- LangGraph Agent Orchestration
+- RAG Response Generation
 
 This separation keeps the MERN backend lightweight while allowing the AI layer to scale independently.
+
+Optimizations:
+
+- SHA-256 duplicate report detection
+- Report hash reuse
+- Embedding reuse
+- Automatic dead-end embedding recovery
+- Metadata consistency checks
+- Redis conversational memory
+- Hybrid LangGraph routing
+- Cached vector retrieval
+- Isolated chat sessions
+- Clerk-based user data isolation
+- Prompt injection guard
+- Low-latency safety pipeline
 
 ## 🏗️ CuraDesk AI Architecture
 
@@ -420,17 +423,6 @@ flowchart LR
 
     CS --> F
 ```
-
-## ⚡ AI Optimizations
-
-- Report Hash Reuse
-- Embedding Reuse
-- Redis Conversation Memory
-- Hybrid Keyword + LLM Routing
-- Cached Vector Retrieval
-- Frontend Chat Persistence
-- Low-latency Prompt Guard
-
 
 ## 🛠️ Tech Stack
 
@@ -579,7 +571,7 @@ Admin Panel
 ## 🤖 AI Report Workflow
 
 1. User uploads a medical report (PDF/Image)
-2. OCR extracts report text (Tesseract / Google Vision)
+2. OCR extracts report text (Tesseract)
 3. Text is cleaned and preprocessed
 4. Report is split into semantic chunks
 5. Embeddings are generated using Gemini
@@ -591,73 +583,6 @@ Admin Panel
 11. Gemini generates a context-aware response using RAG
 12. CuraShield performs medical safety classification
 13. Final response is returned with retrieved context
-
-## 🧠 AI Assistant Workflow
-
-```mermaid
-flowchart TD
-
-A[User Query] --> B[CuraShield Prompt Guard]
-
-B --> C[LangGraph Supervisor]
-
-C --> D[Report Agent]
-C --> E[Summary Agent]
-C --> F[Symptom Agent]
-C --> G[Memory Agent]
-
-D --> H[Merge Responses]
-E --> H
-F --> H
-G --> H
-
-H --> I[CuraShield Safety Classification]
-
-I --> J[Doctor Recommendation]
-
-J --> K[Final AI Response]
-```
-
-## 🔎 OCR & Document Intelligence
-
-CuraDesk AI uses Tesseract OCR and PDF processing pipelines to understand uploaded medical reports.
-
-Features:
-
-- Offline OCR processing
-- PDF-to-image conversion
-- Multi-page report extraction
-- Semantic chunking
-- AI-ready preprocessing
-- Vector-based medical report understanding
-
-## 🏗️ Overall System Architecture
-
-```mermaid
-flowchart LR
-
-User --> React[React Frontend]
-
-React --> Express[Express Backend]
-
-Express --> MongoDB[(MongoDB)]
-
-Express --> Redis[(Redis)]
-
-Express --> FastAPI[FastAPI AI Service]
-
-FastAPI --> Gemini[Gemini]
-
-FastAPI --> OCR[OCR Engine]
-
-FastAPI --> Chroma[(ChromaDB)]
-
-Chroma --> LangGraph[LangGraph]
-
-LangGraph --> CuraShield[CuraShield]
-
-CuraShield --> React
-```
 
 ## 📸 Screenshots
 
@@ -823,8 +748,6 @@ Manage available hospital services
 
 ## 🌟 Future Roadmap
 
-- 📊 Dashboard analytics
-- 📱 Full dark mode support
 - 📩 SMS / WhatsApp notifications
 - 🏥 Multi-hospital support
 - 💬 Doctor–Patient chat system
@@ -839,20 +762,22 @@ Manage available hospital services
 
 ## 💼 Portfolio Highlights
 
-CuraDesk AI demonstrates:
+CuraDesk AI demonstrates experience with:
 
-- AI Engineering
+- Full Stack MERN Development
+- Healthcare AI Systems
+- LangGraph Multi-Agent Architecture
 - Retrieval-Augmented Generation (RAG)
-- LangGraph Multi-Agent Systems
-- Healthcare AI Design
-- OCR & Document Intelligence
-- Vector Databases
+- Vector Databases (ChromaDB)
+- FastAPI AI Microservices
 - AI Safety Engineering
 - Prompt Injection Protection
-- Medical AI Workflows
-- Redis Memory Systems
-
-
+- Conversational Memory Systems
+- OCR Document Intelligence
+- Redis Caching
+- Stripe Payment Integration
+- Clerk Authentication
+- Dockerized AI Infrastructure
 
 ## 📌 Learning Outcomes
 
@@ -860,11 +785,8 @@ CuraDesk AI demonstrates:
 -	Implemented role-based access control & secure APIs
 -	Integrated Stripe payments, Cloudinary, and email services
 -	Improved skills in system design, UI/UX, and scalability
--   Built Retrieval-Augmented Generation (RAG) pipelines
--   Worked with vector databases using ChromaDB
--   Implemented OCR pipelines using Tesseract
--   Designed conversational AI memory systems
--   Used Redis for AI caching and chat persistence
+-   Designed production-inspired AI healthcare workflows using LangGraph, RAG, Redis, ChromaDB, OCR, and FastAPI microservices.
+-   Built conversational AI with Redis-based memory, LangGraph multi-agent orchestration, and Retrieval-Augmented Generation     (RAG).
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:22c55e,100:0f172a&height=120&section=footer"/>
