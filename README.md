@@ -44,7 +44,6 @@ The project demonstrates how Large Language Models can be safely integrated into
 
 </p>
 
-````markdown
 ## 🏗️ CuraDesk - Complete System Architecture
 
 ```mermaid
@@ -284,7 +283,6 @@ EXPRESS --> LANGSMITH["📊 LangSmith Tracing (Optional)"]
 
 FASTAPI --> LANGSMITH
 ```
-````
 
 ## 🚀 Features
 
