@@ -509,19 +509,21 @@ CuraDesk/
 ## ⚙️ Installation & Setup
 
  1️⃣ Clone Repository
-
+```bash
 	git clone https://github.com/tyagi1tushar/curadesk-hospital-management-system.git
 	
 	cd hospital-management-system
-	
+```
  2️⃣ Backend Setup
-
+```bash
 	cd backend
 	
 	npm install
-
+```
 Create .env file:
-
+```bash
+	JWT_SECRET=your_jwt_secret
+	FRONTEND_URL=frontend_url
 	MONGO_URI=your_mongodb_uri
 	CLERK_SECRET_KEY=your_clerk_secret
 	STRIPE_SECRET_KEY=your_stripe_secret
@@ -531,11 +533,18 @@ Create .env file:
 	EMAIL_USER=your_email
 	EMAIL_PASS=your_email_app_password
 	GEMINI_API_KEY=your_gemini_api_key
+	REDIS_URL=your_redis_url
 
+	# Optional - AI Observability
+	LANGSMITH_TRACING=true
+	LANGSMITH_ENDPOINT=your_endpoint
+	LANGSMITH_API_KEY=your_langsmith_api_key
+	LANGSMITH_PROJECT=CURADESKAI
+```
 Run backend:
-
+```bash
 	npm start
-	
+```
  2️⃣ Start AI Infrastructure
 
  Make sure Docker Desktop is running.
@@ -544,6 +553,19 @@ Run:
 
 ```bash
 docker-compose up 
+```
+In ai-service folder terminal,
+
+Create a .env file,
+
+```bash
+GEMINI_API_KEY=your_gemini_api_key
+```
+Run:
+
+```bash
+venv\Scripts\activate
+uvicorn main:app --reload --port 8001
 ```
 
  3️⃣ Frontend Setup
