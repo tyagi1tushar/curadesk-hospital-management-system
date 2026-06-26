@@ -144,30 +144,31 @@ This separation keeps the MERN backend lightweight while allowing the AI layer t
 
 ## 🏗️ AI Architecture
 
-Patient Query
-        │
-        ▼
-Prompt Guard (CuraShield)
-        │
-        ▼
-Hybrid Agent Router
-        │
- ┌──────┼──────────┐
- ▼      ▼          ▼
-Report  Summary   Symptom
-Agent   Agent     Agent
-        │
-        ▼
-Memory Agent (Follow-up Queries)
-        │
-        ▼
-Merge Responses
-        │
-        ▼
-CuraShield Safety Classification
-        │
-        ▼
-Final AI Response
+```mermaid
+flowchart TD
+
+    A[👤 Patient Query]
+
+    A --> B[🛡️ CuraShield Prompt Guard]
+
+    B --> C[🧠 Hybrid Agent Router]
+
+    C --> D[📄 Report Agent]
+    C --> E[📝 Summary Agent]
+    C --> F[🩺 Symptom Agent]
+    C --> G[💬 Memory Agent]
+
+    D --> H[🔀 Merge Responses]
+    E --> H
+    F --> H
+    G --> H
+
+    H --> I[🛡️ CuraShield Safety Classification]
+
+    I --> J[👨‍⚕️ Doctor Recommendation]
+
+    J --> K[🤖 Final AI Response]
+```
 
 ## ⚡ AI Optimizations
 
