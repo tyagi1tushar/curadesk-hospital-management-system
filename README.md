@@ -44,6 +44,248 @@ The project demonstrates how Large Language Models can be safely integrated into
 
 </p>
 
+````markdown
+## 🏗️ CuraDesk - Complete System Architecture
+
+```mermaid
+flowchart LR
+
+%% =====================================================
+%% USERS
+%% =====================================================
+
+PATIENT["🧑 Patient"]
+DOCTOR["🩺 Doctor"]
+ADMIN["👨‍💼 Admin"]
+
+%% =====================================================
+%% FRONTENDS
+%% =====================================================
+
+PATIENT --> FRONTEND["⚛️ Patient Portal (React + Vite)"]
+DOCTOR --> FRONTEND
+ADMIN --> ADMINAPP["⚛️ Admin Dashboard (React + Vite)"]
+
+%% =====================================================
+%% AUTHENTICATION & SECURITY
+%% =====================================================
+
+FRONTEND --> CLERK["🔐 Clerk Authentication"]
+ADMINAPP --> CLERK
+
+CLERK --> EXPRESS["🟢 Express Backend"]
+
+EXPRESS --> RBAC["Role-Based Access Control"]
+
+RBAC --> PATIENTDATA["Patient APIs"]
+RBAC --> DOCTORDATA["Doctor APIs"]
+RBAC --> ADMINDATA["Admin APIs"]
+
+%% =====================================================
+%% DATABASE
+%% =====================================================
+
+EXPRESS --> MONGO[("🍃 MongoDB")]
+
+MONGO --> USERS["Users"]
+MONGO --> DOCTORS["Doctors"]
+MONGO --> APPOINTMENTS["Appointments"]
+MONGO --> SERVICES["Healthcare Services"]
+MONGO --> REPORTS["Medical Reports"]
+MONGO --> CHATSESSIONS["Chat Sessions"]
+MONGO --> MESSAGES["Messages"]
+MONGO --> METADATA["Embedding Metadata"]
+
+%% =====================================================
+%% USER DATA ISOLATION
+%% =====================================================
+
+CLERK --> USERID["Unique Clerk User ID"]
+
+USERID --> CHATSESSIONS
+
+USERID --> REPORTS
+
+USERID --> APPOINTMENTS
+
+USERID --> SERVICES
+
+%% =====================================================
+%% APPOINTMENT BOOKING
+%% =====================================================
+
+PATIENTDATA --> BOOK["Doctor Appointment Booking"]
+
+BOOK --> STRIPE["💳 Stripe Payment"]
+
+STRIPE --> CONFIRM["Booking Confirmation"]
+
+CONFIRM --> EMAIL["📧 Email Notification"]
+
+EMAIL --> MAIL["Doctor Name<br/>Appointment Slot<br/>Invoice<br/>Booking Confirmation"]
+
+MAIL --> PATIENT
+
+%% =====================================================
+%% SERVICE BOOKING
+%% =====================================================
+
+PATIENTDATA --> SERVICEBOOK["Healthcare Service Booking"]
+
+SERVICEBOOK --> STRIPE
+
+%% =====================================================
+%% ADMIN FEATURES
+%% =====================================================
+
+ADMINDATA --> MANAGEDOC["Manage Doctors"]
+
+ADMINDATA --> MANAGESERVICE["Manage Services"]
+
+ADMINDATA --> MANAGEBOOK["Manage Appointments"]
+
+ADMINDATA --> ANALYTICS["Dashboard Analytics"]
+
+%% =====================================================
+%% AI CHAT ENTRY
+%% =====================================================
+
+FRONTEND --> CHATBOT["🤖 CuraDesk AI"]
+
+CHATBOT --> CHATCTRL["AI Controller"]
+
+CHATCTRL --> FASTAPI["🐍 FastAPI AI Service"]
+
+%% =====================================================
+%% CURASHIELD
+%% =====================================================
+
+FASTAPI --> PROMPT["🛡️ CuraShield Prompt Guard"]
+
+PROMPT --> ROUTER["🧠 LangGraph Hybrid Router"]
+
+%% =====================================================
+%% LANGGRAPH AGENTS
+%% =====================================================
+
+ROUTER --> REPORT["📄 Report Agent"]
+
+ROUTER --> SUMMARY["📝 Summary Agent"]
+
+ROUTER --> SYMPTOM["🩺 Symptom Agent"]
+
+ROUTER --> MEMORY["💬 Memory Agent"]
+
+%% =====================================================
+%% REPORT PROCESSING
+%% =====================================================
+
+REPORT --> HASH["SHA-256 Report Hash"]
+
+HASH --> DUP{"Duplicate Report?"}
+
+DUP -- Yes --> META
+
+DUP -- No --> OCR
+
+OCR["📄 Tesseract OCR"]
+
+OCR --> CLEAN["Text Cleaning"]
+
+CLEAN --> CHUNK["Semantic Chunking"]
+
+CHUNK --> META
+
+%% =====================================================
+%% EMBEDDING MANAGEMENT
+%% =====================================================
+
+META --> EXISTS{"Embeddings Exist?"}
+
+EXISTS -- Yes --> CHROMA
+
+EXISTS -- No --> DEADEND{"Metadata Exists?"}
+
+DEADEND -- Yes --> REBUILD["Dead-End Protection<br/>Regenerate Missing Embeddings"]
+
+DEADEND -- No --> EMBED
+
+REBUILD --> EMBED["Gemini Embeddings"]
+
+EMBED --> CHROMA[("🧠 ChromaDB")]
+
+%% =====================================================
+%% RAG
+%% =====================================================
+
+REPORT --> CHROMA
+
+CHROMA --> RETRIEVE["Semantic Retrieval"]
+
+RETRIEVE --> RAG["Retrieval-Augmented Generation"]
+
+%% =====================================================
+%% MEMORY
+%% =====================================================
+
+MEMORY --> REDIS[("⚡ Redis Memory")]
+
+REDIS --> HISTORY["Conversation History"]
+
+HISTORY --> CHATSESSIONS
+
+%% =====================================================
+%% SYMPTOM TRIAGE
+%% =====================================================
+
+SYMPTOM --> TRIAGE["AI Symptom Analysis"]
+
+TRIAGE --> SPECIALIST["Specialist Recommendation"]
+
+SPECIALIST --> FINDDOC["Doctor Matching"]
+
+FINDDOC --> DOCTORS
+
+%% =====================================================
+%% SUMMARY
+%% =====================================================
+
+SUMMARY --> REPORTSUMMARY["Medical Report Summary"]
+
+%% =====================================================
+%% RESPONSE MERGING
+%% =====================================================
+
+REPORT --> MERGE["🔀 Merge AI Responses"]
+
+SUMMARY --> MERGE
+
+SYMPTOM --> MERGE
+
+MEMORY --> MERGE
+
+%% =====================================================
+%% CURASHIELD SAFETY
+%% =====================================================
+
+MERGE --> SAFETY["🛡️ CuraShield Medical Safety"]
+
+SAFETY --> RISK["Risk Level<br/>Severity Score<br/>Urgent Care Detection"]
+
+RISK --> RESPONSE["🤖 Final AI Response"]
+
+RESPONSE --> CHATBOT
+
+%% =====================================================
+%% OBSERVABILITY
+%% =====================================================
+
+EXPRESS --> LANGSMITH["📊 LangSmith Tracing (Optional)"]
+
+FASTAPI --> LANGSMITH
+```
+````
+
 ## 🚀 Features
 
 👨‍💼 Admin Panel
@@ -142,32 +384,43 @@ Responsibilities:
 
 This separation keeps the MERN backend lightweight while allowing the AI layer to scale independently.
 
-## 🏗️ AI Architecture
+## 🏗️ CuraDesk AI Architecture
 
 ```mermaid
-flowchart TD
+flowchart LR
 
-    A[👤 Patient Query]
+    U[👤 Patient]
 
-    A --> B[🛡️ CuraShield Prompt Guard]
+    U --> F[⚛️ React Frontend]
 
-    B --> C[🧠 Hybrid Agent Router]
+    F --> B[🟢 Express Backend]
 
-    C --> D[📄 Report Agent]
-    C --> E[📝 Summary Agent]
-    C --> F[🩺 Symptom Agent]
-    C --> G[💬 Memory Agent]
+    B --> M[(MongoDB)]
+    B --> R[(Redis)]
 
-    D --> H[🔀 Merge Responses]
-    E --> H
-    F --> H
-    G --> H
+    B --> AI[🐍 FastAPI AI Service]
 
-    H --> I[🛡️ CuraShield Safety Classification]
+    AI --> PG[🛡️ Prompt Guard]
 
-    I --> J[👨‍⚕️ Doctor Recommendation]
+    PG --> LG[🧠 LangGraph Supervisor]
 
-    J --> K[🤖 Final AI Response]
+    LG --> RA[📄 Report Agent]
+    LG --> SA[📝 Summary Agent]
+    LG --> SY[🩺 Symptom Agent]
+    LG --> MA[💬 Memory Agent]
+
+    RA --> MERGE[🔀 Merge]
+    SA --> MERGE
+    SY --> MERGE
+    MA --> MERGE
+
+    MERGE --> CH[(ChromaDB)]
+
+    CH --> GEM[✨ Gemini]
+
+    GEM --> CS[🛡️ CuraShield Safety]
+
+    CS --> F
 ```
 
 ## ⚡ AI Optimizations
