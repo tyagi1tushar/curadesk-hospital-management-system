@@ -186,6 +186,9 @@ const ChatWindow = ({ onClose }) => {
                 doctors:
                   msg.doctors || [],
 
+                safety:
+                  msg.safety || null,
+
                 type:
                   msg.type || null,
               }));
@@ -386,6 +389,12 @@ const ChatWindow = ({ onClose }) => {
           doctors:
             res.data.doctors || [],
 
+          safety:
+            res.data.safety || null,
+
+          selectedAgents:
+            res.data.selectedAgents || [],
+
           type:
             res.data.type || null,
         };
@@ -420,6 +429,9 @@ const ChatWindow = ({ onClose }) => {
 
           doctors:
             res.data.doctors,
+
+          safety:
+            res.data.safety || null,
 
           type:
             res.data.type,

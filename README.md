@@ -36,7 +36,7 @@ The project demonstrates how Large Language Models can be safely integrated into
 - 🔐 Clerk-based authentication with complete user data isolation
 - 🧠 LangGraph multi-agent AI orchestration
 - 📄 Retrieval-Augmented Generation (RAG) for medical reports
-- 📑 Automatic OCR document processing
+- 📑 Offline OCR pipeline using Tesseract
 - 🧩 SHA-256 duplicate report detection
 - ♻️ Automatic embedding reuse
 - 🛡️ CuraShield AI safety layer
@@ -295,7 +295,7 @@ RESPONSE --> CHATBOT
 %% OBSERVABILITY
 %% =====================================================
 
-EXPRESS --> LANGSMITH["📊 LangSmith Tracing (Optional)"]
+EXPRESS --> LANGSMITH["📊 LangSmith-ready Observability"]
 
 FASTAPI --> LANGSMITH
 ```
@@ -331,6 +331,7 @@ FASTAPI --> LANGSMITH
 - 🧠 LangGraph Multi-Agent Architecture
 - 📄 OCR-based Medical Report Processing
 - 🔍 ChromaDB Semantic Search
+- 🔐 Per-user AI data isolation using Clerk
 - 🧩 Retrieval-Augmented Generation (RAG)
 - 💬 Conversational Memory using Redis
 - 🩺 AI Symptom Triage
@@ -357,6 +358,7 @@ Features:
 ## ⚙️ AI Microservice & Optimizations
 
 CuraDesk separates AI workloads into an independent FastAPI service.
+Each AI service is isolated from the Express backend, enabling independent scaling and easier maintenance.
 
 Responsibilities:
 
@@ -384,45 +386,6 @@ Optimizations:
 - Clerk-based user data isolation
 - Prompt injection guard
 - Low-latency safety pipeline
-
-## 🏗️ CuraDesk AI Architecture
-
-```mermaid
-flowchart LR
-
-    U[👤 Patient]
-
-    U --> F[⚛️ React Frontend]
-
-    F --> B[🟢 Express Backend]
-
-    B --> M[(MongoDB)]
-    B --> R[(Redis)]
-
-    B --> AI[🐍 FastAPI AI Service]
-
-    AI --> PG[🛡️ Prompt Guard]
-
-    PG --> LG[🧠 LangGraph Supervisor]
-
-    LG --> RA[📄 Report Agent]
-    LG --> SA[📝 Summary Agent]
-    LG --> SY[🩺 Symptom Agent]
-    LG --> MA[💬 Memory Agent]
-
-    RA --> MERGE[🔀 Merge]
-    SA --> MERGE
-    SY --> MERGE
-    MA --> MERGE
-
-    MERGE --> CH[(ChromaDB)]
-
-    CH --> GEM[✨ Gemini]
-
-    GEM --> CS[🛡️ CuraShield Safety]
-
-    CS --> F
-```
 
 ## 🛠️ Tech Stack
 
@@ -536,10 +499,10 @@ Create .env file:
 	REDIS_URL=your_redis_url
 
 	# Optional - AI Observability
-	LANGSMITH_TRACING=true
-	LANGSMITH_ENDPOINT=your_endpoint
-	LANGSMITH_API_KEY=your_langsmith_api_key
-	LANGSMITH_PROJECT=CURADESKAI
+	LANGCHAIN_TRACING=true
+	LANGCHAIN_ENDPOINT=your_endpoint
+	LANGCHAIN_API_KEY=your_langsmith_api_key
+	LANGCHAIN_PROJECT=CURADESKAI
 ```
 Run backend:
 ```bash
@@ -598,13 +561,14 @@ Admin Panel
 4. Report is split into semantic chunks
 5. Embeddings are generated using Gemini
 6. Embeddings are stored in ChromaDB
-7. Report hash is checked to reuse existing embeddings when possible
-8. User asks questions about the report
-9. Relevant chunks are retrieved from ChromaDB
-10. LangGraph routes the request to the appropriate AI agent
-11. Gemini generates a context-aware response using RAG
-12. CuraShield performs medical safety classification
-13. Final response is returned with retrieved context
+7. SHA-256 report hash detects duplicate uploads
+8. Existing embeddings are reused when available
+9. If metadata exists but embeddings are missing, CuraDesk automatically regenerates them (Dead-End Protection)
+10. User asks questions
+11. LangGraph routes the request to the appropriate AI agent
+12. Gemini generates a context-aware response using RAG
+13. CuraShield performs medical safety classification
+14. Final response is returned with retrieved context
 
 ## 📸 Screenshots
 

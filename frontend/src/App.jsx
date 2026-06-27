@@ -13,6 +13,7 @@ import DoctorHome from "./pages/DoctorHome";
 import List from "./pages/List";
 import EditProfile from "./pages/EditProfile";
 import Appointments from "./pages/Appointments";
+import CuraDeskWorkspace from "./pages/CuraDeskWorkspace";
 
 
 import { ToastContainer } from "react-toastify";
@@ -112,6 +113,7 @@ const App = () => {
           <Route path="/services" element={<Service />} />
           <Route path="/services/:id" element={<ServiceDetailPage />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/curadesk-workspace" element={<CuraDeskWorkspace />}/>
 
           {/* Doctor Admin */}
           <Route path="/doctor-admin/login" element={<Login />} />

@@ -1,7 +1,7 @@
 import Doctor from "../models/doctor.js";
 import { analyzeSymptoms } from "../services/aiService.js";
 import redisClient from "../config/redis.js";
-
+import { classifySafety } from "../services/CuraShield/safetyService.js";
 
 export const chatbotReply = async (req, res) => {
   try {
@@ -28,6 +28,32 @@ export const chatbotReply = async (req, res) => {
     );
 
     console.log("AI RESPONSE:", aiResponse);
+
+    console.log(
+      "CALLING CURASHIELD..."
+    );
+
+    const safety =
+      await classifySafety(
+
+        message,
+
+        `
+    Specialist:
+    ${aiResponse.specialization}
+
+    Severity:
+    ${aiResponse.severity}
+
+    Advice:
+    ${aiResponse.advice}
+    `
+      );
+
+    console.log(
+      "CURASHIELD:",
+      safety
+    );
 
     history.push({
       role: "assistant",
@@ -117,6 +143,7 @@ export const chatbotReply = async (req, res) => {
     if (availableDoctors.length > 0) {
       return res.json({
         type: "available",
+
         reply: `
 🏥 Recommended Specialist:
 ${specialization}
@@ -126,13 +153,18 @@ ${specialization}
 💡 Advice:
 ${aiResponse.advice}
 `,
-        doctors: availableDoctors,
+
+        doctors:
+          availableDoctors,
+
+        safety
       });
     }
 
 
     return res.json({
       type: "no-slots",
+
       reply: `
 🏥 Recommended Specialist:
 ${specialization}
@@ -146,7 +178,10 @@ ${aiResponse.advice}
 
 📅 Showing doctors for later booking.
 `,
-      doctors: doctors,
+
+      doctors,
+
+      safety
     });
   } catch (err) {
 

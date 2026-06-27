@@ -78,6 +78,21 @@ const MessageBubble = ({ msg }) => {
       }
     };
 
+  const riskStyles = {
+
+    LOW:
+      "bg-green-50 border-green-200 text-green-800",
+
+    MEDIUM:
+      "bg-yellow-50 border-yellow-200 text-yellow-800",
+
+    HIGH:
+      "bg-orange-50 border-orange-200 text-orange-800",
+
+    CRITICAL:
+      "bg-red-50 border-red-200 text-red-800",
+  };
+
   return (
 
     <div
@@ -103,14 +118,12 @@ const MessageBubble = ({ msg }) => {
           shadow-md
           leading-relaxed
 
-          ${
-
-            msg.sender ===
+          ${msg.sender ===
             "user"
 
-              ? "bg-blue-500 text-white rounded-br-none"
+            ? "bg-blue-500 text-white rounded-br-none"
 
-              : "bg-white/80 backdrop-blur-md border border-white/40 text-gray-800 rounded-bl-none"
+            : "bg-white/80 backdrop-blur-md border border-white/40 text-gray-800 rounded-bl-none"
 
           }
         `}
@@ -122,6 +135,148 @@ const MessageBubble = ({ msg }) => {
         >
           {msg.text}
         </div>
+
+        {
+          msg.safety && (
+
+            <div
+
+              className={`
+
+      mt-3
+      rounded-2xl
+      border
+      p-3
+      shadow-sm
+
+      ${riskStyles[
+                msg.safety.riskLevel
+                ] ||
+
+                riskStyles.MEDIUM
+
+                }
+    `}
+            >
+
+              <div className="font-bold mb-2">
+
+                🛡 CuraShield Medical Safety Analysis
+
+              </div>
+
+              <div className="text-xs space-y-1">
+
+                <p>
+
+                  <strong>
+                    Risk Level:
+                  </strong>{" "}
+
+                  {msg.safety.riskLevel}
+
+                </p>
+
+                <p>
+
+                  <strong>
+                    Severity Score:
+                  </strong>{" "}
+
+                  {msg.safety.severityScore}/100
+
+                </p>
+
+                <p>
+
+                  <strong>
+                    Urgent Care:
+                  </strong>{" "}
+
+                  {
+
+                    msg.safety
+                      .requiresUrgentCare
+
+                      ? "Required"
+
+                      : "Not Required"
+
+                  }
+
+                </p>
+
+                <p>
+
+                  <strong>
+                    Reason:
+                  </strong>{" "}
+
+                  {msg.safety.reason}
+
+                </p>
+
+                <p>
+
+                  <strong>
+                    Recommendation:
+                  </strong>{" "}
+
+                  {
+
+                    msg.safety
+                      .recommendedAction
+
+                  }
+
+                </p>
+
+              </div>
+
+            </div>
+          )
+        }
+
+        {
+          msg.promptGuard &&
+          msg.promptGuard.blocked && (
+
+            <div
+              className="
+      mt-3
+      rounded-xl
+      border
+      border-amber-300
+      bg-amber-50
+      p-3
+      shadow-sm"
+            >
+
+              <div className="font-bold">
+
+                🛡 CuraShield Prompt Guard
+
+              </div>
+
+              <div className="text-xs mt-2">
+
+                Potential prompt injection detected.
+
+              </div>
+
+              <div className="text-xs mt-1">
+
+                Reason:
+
+                {" "}
+
+                {msg.promptGuard.reason}
+
+              </div>
+
+            </div>
+          )
+        }
 
         {/* RAG CONTEXT */}
 

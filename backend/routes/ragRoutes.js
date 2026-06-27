@@ -9,6 +9,8 @@ import { buildGraph } from "../services/langgraphService.js";
 import { summarizeMedicalReport } from "../services/reportAIService.js";
 import { analyzeSymptoms } from "../services/aiService.js";
 import { streamReportAnswer } from "../services/langchainReportService.js";
+import { classifySafety } from "../services/CuraShield/safetyService.js";
+import { checkPromptSafety } from "../services/CuraShield/promptGuardService.js";
 import redisClient from "../config/redis.js";
 import ChatSession from "../models/chatSessionModel.js";
 import Message from "../models/messageModel.js";
@@ -54,6 +56,30 @@ router.post("/ask", async (req, res) => {
         ?.trim()
         .toLowerCase()
         .replace(/\s+/g, " ");
+
+    const symptomKeywords = [
+
+      "pain",
+      "chest",
+      "breath",
+      "breathing",
+      "fever",
+      "headache",
+      "cough",
+      "dizzy",
+      "vomit",
+      "nausea",
+      "symptom",
+      "doctor",
+      "medicine"
+    ];
+
+    const isSymptomQuestion =
+
+      symptomKeywords.some(
+        word =>
+          normalizedQuestion.includes(word)
+      );
 
     console.log(
       "CHAT USER ID:",
@@ -101,12 +127,83 @@ router.post("/ask", async (req, res) => {
       });
     }
 
-    if (!reportHash) {
+    if (
+
+      !reportHash &&
+
+      !isSymptomQuestion
+
+    ) {
 
       return res.status(400).json({
 
         message:
           "Report not selected.",
+      });
+    }
+
+    // =========================
+    // CURASHIELD PROMPT GUARD
+    // =========================
+
+    let promptSafety = {
+
+      allowed: true,
+
+      riskLevel: "LOW",
+
+      reason: null
+    };
+
+    try {
+
+      promptSafety =
+        await checkPromptSafety(
+          question
+        );
+
+      console.log(
+        "PROMPT GUARD:",
+        promptSafety
+      );
+
+    }
+    catch (err) {
+
+      console.log(
+        "PROMPT GUARD ERROR:",
+        err.message
+      );
+    }
+
+    if (!promptSafety.allowed) {
+
+      console.log(
+        "PROMPT BLOCKED:",
+        promptSafety.reason
+      );
+
+      return res.json({
+
+        answer:
+          "🛡️ Request blocked by CuraShield Prompt Guard.",
+
+        context: "",
+
+        doctors: [],
+
+        safety: null,
+
+        promptGuard: {
+
+          blocked: true,
+
+          riskLevel:
+            promptSafety.riskLevel,
+
+          reason:
+            promptSafety.reason
+        }
       });
     }
 
@@ -147,6 +244,19 @@ router.post("/ask", async (req, res) => {
     let relevantChunks = "";
 
     let graphResult = null;
+
+    let safetyAssessment = {
+
+      riskLevel: "LOW",
+
+      severityScore: 0,
+
+      requiresUrgentCare: false,
+
+      recommendedAction: null,
+
+      reason: null,
+    };
 
     const graph =
       buildGraph();
@@ -268,9 +378,24 @@ router.post("/ask", async (req, res) => {
         return res.json({
 
           answer:
-            "No relevant information found.",
+            "No relevant information found in the selected report.",
 
           context: "",
+
+          safety: {
+
+            riskLevel: "LOW",
+
+            severityScore: 0,
+
+            requiresUrgentCare: false,
+
+            recommendedAction:
+              "No report context available.",
+
+            reason:
+              "Retriever returned no relevant chunks."
+          }
         });
       }
 
@@ -364,6 +489,21 @@ ${doc.pageContent}
         finalAnswer
       );
 
+      // =========================
+      // CURASHIELD SAFETY CHECK
+      // =========================
+
+      safetyAssessment =
+        await classifySafety(
+          question,
+          finalAnswer
+        );
+
+      console.log(
+        "CURASHIELD:",
+        safetyAssessment
+      );
+
     }
 
 
@@ -406,6 +546,9 @@ ${doc.pageContent}
 
       doctors:
         graphResult?.doctors || [],
+
+      safety:
+        safetyAssessment
     });
 
     // FINAL RESPONSE
@@ -423,6 +566,21 @@ ${doc.pageContent}
 
       doctors:
         graphResult?.doctors || [],
+
+      safety:
+        safetyAssessment,
+
+      promptGuard: {
+
+        blocked:
+          !promptSafety.allowed,
+
+        riskLevel:
+          promptSafety.riskLevel,
+
+        reason:
+          promptSafety.reason,
+      }
     };
 
     // SAVE TO REDIS CACHE

@@ -109,7 +109,6 @@ const supervisorNode =
     // =================
 
     const symptomKeywords = [
-
       "pain",
       "fever",
       "headache",
@@ -122,6 +121,11 @@ const supervisorNode =
       "hurt",
       "ache",
       "breathing",
+      "breath",
+      "shortness of breath",
+      "breathlessness",
+      "wheezing",
+      "asthma",
       "sick",
       "infection",
       "pressure",
@@ -186,22 +190,43 @@ const supervisorNode =
 
     // memory
 
+    const memoryKeywords = [
+
+      "explain",
+
+      "more",
+
+      "continue",
+
+      "elaborate",
+
+      "clarify",
+
+      "simplify",
+
+      "what does",
+
+      "what do you mean",
+
+      "tell me more",
+
+      "details",
+
+      "why",
+
+      "how"
+    ];
+
     if (
 
-      question.includes(
-        "explain"
-      ) ||
+      memoryKeywords.some(
 
-      question.includes(
-        "more"
-      ) ||
+        word =>
 
-      question.includes(
-        "continue"
-      ) ||
+          question.includes(
+            word
+          )
 
-      question.includes(
-        "elaborate"
       )
 
     ) {
@@ -212,6 +237,11 @@ const supervisorNode =
     }
 
     // FAST MATCH FOUND
+
+    console.log(
+      "SELECTED AGENTS:",
+      selectedAgents
+    );
 
     if (
       selectedAgents.length > 0
@@ -303,94 +333,55 @@ ${question}
             prompt,
         });
 
-      const multiAgents = [];
+      const agent =
 
-      // summary
+        response.text
+          .trim();
 
-      if (
+      const validAgents = [
 
-        question.includes(
-          "summarize"
-        )
+        "reportAgent",
 
-      ) {
+        "summaryAgent",
 
-        multiAgents.push(
-          "summaryAgent"
-        );
-      }
+        "symptomAgent",
 
-      // symptom
+        "memoryAgent"
+      ];
 
-      if (
-
-        question.includes(
-          "pain"
-        ) ||
-
-        question.includes(
-          "headache"
-        ) ||
-
-        question.includes(
-          "dizzy"
-        )
-
-      ) {
-
-        multiAgents.push(
-          "symptomAgent"
-        );
-      }
-
-      // memory
+      console.log(
+        "LLM RESPONSE:",
+        agent
+      );
 
       if (
 
-        question.includes(
-          "explain"
-        ) ||
-
-        question.includes(
-          "more"
-        ) ||
-
-        question.includes(
-          "continue"
-        )
+        validAgents.includes(agent)
 
       ) {
 
-        multiAgents.push(
-          "memoryAgent"
-        );
-      }
+        return {
 
-      // default
+          ...state,
 
-      if (
-
-        multiAgents.length === 0
-
-      ) {
-
-        multiAgents.push(
-          "reportAgent"
-        );
+          selectedAgents: [
+            agent
+          ]
+        };
       }
 
       console.log(
-        "MULTI AGENTS:",
-        multiAgents
+        "INVALID LLM ROUTE"
       );
 
       return {
 
         ...state,
 
-        selectedAgents:
-          multiAgents,
-      };
+        selectedAgents: [
+          "reportAgent"
+        ]
+      }
 
     }
 
