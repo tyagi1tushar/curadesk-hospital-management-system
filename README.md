@@ -3,8 +3,12 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?size=22&color=22C55E&center=true&vCenter=true&width=700&lines=Hospital+Management+System;MERN+Stack+Project;Admin+Doctor+Patient+Panels;Secure+Payments+%26+Appointments"/>
+  <img src="https://readme-typing-svg.demolab.com?font=Poppins&weight=700&size=32&duration=3500&pause=1000&color=2E9AFE&center=true&vCenter=true&width=900&lines=CuraDesk+AI;AI-Powered+Healthcare+Platform;LangGraph+%7C+RAG+%7C+ChromaDB+%7C+CuraShield;MERN+Stack+%7C+FastAPI+%7C+Redis" />
 </p>
+
+<h3 align="center">
+Production-inspired AI Healthcare Platform built with MERN, LangGraph, RAG and FastAPI
+</h3>
 
 # CuraDesk AI – Intelligent Healthcare Assistant & Hospital Management System
 
@@ -53,10 +57,21 @@ The project demonstrates how Large Language Models can be safely integrated into
 ![Backend](https://img.shields.io/badge/Backend-Node.js-green?style=for-the-badge&logo=node.js)
 ![Database](https://img.shields.io/badge/Database-MongoDB-green?style=for-the-badge&logo=mongodb)
 ![Payments](https://img.shields.io/badge/Payments-Stripe-purple?style=for-the-badge&logo=stripe)
-![AI](https://img.shields.io/badge/AI-Gemini-blueviolet?style=for-the-badge)
+![LangGraph](https://img.shields.io/badge/LangGraph-121212?style=for-the-badge)
+![LangChain](https://img.shields.io/badge/LangChain-00A67E?style=for-the-badge)
+![Gemini](https://img.shields.io/badge/Google_Gemini-4285F4?style=for-the-badge&logo=google)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-6B46C1?style=for-the-badge)
+![RAG](https://img.shields.io/badge/RAG-AI-blue?style=for-the-badge)
+![Tesseract OCR](https://img.shields.io/badge/Tesseract-OCR-green?style=for-the-badge)
 ![VectorDB](https://img.shields.io/badge/VectorDB-ChromaDB-orange?style=for-the-badge)
 ![Redis](https://img.shields.io/badge/Cache-Redis-red?style=for-the-badge)
 ![Docker](https://img.shields.io/badge/DevOps-Docker-blue?style=for-the-badge)
+![CuraShield](https://img.shields.io/badge/CuraShield-AI%20Safety-red?style=for-the-badge)
+![Prompt Guard](https://img.shields.io/badge/Prompt%20Guard-Secured-success?style=for-the-badge)
+![Multi Agent](https://img.shields.io/badge/Multi--Agent-LangGraph-orange?style=for-the-badge)
+![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary)
+![Stripe](https://img.shields.io/badge/Stripe-635BFF?style=for-the-badge&logo=stripe)
+![Clerk](https://img.shields.io/badge/Clerk-6C47FF?style=for-the-badge)
 
 </p>
 
